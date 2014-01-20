@@ -17,5 +17,7 @@ namespace parser
     program::cached_program Translate() const;
 
     ~parser();
+  private:
+    std::vector<std::string> Split(const std::string &);
   };
 }

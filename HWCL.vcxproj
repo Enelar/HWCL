@@ -93,6 +93,7 @@
     <ClInclude Include="HWCL\program\instruction.h" />
     <ClInclude Include="HWCL\program\program.h" />
     <ClInclude Include="HWCL\stdafx.h" />
+    <ClInclude Include="HWCL\translator\translator.h" />
     <ClInclude Include="HWCL\vm\context.h" />
     <ClInclude Include="HWCL\vm\process.h" />
     <ClInclude Include="HWCL\vm\process_handler.h" />
@@ -102,6 +103,8 @@
     <ClCompile Include="HWCL\main.cpp" />
     <ClCompile Include="HWCL\parser\parser.cpp" />
     <ClCompile Include="HWCL\program\cached_program.cpp" />
+    <ClCompile Include="HWCL\program\instruction.cpp" />
+    <ClCompile Include="HWCL\translator\translator.cpp" />
     <ClCompile Include="HWCL\vm\process.cpp" />
     <ClCompile Include="HWCL\vm\process_handler.cpp" />
     <ClCompile Include="HWCL\vm\vm.cpp" />

@@ -15,7 +15,6 @@ process_handler virtual_machine::Execute(program::cached_program &prog)
 
 void virtual_machine::Cycle()
 {
-
 }
 
 bool virtual_machine::Idle() const

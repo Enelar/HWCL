@@ -26,6 +26,9 @@
     <ClInclude Include="HWCL\vm\process_handler.h">
       <Filter>vm</Filter>
     </ClInclude>
+    <ClInclude Include="HWCL\translator\translator.h">
+      <Filter>translator</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="vm">
@@ -42,6 +45,9 @@
     </Filter>
     <Filter Include="vm\src">
       <UniqueIdentifier>{72e8bde1-9810-4b2c-b926-d9c73ae2bd7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="translator">
+      <UniqueIdentifier>{25aef029-3b73-4522-a4b1-ae6576c75491}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -60,6 +66,12 @@
     </ClCompile>
     <ClCompile Include="HWCL\vm\vm.cpp">
       <Filter>vm\src</Filter>
+    </ClCompile>
+    <ClCompile Include="HWCL\program\instruction.cpp">
+      <Filter>program</Filter>
+    </ClCompile>
+    <ClCompile Include="HWCL\translator\translator.cpp">
+      <Filter>translator</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
