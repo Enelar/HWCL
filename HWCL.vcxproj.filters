@@ -17,6 +17,12 @@
       <Filter>program</Filter>
     </ClInclude>
     <ClInclude Include="HWCL\stdafx.h" />
+    <ClInclude Include="HWCL\parser\parser.h">
+      <Filter>parser</Filter>
+    </ClInclude>
+    <ClInclude Include="HWCL\program\cached_program.h">
+      <Filter>program</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="vm">
@@ -25,5 +31,20 @@
     <Filter Include="program">
       <UniqueIdentifier>{7041c4c1-59d9-481c-a25e-1848b515584b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="parser">
+      <UniqueIdentifier>{02121ecb-c313-4825-b31e-168897a35ff5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="parser\src">
+      <UniqueIdentifier>{d36433be-a213-4974-acd8-fec4b696f797}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="HWCL\main.cpp" />
+    <ClCompile Include="HWCL\parser\parser.cpp">
+      <Filter>parser\src</Filter>
+    </ClCompile>
+    <ClCompile Include="HWCL\program\cached_program.cpp">
+      <Filter>program</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

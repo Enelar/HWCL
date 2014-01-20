@@ -88,12 +88,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="HWCL\parser\parser.h" />
+    <ClInclude Include="HWCL\program\cached_program.h" />
     <ClInclude Include="HWCL\program\instruction.h" />
     <ClInclude Include="HWCL\program\program.h" />
     <ClInclude Include="HWCL\stdafx.h" />
     <ClInclude Include="HWCL\vm\context.h" />
     <ClInclude Include="HWCL\vm\process.h" />
     <ClInclude Include="HWCL\vm\vm.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="HWCL\main.cpp" />
+    <ClCompile Include="HWCL\parser\parser.cpp" />
+    <ClCompile Include="HWCL\program\cached_program.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
