@@ -13,5 +13,7 @@ namespace program
     cached_program(const program &);
     operator const program &() const;
     operator program &();
+
+    const decltype(declval<program>().Code()) &Code() const;
   };
 }

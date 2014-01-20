@@ -108,6 +108,7 @@
     <ClCompile Include="HWCL\program\cached_program.cpp" />
     <ClCompile Include="HWCL\program\instruction.cpp" />
     <ClCompile Include="HWCL\program\instructions\set.cpp" />
+    <ClCompile Include="HWCL\program\program.cpp" />
     <ClCompile Include="HWCL\translator\translator.cpp" />
     <ClCompile Include="HWCL\vm\process.cpp" />
     <ClCompile Include="HWCL\vm\process_handler.cpp" />

@@ -14,4 +14,9 @@ namespace program
 
     virtual void Execute(vm::context &) = 0;
   };
+
+  struct goto_instruction
+  {
+    word eip;
+  };
 }

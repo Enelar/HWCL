@@ -91,5 +91,8 @@
     <ClCompile Include="HWCL\program\instructions\set.cpp">
       <Filter>program\instructions\src</Filter>
     </ClCompile>
+    <ClCompile Include="HWCL\program\program.cpp">
+      <Filter>program</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

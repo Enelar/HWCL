@@ -15,6 +15,33 @@ process_handler virtual_machine::Execute(program::cached_program &prog)
 
 void virtual_machine::Cycle()
 {
+  auto IsProcSuspendend = [this](const word &id)
+  {
+    return suspended.find(id) != suspended.end();
+  };
+
+  decltype(suspended) to_remove;
+
+  for (auto pair : tasks)
+  {
+    const auto id = pair.first;
+    const auto &prog = pair.second;
+
+    if (IsProcSuspendend(id))
+      continue;
+
+    try
+    {
+      prog->Execute();
+    }
+    catch (vm::process::finished)
+    {
+      to_remove.insert(id);
+    }
+  }
+
+  for (auto id : to_remove)
+    tasks.erase(id);
 }
 
 bool virtual_machine::Idle() const

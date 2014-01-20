@@ -7,3 +7,8 @@ cached_program::cached_program(const ::program::program &p)
 {
   
 }
+
+const decltype(declval<::program::program>().Code()) &cached_program::Code() const
+{
+  return original->Code();
+}

@@ -15,6 +15,8 @@ namespace program
   class program : object
   {
     std::vector<std::shared_ptr<instruction>> code;
+  public:
+    const decltype(code) &Code() const;
 
     friend class parser::parser;
   };
