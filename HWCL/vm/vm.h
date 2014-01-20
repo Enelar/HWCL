@@ -2,13 +2,20 @@
 #include "../stdafx.h"
 
 #include <map>
-#include "process.h"
+#include <set>
+#include "process_handler.h"
 
 namespace vm
 {
   class virtual_machine : object
   {
-    std::map<word, process> tasks;
+    word last_pid = 0;
+    std::map<word, std::shared_ptr<process>> tasks;
+    std::set<word> suspended;
 
+  public:
+    process_handler Execute(program::cached_program &);
+    void Cycle();
+    bool Idle() const;
   };
 }

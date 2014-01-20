@@ -1,4 +1,5 @@
 #include "parser\parser.h"
+#include "vm\vm.h"
 
 void main()
 {
@@ -6,4 +7,10 @@ void main()
 
   parser::parser p(source);
   auto prog = p.Translate();
+
+  vm::virtual_machine computer;
+  auto proc = computer.Execute(prog);
+
+  while (!computer.Idle())
+    computer.Cycle();
 }

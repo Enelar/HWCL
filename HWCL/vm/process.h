@@ -9,8 +9,11 @@ namespace vm
   class process : object
   {
     program::cached_program p;
-    word eip; // next instruction
+    word eip = 0; // next instruction
 
     context c;
+
+  public:
+    process(program::cached_program &);
   };
 }

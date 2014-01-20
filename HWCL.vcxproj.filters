@@ -23,6 +23,9 @@
     <ClInclude Include="HWCL\program\cached_program.h">
       <Filter>program</Filter>
     </ClInclude>
+    <ClInclude Include="HWCL\vm\process_handler.h">
+      <Filter>vm</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="vm">
@@ -37,6 +40,9 @@
     <Filter Include="parser\src">
       <UniqueIdentifier>{d36433be-a213-4974-acd8-fec4b696f797}</UniqueIdentifier>
     </Filter>
+    <Filter Include="vm\src">
+      <UniqueIdentifier>{72e8bde1-9810-4b2c-b926-d9c73ae2bd7a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HWCL\main.cpp" />
@@ -45,6 +51,15 @@
     </ClCompile>
     <ClCompile Include="HWCL\program\cached_program.cpp">
       <Filter>program</Filter>
+    </ClCompile>
+    <ClCompile Include="HWCL\vm\process.cpp">
+      <Filter>vm</Filter>
+    </ClCompile>
+    <ClCompile Include="HWCL\vm\process_handler.cpp">
+      <Filter>vm\src</Filter>
+    </ClCompile>
+    <ClCompile Include="HWCL\vm\vm.cpp">
+      <Filter>vm\src</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
