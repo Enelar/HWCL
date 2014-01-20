@@ -20,4 +20,6 @@ namespace parser
   private:
     std::vector<std::string> Split(const std::string &);
   };
+
+  bool CompareCommand(const std::string &line, const std::string &mask);
 }

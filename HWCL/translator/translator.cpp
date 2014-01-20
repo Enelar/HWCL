@@ -7,10 +7,16 @@ auto Translator(const std::string &source) -> std::shared_ptr<program::instructi
 {
   if (!T::Signature(source))
     return{};
-  return std::make_shared<T>(source);
+
+  auto translated = std::make_unique<T>(source);
+  std::shared_ptr<program::instruction> shared(translated.release());
+
+  return shared;
 }
 
 #pragma region TranslationRoute
+#include <tuple>
+
 template<class Tuple, int level = -1>
 struct translation_route
 {
@@ -29,14 +35,14 @@ struct translation_route
 
     auto ret = Translator<selected_type>(source);
 
-    if (!ret)
-      return [&]()
+    if (ret)
+      return ret;
+
+    return [&]()
     {
       translation_route<Tuple, level - 1> t;
       return t(source);
     }();
-
-    return ret;
   }
 };
 
@@ -61,9 +67,12 @@ struct translation_route<Tuple, 0>
 };
 #pragma endregion TranslationRoute
 
+#include "../program/instructions.h"
+
 std::shared_ptr<program::instruction> translator::Translate(const std::string &source)
 {
-  typedef std::tuple<> supported_instructions_list;
+  using namespace program::instructions;
+  typedef std::tuple<set> supported_instructions_list;
 
   translation_route<supported_instructions_list> t;
   return t(source);

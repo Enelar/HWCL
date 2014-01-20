@@ -29,6 +29,15 @@
     <ClInclude Include="HWCL\translator\translator.h">
       <Filter>translator</Filter>
     </ClInclude>
+    <ClInclude Include="HWCL\program\instructions\set.h">
+      <Filter>program\instructions</Filter>
+    </ClInclude>
+    <ClInclude Include="HWCL\program\instructions\calculate.h">
+      <Filter>program\instructions</Filter>
+    </ClInclude>
+    <ClInclude Include="HWCL\program\instructions.h">
+      <Filter>program</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="vm">
@@ -48,6 +57,12 @@
     </Filter>
     <Filter Include="translator">
       <UniqueIdentifier>{25aef029-3b73-4522-a4b1-ae6576c75491}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="program\instructions">
+      <UniqueIdentifier>{ffea7e45-a7b0-4b65-8aa1-c44124f086a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="program\instructions\src">
+      <UniqueIdentifier>{3ebefaf3-2865-4294-bdfe-e7290c5ce458}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -72,6 +87,9 @@
     </ClCompile>
     <ClCompile Include="HWCL\translator\translator.cpp">
       <Filter>translator</Filter>
+    </ClCompile>
+    <ClCompile Include="HWCL\program\instructions\set.cpp">
+      <Filter>program\instructions\src</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

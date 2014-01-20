@@ -8,6 +8,9 @@ parser::parser::parser(const std::string &_source)
 
   for (auto line : source)
   {
+    if (!line.length())
+      continue;
+
     try
     {
       auto instruction = translator::Translate(line);
@@ -63,4 +66,28 @@ std::vector<std::string> parser::parser::Split(const std::string &source)
   } while (!ss.eof());
 
   return ret;
+}
+
+bool parser::CompareCommand(const std::string &line, const std::string &mask)
+{
+  int i = 0;
+
+  auto IsSpace = [](const char &ch)
+  {
+    switch (ch)
+    {
+    case ' ':
+    case '\t':
+    case '\r':
+    case '\b':
+    case '\n':
+      return true;
+    }
+    return false;
+  };
+
+  while (IsSpace(line[i]))
+    ++i;
+
+  return ax::StrMasqEq(line.c_str() + i, mask.c_str()) == mask.length();
 }
