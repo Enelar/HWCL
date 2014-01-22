@@ -93,6 +93,7 @@
     <ClInclude Include="HWCL\program\instruction.h" />
     <ClInclude Include="HWCL\program\instructions.h" />
     <ClInclude Include="HWCL\program\instructions\calculate.h" />
+    <ClInclude Include="HWCL\program\instructions\composite.h" />
     <ClInclude Include="HWCL\program\instructions\condition.h" />
     <ClInclude Include="HWCL\program\instructions\end.h" />
     <ClInclude Include="HWCL\program\instructions\external.h" />

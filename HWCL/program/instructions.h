@@ -1,6 +1,7 @@
 #pragma once
 
 #include "instructions\calculate.h"
+#include "instructions\composite.h"
 #include "instructions\condition.h"
 #include "instructions\end.h"
 #include "instructions\external.h"

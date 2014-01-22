@@ -74,6 +74,9 @@
     <ClInclude Include="HWCL\program\instructions\end.h">
       <Filter>program\instructions</Filter>
     </ClInclude>
+    <ClInclude Include="HWCL\program\instructions\composite.h">
+      <Filter>program\instructions</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="vm">

@@ -1,5 +1,6 @@
 #include "parser.h"
 #include "../translator/translator.h"
+#include "../program/instructions/composite.h"
 #include <sstream>
 
 parser::parser::parser(const std::string &_source)
@@ -15,6 +16,11 @@ parser::parser::parser(const std::string &_source)
     {
       auto instruction = translator::Translate(line);
       p.code.push_back(instruction);
+    }
+    catch (program::instructions::composite &c)
+    {
+      for (auto instruction : c.childs)
+        p.code.push_back(instruction);
     }
     catch (translator::unrecognized_instruction)
     {
