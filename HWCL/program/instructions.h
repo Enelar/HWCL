@@ -1,4 +1,15 @@
 #pragma once
 
 #include "instructions\calculate.h"
+#include "instructions\condition.h"
+#include "instructions\end.h"
+#include "instructions\external.h"
+#include "instructions\jump.h"
+#include "instructions\label.h"
+#include "instructions\local.h"
+#include "instructions\nop.h"
+#include "instructions\phase.h"
 #include "instructions\set.h"
+#include "instructions\sequence.h"
+#include "instructions\send.h"
+#include "instructions\step.h"

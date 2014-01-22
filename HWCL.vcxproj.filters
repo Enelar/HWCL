@@ -38,6 +38,42 @@
     <ClInclude Include="HWCL\program\instructions.h">
       <Filter>program</Filter>
     </ClInclude>
+    <ClInclude Include="HWCL\vm\types\type.h">
+      <Filter>vm\types</Filter>
+    </ClInclude>
+    <ClInclude Include="HWCL\program\instructions\sequence.h">
+      <Filter>program\instructions</Filter>
+    </ClInclude>
+    <ClInclude Include="HWCL\program\instructions\external.h">
+      <Filter>program\instructions</Filter>
+    </ClInclude>
+    <ClInclude Include="HWCL\program\instructions\local.h">
+      <Filter>program\instructions</Filter>
+    </ClInclude>
+    <ClInclude Include="HWCL\program\instructions\phase.h">
+      <Filter>program\instructions</Filter>
+    </ClInclude>
+    <ClInclude Include="HWCL\program\instructions\step.h">
+      <Filter>program\instructions</Filter>
+    </ClInclude>
+    <ClInclude Include="HWCL\program\instructions\label.h">
+      <Filter>program\instructions</Filter>
+    </ClInclude>
+    <ClInclude Include="HWCL\program\instructions\condition.h">
+      <Filter>program\instructions</Filter>
+    </ClInclude>
+    <ClInclude Include="HWCL\program\instructions\jump.h">
+      <Filter>program\instructions</Filter>
+    </ClInclude>
+    <ClInclude Include="HWCL\program\instructions\nop.h">
+      <Filter>program\instructions</Filter>
+    </ClInclude>
+    <ClInclude Include="HWCL\program\instructions\send.h">
+      <Filter>program\instructions</Filter>
+    </ClInclude>
+    <ClInclude Include="HWCL\program\instructions\end.h">
+      <Filter>program\instructions</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="vm">
@@ -63,6 +99,9 @@
     </Filter>
     <Filter Include="program\instructions\src">
       <UniqueIdentifier>{3ebefaf3-2865-4294-bdfe-e7290c5ce458}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vm\types">
+      <UniqueIdentifier>{76ad3b9a-6033-477e-98b4-73ad48a7227d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -93,6 +132,39 @@
     </ClCompile>
     <ClCompile Include="HWCL\program\program.cpp">
       <Filter>program</Filter>
+    </ClCompile>
+    <ClCompile Include="HWCL\program\instructions\condition.cpp">
+      <Filter>program\instructions\src</Filter>
+    </ClCompile>
+    <ClCompile Include="HWCL\program\instructions\external.cpp">
+      <Filter>program\instructions\src</Filter>
+    </ClCompile>
+    <ClCompile Include="HWCL\program\instructions\jump.cpp">
+      <Filter>program\instructions\src</Filter>
+    </ClCompile>
+    <ClCompile Include="HWCL\program\instructions\label.cpp">
+      <Filter>program\instructions\src</Filter>
+    </ClCompile>
+    <ClCompile Include="HWCL\program\instructions\local.cpp">
+      <Filter>program\instructions\src</Filter>
+    </ClCompile>
+    <ClCompile Include="HWCL\program\instructions\phase.cpp">
+      <Filter>program\instructions\src</Filter>
+    </ClCompile>
+    <ClCompile Include="HWCL\program\instructions\sequence.cpp">
+      <Filter>program\instructions\src</Filter>
+    </ClCompile>
+    <ClCompile Include="HWCL\program\instructions\step.cpp">
+      <Filter>program\instructions\src</Filter>
+    </ClCompile>
+    <ClCompile Include="HWCL\program\instructions\nop.cpp">
+      <Filter>program\instructions\src</Filter>
+    </ClCompile>
+    <ClCompile Include="HWCL\program\instructions\send.cpp">
+      <Filter>program\instructions\src</Filter>
+    </ClCompile>
+    <ClCompile Include="HWCL\program\instructions\end.cpp">
+      <Filter>program\instructions\src</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

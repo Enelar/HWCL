@@ -25,14 +25,14 @@ void virtual_machine::Cycle()
   for (auto pair : tasks)
   {
     const auto id = pair.first;
-    const auto &prog = pair.second;
+    const auto &proñ = pair.second;
 
     if (IsProcSuspendend(id))
       continue;
 
     try
     {
-      prog->Execute();
+      proñ->Execute();
     }
     catch (vm::process::finished)
     {

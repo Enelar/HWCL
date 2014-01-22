@@ -72,7 +72,21 @@ struct translation_route<Tuple, 0>
 std::shared_ptr<program::instruction> translator::Translate(const std::string &source)
 {
   using namespace program::instructions;
-  typedef std::tuple<set> supported_instructions_list;
+  typedef std::tuple
+  <
+    label, // should be first, in case it contains other command
+    condition,
+    program::instructions::end,
+    external,
+    jump,
+    local,
+    phase,
+    send,
+    sequence,
+    set,
+    step,
+    nop //should be last
+  > supported_instructions_list;
 
   translation_route<supported_instructions_list> t;
   return t(source);
