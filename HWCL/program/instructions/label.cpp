@@ -69,7 +69,12 @@ namespace
 
       char buf[1000];
       ss.getline(buf, 1000, ':');
-      label = buf;
+      int offset = 0;
+
+      while (buf[offset] == ' ')
+        offset++;
+      label = buf + offset;
+
       ss.getline(buf, 1000, ':');
       command = buf;
     };
@@ -103,4 +108,9 @@ bool label::Signature(const string &source)
 void label::Execute(vm::context &)
 {
 
+}
+
+void label::Bind(vm::context &)
+{
+  throw label_instruction{source};
 }

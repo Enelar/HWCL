@@ -22,10 +22,17 @@ namespace program
     const std::string &Source() const;
 
     virtual void Execute(vm::context &) = 0;
+    virtual void Bind(vm::context &)
+    {}
   };
 
   struct goto_instruction
   {
     word eip;
+  };
+
+  struct label_instruction
+  {
+    std::string name;
   };
 }

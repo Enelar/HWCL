@@ -29,3 +29,18 @@ void process::Execute(word instructions)
     }
   }
 }
+
+void process::Bind()
+{
+  for (auto instruction : p.Code())
+  {
+    try
+    {
+      instruction->Bind(c);
+    }
+    catch (program::label_instruction label)
+    {
+      //eip = 
+    }
+  }
+}

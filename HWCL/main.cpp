@@ -5,8 +5,28 @@
 #include <fstream>
 #include <sstream>
 
+#include "program\instructions\end.h"
+
+struct base
+{
+  int d;
+};
+
+struct a : base
+{
+  int b;
+  virtual void c() {}
+};
+
 void main()
 {
+  int a::* test = &a::b;
+  int a::* test2 = &a::d;
+
+  a *a = new ::a;
+  base *t = a;
+
+
   std::string source = []()->std::string
   {
     std::ifstream f;

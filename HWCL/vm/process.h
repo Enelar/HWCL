@@ -18,6 +18,7 @@ namespace vm
 
     static const word default_instruction_execution_count = 30;
     void Execute(word instructions = default_instruction_execution_count);
+    void Bind();
 
     struct finished {};
   };
