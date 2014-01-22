@@ -8,7 +8,7 @@ namespace program
   struct instruction : object
   {
 #ifdef _DEBUG_
-    std::string debug_name;
+    std::string DEBUG_TYPE;
 #endif
     std::string source;
   public:
