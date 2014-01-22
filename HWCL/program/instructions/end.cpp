@@ -4,7 +4,7 @@
 using namespace program::instructions;
 
 end::end(const string &source)
-: instruction(source)
+: instruction(source, "end")
 {
 
 }

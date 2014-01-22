@@ -4,7 +4,7 @@
 using namespace program::instructions;
 
 local::local(const string &source)
-: instruction(source)
+: instruction(source, "local")
 {
 
 }

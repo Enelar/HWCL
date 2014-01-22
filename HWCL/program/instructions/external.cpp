@@ -4,7 +4,7 @@
 using namespace program::instructions;
 
 external::external(const string &source)
-: instruction(source)
+: instruction(source, "external")
 {
 
 }

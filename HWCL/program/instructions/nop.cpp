@@ -4,7 +4,7 @@
 using namespace program::instructions;
 
 nop::nop(const string &source)
-: instruction(source)
+: instruction(source, "empty_instruction")
 {
 
 }

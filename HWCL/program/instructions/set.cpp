@@ -4,7 +4,7 @@
 using namespace program::instructions;
 
 set::set(const string &source)
-: instruction(source)
+: instruction(source, "set")
 {
 
 }

@@ -4,7 +4,7 @@
 using namespace program::instructions;
 
 jump::jump(const string &source)
-: instruction(source)
+: instruction(source, "goto")
 {
 
 }

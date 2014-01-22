@@ -4,7 +4,7 @@
 using namespace program::instructions;
 
 step::step(const string &source)
-: instruction(source)
+: instruction(source, "step")
 {
 
 }

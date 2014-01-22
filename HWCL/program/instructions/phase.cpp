@@ -4,7 +4,7 @@
 using namespace program::instructions;
 
 phase::phase(const string &source)
-: instruction(source)
+: instruction(source, "phase")
 {
 
 }

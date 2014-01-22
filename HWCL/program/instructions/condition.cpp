@@ -4,7 +4,7 @@
 using namespace program::instructions;
 
 condition::condition(const string &source)
-: instruction(source)
+: instruction(source, "condition")
 {
 
 }

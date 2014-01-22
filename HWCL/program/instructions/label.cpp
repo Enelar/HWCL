@@ -4,7 +4,7 @@
 using namespace program::instructions;
 
 label::label(const string &source)
-: instruction(source)
+: instruction(source, "label")
 {
 
 }
