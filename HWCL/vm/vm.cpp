@@ -6,6 +6,8 @@ process_handler virtual_machine::Execute(program::cached_program &prog)
 {
   auto p = std::make_shared<process>(prog);
 
+  p->Bind();
+
   ax::GrowId(last_pid);
   tasks.insert({last_pid, p});
 

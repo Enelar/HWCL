@@ -134,6 +134,7 @@
     <ClCompile Include="HWCL\program\instructions\step.cpp" />
     <ClCompile Include="HWCL\program\program.cpp" />
     <ClCompile Include="HWCL\translator\translator.cpp" />
+    <ClCompile Include="HWCL\vm\context.cpp" />
     <ClCompile Include="HWCL\vm\process.cpp" />
     <ClCompile Include="HWCL\vm\process_handler.cpp" />
     <ClCompile Include="HWCL\vm\vm.cpp" />

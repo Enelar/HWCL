@@ -13,3 +13,8 @@ instruction::instruction(const std::string &_source, const std::string &_debug_n
     DEBUG_TYPE += '_';
 #endif
 }
+
+const decltype(instruction::source) &instruction::Source() const
+{
+  return source;
+}

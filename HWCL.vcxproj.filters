@@ -169,5 +169,8 @@
     <ClCompile Include="HWCL\program\instructions\end.cpp">
       <Filter>program\instructions\src</Filter>
     </ClCompile>
+    <ClCompile Include="HWCL\vm\context.cpp">
+      <Filter>vm\src</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

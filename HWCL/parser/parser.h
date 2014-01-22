@@ -17,9 +17,8 @@ namespace parser
     program::cached_program Translate() const;
 
     ~parser();
-  private:
-    std::vector<std::string> Split(const std::string &);
   };
 
+  std::vector<std::string> Split(const std::string &, char delimeter = '\n');
   bool CompareCommand(const std::string &line, const std::string &mask);
 }

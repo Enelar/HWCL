@@ -42,7 +42,7 @@ parser::parser::~parser()
 
 }
 
-std::vector<std::string> parser::parser::Split(const std::string &source)
+std::vector<std::string> parser::Split(const std::string &source, char delimeter)
 {
   std::stringstream ss;
   ss << source;
@@ -51,11 +51,11 @@ std::vector<std::string> parser::parser::Split(const std::string &source)
 
   ret.push_back("");
 
-  auto GetLine = [&ss]() -> std::string
+  auto GetLine = [&ss, delimeter]() -> std::string
   {
     const word buf_len = 1000;
     char buf[buf_len];
-    ss.getline(buf, buf_len, '\n');
+    ss.getline(buf, buf_len, delimeter);
     return buf;
   };
 
