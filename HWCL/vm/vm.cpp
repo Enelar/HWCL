@@ -6,7 +6,7 @@ process_handler virtual_machine::Execute(program::cached_program &prog)
 {
   auto p = std::make_shared<process>(prog);
 
-  p->Bind();
+  p->Bind(*this);
 
   ax::GrowId(last_pid);
   tasks.insert({last_pid, p});
@@ -50,4 +50,9 @@ bool virtual_machine::Idle() const
 {
   word running = tasks.size() - suspended.size();
   return !running;
+}
+
+context::mapped_context virtual_machine::GetExternalContext(const string &)
+{
+  return make_shared<context>();
 }

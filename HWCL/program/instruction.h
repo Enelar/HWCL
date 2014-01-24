@@ -36,4 +36,9 @@ namespace program
   {
     std::string name;
   };
+
+  struct external_instruction
+  {
+    std::string name;
+  };
 }

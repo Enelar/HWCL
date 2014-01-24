@@ -1,4 +1,5 @@
 #include "process.h"
+#include "vm.h"
 
 using namespace vm;
 
@@ -51,11 +52,16 @@ void process::Execute(word instructions)
   }
 }
 
-void process::Bind()
+void process::Bind( virtual_machine &_vm )
 {
-  word bind_eip = 0;
-  for (auto instruction : p.Code())
+  auto code = p.Code();
+  word bind_eip = 0, size = code.size();
+
+
+  for (; bind_eip < size; bind_eip++)
   {
+    auto instruction = code[bind_eip];
+
     try
     {
       instruction->Bind(c);
@@ -64,7 +70,18 @@ void process::Bind()
     {
       c.Label(label.name, bind_eip);
     }
-    bind_eip++;
+    catch (program::external_instruction ext)
+    {
+      DebugOutput(
+      {
+        "SYSTEM: EXTERNAL CONTEXT REQUEST ",
+        ext.name,
+        "\n"
+      });
+      bind_eip--;
+      auto context = _vm.GetExternalContext(ext.name);
+      c.external.insert({ ext.name, context });
+    }
   }
 }
 

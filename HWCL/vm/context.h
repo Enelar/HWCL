@@ -22,11 +22,11 @@ namespace vm
     void Label(const std::string &, word);
     word Label(const std::string &);
 
+    typedef shared_ptr<context> mapped_context;
   private:
     map<string, string> alias;
     map<string, word> localpoint;
 
-    typedef shared_ptr<context> mapped_context;
     map<string, mapped_context> external;
     word last_wild = 80;
   public:
@@ -38,5 +38,7 @@ namespace vm
 
     void AddExternal(const string &);
     mapped_context External(const string &);
+
+    friend class process;
   };
 }

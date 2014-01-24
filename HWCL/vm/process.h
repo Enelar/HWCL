@@ -6,6 +6,7 @@
 
 namespace vm
 {
+  class virtual_machine;
   class process : object
   {
     program::cached_program p;
@@ -18,7 +19,7 @@ namespace vm
 
     static const word default_instruction_execution_count = 30;
     void Execute(word instructions = default_instruction_execution_count);
-    void Bind();
+    void Bind( virtual_machine & );
 
     struct finished {};
   };
