@@ -22,12 +22,11 @@ void local::Bind(vm::context &c)
   if (tokens.size() < 2)
     throw syntax_error();
 
-  auto name = tokens[1];
   vector<string> split;
 
   auto Set = [&]() -> std::string
   {
-    split = parser::Split(name, '=', true);
+    split = parser::Split(tokens[1], '=', true);
     if (split.size() == 1)
       return "undefined";
     if (split.size() == 2)
@@ -36,10 +35,11 @@ void local::Bind(vm::context &c)
   };
 
   init_value = Set();
+  name = split[0];
 
   if (tokens.size() == 2)
   {
-    c.AddLocal(split[0]);
+    c.AddLocal(name);
     return;
   }
 
@@ -47,7 +47,7 @@ void local::Bind(vm::context &c)
 
   if (tokens[2] == "=")
   {
-    c.AddLocal(split[0]);
+    c.AddLocal(name);
     init_value = tokens[3];
     return;
   }
@@ -58,6 +58,14 @@ void local::Bind(vm::context &c)
   c.AddLocal(name, variable);
 }
 
-void local::Execute(vm::context &)
+#include <sstream>
+
+void local::Execute(vm::context &c)
 {
+  if (init_value == "undefined")
+    return;
+  auto var = c.Local(name);
+  stringstream ss;
+  ss << init_value;
+  ss >> var;
 }

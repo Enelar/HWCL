@@ -1,6 +1,7 @@
 #pragma once
 #include "../stdafx.h"
 
+#include <vector>
 #include <string>
 #include <map>
 #include <memory>
@@ -16,6 +17,8 @@ namespace vm
       // time TIME[4];
       std::string STR = std::string(64, 0); // fill 64 byte with zeros
     } local;
+
+    vector<double> local_NN;
 
     std::map<std::string, word> labels;
 

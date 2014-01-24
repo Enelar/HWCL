@@ -30,8 +30,9 @@ double &context::Local(const std::string &name)
     auto offset = find->second;
     if (offset < 80)
       return local.NN[offset];
-    todo(Alias without NN mapping);
-    dead_space();
+    // Extra local variables
+    offset -= 80;
+    return local_NN[offset];
   }
 
   auto find = alias.find(name);
@@ -53,6 +54,7 @@ void context::AddLocal(const std::string &name)
     "\n"
   });
   localpoint.insert({ name, last_wild++ });
+  local_NN.push_back(0);
 }
 
 void context::AddLocal(const std::string &name, const string &addr)
