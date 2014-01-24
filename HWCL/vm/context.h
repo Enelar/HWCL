@@ -3,6 +3,7 @@
 
 #include <string>
 #include <map>
+#include <memory>
 
 namespace vm
 {
@@ -22,11 +23,20 @@ namespace vm
     word Label(const std::string &);
 
   private:
-    std::map<std::string, word> alias;
+    map<string, string> alias;
+    map<string, word> localpoint;
+
+    typedef shared_ptr<context> mapped_context;
+    map<string, mapped_context> external;
     word last_wild = 80;
   public:
+    void AddAlias(const string &, const string &);
+
     double &Local(const std::string &);
     void AddLocal(const std::string &);
-    void AddLocal(const std::string &, word index);
+    void AddLocal(const std::string &, const string &);
+
+    void AddExternal(const string &);
+    mapped_context External(const string &);
   };
 }

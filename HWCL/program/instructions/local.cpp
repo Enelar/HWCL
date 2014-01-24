@@ -23,14 +23,15 @@ void local::Bind(vm::context &c)
     throw syntax_error();
 
   auto name = tokens[1];
+  vector<string> split;
 
   auto Set = [&]() -> std::string
   {
-    auto set = parser::Split(name, '=', true);
-    if (set.size() == 1)
+    split = parser::Split(name, '=', true);
+    if (split.size() == 1)
       return "undefined";
-    if (set.size() == 2)
-      return set[1];
+    if (split.size() == 2)
+      return split[1];
     throw syntax_error();
   };
 
@@ -38,24 +39,23 @@ void local::Bind(vm::context &c)
 
   if (tokens.size() == 2)
   {
-    c.AddLocal(name);
+    c.AddLocal(split[0]);
     return;
   }
 
   throw_assert(tokens.size() == 4);
 
   if (tokens[2] == "=")
+  {
+    c.AddLocal(split[0]);
+    init_value = tokens[3];
     return;
+  }
   if (ax::StrMasqEq(tokens[2].c_str(), "at") != 2)
     throw syntax_error();
-  auto addr = tokens[3];
 
-  if (addr[0] != 'N' || addr[1] != 'N')
-    todo("Other types");
-  throw_assert(addr[2] == '(' && addr[5] == ')');
-  word offset = (addr[3] - '0') * 10 + (addr[4] - '0') - 1;
-  
-  c.AddLocal(name, offset);
+  auto variable = tokens[3];
+  c.AddLocal(name, variable);
 }
 
 void local::Execute(vm::context &)

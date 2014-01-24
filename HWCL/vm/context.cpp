@@ -1,5 +1,6 @@
 #include "context.h"
 #include "process.h"
+#include "../parser/parser.h"
 
 using namespace vm;
 
@@ -21,13 +22,26 @@ word context::Label(const std::string &name)
 
 double &context::Local(const std::string &name)
 {
+  if (name[0] != '!') // local context
+  {
+    auto find = localpoint.find(name);
+    if (find == localpoint.end())
+      throw runtime_error(convert<string, vector<string>>({ "Undefined variable", name }));
+    auto offset = find->second;
+    if (offset < 80)
+      return local.NN[offset];
+    todo(Alias without NN mapping);
+    dead_space();
+  }
+
   auto find = alias.find(name);
   if (find == alias.end())
     throw runtime_error(convert<string, vector<string>>({ "Undefined variable", name }));
-  auto offset = find->second;
-  if (offset < 80)
-    return local.NN[offset];
-  todo(Alias without NN mapping);
+
+  auto tokens = parser::Split(name.substr(1), ".");
+  throw_assert(tokens.size() == 2);
+  auto context = External(tokens[0]);
+  return context->Local(tokens[1]);
 }
 
 void context::AddLocal(const std::string &name)
@@ -35,19 +49,46 @@ void context::AddLocal(const std::string &name)
   DebugOutput(
   {
     "SYSTEM: CREATE LOCAL VARIABLE ",
-    name
+    name,
+    "\n"
   });
-  alias.insert({ name, last_wild++ });
+  localpoint.insert({ name, last_wild++ });
 }
 
-void context::AddLocal(const std::string &name, word index)
+void context::AddLocal(const std::string &name, const string &addr)
 {
   DebugOutput(
   {
-    "SYSTEM: CREATE LOCAL VARIABLE ",
+    "SYSTEM: MAP LOCAL VARIABLE ",
     name,
     " AT ",
-    ToString(index)
+    addr,
+    "\n"
   });
-  alias.insert({ name, index });
+
+  if (addr[0] == '!') // external context
+  {
+    AddAlias(name, addr);
+    return;
+  }
+
+  if (addr[0] != 'N' || addr[1] != 'N')
+    todo("Other types");
+  throw_assert(addr[2] == '(' && addr[5] == ')');
+  word offset = (addr[3] - '0') * 10 + (addr[4] - '0') - 1;
+
+  localpoint.insert({ name, offset });
+}
+
+void context::AddAlias(const string &a, const string &b)
+{
+  alias.insert({ a, b });
+}
+
+context::mapped_context context::External(const string &name)
+{
+  auto find = external.find(name);
+  if (find == external.end())
+    throw runtime_error(convert<string, vector<string>>({ "Undefined external", name }));
+  return find->second;
 }
