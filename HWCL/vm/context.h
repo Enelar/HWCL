@@ -20,5 +20,13 @@ namespace vm
 
     void Label(const std::string &, word);
     word Label(const std::string &);
+
+  private:
+    std::map<std::string, word> alias;
+    word last_wild = 80;
+  public:
+    double &Local(const std::string &);
+    void AddLocal(const std::string &);
+    void AddLocal(const std::string &, word index);
   };
 }

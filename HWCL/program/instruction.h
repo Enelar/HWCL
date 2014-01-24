@@ -10,7 +10,7 @@ namespace program
 #ifdef _DEBUG_
     std::string DEBUG_TYPE;
 #endif
-    std::string source;
+    std::string source, without_comment;
   public:
     instruction(const std::string &, const std::string &_debug_name);
     instruction(const std::string &s)
@@ -20,6 +20,7 @@ namespace program
     }
 
     const decltype(source) &Source() const;
+    const decltype(source) &OriginalSource() const;
 
     virtual void Execute(vm::context &) = 0;
     virtual void Bind(vm::context &)

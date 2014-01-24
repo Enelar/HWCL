@@ -22,4 +22,23 @@ namespace vm
 
     struct finished {};
   };
+
+  struct runtime_error
+  {
+    string error_name;
+    runtime_error(const string &_n)
+      : error_name(_n)
+    {}
+  };
 }
+
+#ifdef _DEBUG_
+#include <windows.h>
+#include <sstream>
+#include<iomanip>
+#endif
+
+template<>
+string convert(const vector<string> &a);
+void DebugOutput(const vector<string> &a);
+string ToString(const word &t);

@@ -20,4 +20,17 @@ namespace program
 
     friend class parser::parser;
   };
+
+  struct syntax_error
+  {
+    std::shared_ptr<instruction> instr;
+
+    syntax_error() = default;
+
+    syntax_error(std::shared_ptr<instruction> _i)
+      : instr(_i)
+    {
+
+    }
+  };
 }

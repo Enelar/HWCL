@@ -8,32 +8,6 @@ process::process(program::cached_program &_p)
 
 }
 
-#ifdef _DEBUG_
-#include <windows.h>
-#include <sstream>
-#include<iomanip>
-#endif
-
-
-void DebugOutput(const vector<string> &a)
-{
-#ifdef _DEBUG_
-  std::stringstream ss;
-
-  for (auto obj : a)
-    ss << obj;
-  OutputDebugString(ss.str().c_str());
-#endif
-}
-
-
-string ToString(const word &t)
-{
-  std::stringstream ss;
-  ss << std::setfill(' ') << std::setw(3) << t;
-  return ss.str();
-}
-
 void process::Execute(word instructions)
 {
   auto code = p.Code();
@@ -92,4 +66,29 @@ void process::Bind()
     }
     bind_eip++;
   }
+}
+
+
+template<>
+string convert(const vector<string> &a)
+{
+  std::stringstream ss;
+
+  for (auto obj : a)
+    ss << obj;
+  return ss.str();
+}
+
+void DebugOutput(const vector<string> &a)
+{
+#ifdef _DEBUG_
+  OutputDebugString(convert<string>(a).c_str());
+#endif
+}
+
+string ToString(const word &t)
+{
+  std::stringstream ss;
+  ss << std::setfill(' ') << std::setw(3) << t;
+  return ss.str();
 }
