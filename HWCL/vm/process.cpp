@@ -86,16 +86,6 @@ void process::Bind( virtual_machine &_vm )
 }
 
 
-template<>
-string convert(const vector<string> &a)
-{
-  std::stringstream ss;
-
-  for (auto obj : a)
-    ss << obj;
-  return ss.str();
-}
-
 void DebugOutput(const vector<string> &a)
 {
 #ifdef _DEBUG_

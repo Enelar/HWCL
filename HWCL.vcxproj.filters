@@ -187,5 +187,9 @@
     <ClCompile Include="HWCL\calculator\calculator.cpp">
       <Filter>calculator</Filter>
     </ClCompile>
+    <ClCompile Include="HWCL\calculator\tree.cpp">
+      <Filter>calculator</Filter>
+    </ClCompile>
+    <ClCompile Include="HWCL\stdafx.cpp" />
   </ItemGroup>
 </Project>

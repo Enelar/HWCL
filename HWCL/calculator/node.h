@@ -2,11 +2,10 @@
 #include "../stdafx.h"
 
 #include <functional>
-#include <list>
 
 namespace calculator
 {
-  class tree
+  class node
   {
     function<double(string)> GetVariable;
 

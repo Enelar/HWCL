@@ -39,7 +39,6 @@ namespace vm
 #include<iomanip>
 #endif
 
-template<>
-string convert(const vector<string> &a);
+
 void DebugOutput(const vector<string> &a);
 string ToString(const word &t);

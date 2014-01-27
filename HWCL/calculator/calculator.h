@@ -2,10 +2,10 @@
 #include "../stdafx.h"
 
 #include <functional>
-#include "tree.h"
 
 namespace calculator
 {
+  class tree;
   class calculator
   {
   public:
@@ -17,10 +17,6 @@ namespace calculator
     calculator(string expression);
     double Calculate(get_callback);
 
-    ~calculator()
-    {
-      if (calculation_tree)
-        delete calculation_tree;
-    }
+    ~calculator();
   };
 }
