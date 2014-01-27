@@ -39,10 +39,17 @@ void set::Bind(vm::context &c)
   expr_tokens.insert(expr_tokens.end(), tokens.begin() + 2, tokens.end());
 
   expr = convert<string>(expr_tokens);
-  proc = make_unique<calculator::calculator>(expr).release();
+  proc = NEW calculator::calculator(expr);
 }
 
-void set::Execute(vm::context &)
+void set::Execute(vm::context &c)
 {
+  throw_assert(proc);
+  calculator::calculator::get_callback GetC = [&](string name) -> dbl
+  {
+    return c.Local(name);
+  };
 
+  double res = proc->Calculate(GetC);
+  c.Local(variable) = res;
 }

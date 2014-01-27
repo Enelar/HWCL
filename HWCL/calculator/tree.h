@@ -4,16 +4,20 @@
 #include <functional>
 #include <list>
 
+#include "calculator.h"
+
 namespace calculator
 {
   class node;
   class tree
   {
-    function<double(string)> GetVariable;
+    calculator::get_callback GetVariable;
 
     node *root;
+    word nodes_count;
   public:
     void Build(string);
+    double Calculate(calculator::get_callback);
   };
 
   enum TAG

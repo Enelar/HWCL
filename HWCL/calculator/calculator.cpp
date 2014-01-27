@@ -10,7 +10,7 @@ calculator::calculator::calculator(string expression)
 
 double calculator::calculator::Calculate(get_callback Get)
 {
-  todo(Calculate);
+  return calculation_tree->Calculate(Get);
 }
 
 

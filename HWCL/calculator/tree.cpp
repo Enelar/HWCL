@@ -326,4 +326,17 @@ void tree::Build(string s)
   auto queue = Explode(s);
   queue = VacuumPower(VacuumContext(VacuumStruct(VacuumNumber(VacuumVariable(queue)))));
   root = node::Build(queue);
+  nodes_count = queue.size();
+}
+
+#include "executer.h"
+
+double tree::Calculate(::calculator::calculator::get_callback Get)
+{
+  word remain_iterations = nodes_count;
+
+  executer ex(root);
+  while (remain_iterations--)
+  {
+  }
 }

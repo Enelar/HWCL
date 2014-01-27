@@ -26,8 +26,17 @@ namespace calculator
     node *Deattach(connect node::* me);
 
     tokenqueue Process(const tokenqueue &);
+
+    friend class executer;
   public:
     node(const token &);
+    ~node()
+    {
+      delete DeattachNext();
+      delete DeattachPrev();
+      delete DeattachDown();
+      delete DeattachUp();
+    }
 
     void AttachNext(node *const);
     void AttachPrev(node *const);
