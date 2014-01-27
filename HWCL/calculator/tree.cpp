@@ -6,14 +6,6 @@ using namespace calculator;
 
 namespace
 {
-  enum TAG
-  {
-    UNDEFINED,
-    NUMBER,
-    VARIABLE,
-    SYMBOL,
-    FLUSH
-  };
   bool IsChar(char ch)
   {
     return (ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z');
@@ -225,7 +217,7 @@ namespace
         a = *i++,
         b = *i++;
 
-      if (b.first != VARIABLE && a.second != "!")
+      if (b.first != VARIABLE || a.second != "!")
       {
         Move(1);
         continue;
@@ -280,7 +272,7 @@ namespace
       res.pop_front();
       res.pop_front();
       res.pop_front();
-      res.push_front({ NUMBER, str });
+      res.push_front({ VARIABLE, str });
     }
     return ret;
   }
@@ -333,4 +325,5 @@ void tree::Build(string s)
 {
   auto queue = Explode(s);
   queue = VacuumPower(VacuumContext(VacuumStruct(VacuumNumber(VacuumVariable(queue)))));
+  root = node::Build(queue);
 }

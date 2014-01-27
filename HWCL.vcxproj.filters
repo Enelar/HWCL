@@ -83,6 +83,9 @@
     <ClInclude Include="HWCL\calculator\tree.h">
       <Filter>calculator</Filter>
     </ClInclude>
+    <ClInclude Include="HWCL\calculator\node.h">
+      <Filter>calculator</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="vm">
@@ -191,5 +194,11 @@
       <Filter>calculator</Filter>
     </ClCompile>
     <ClCompile Include="HWCL\stdafx.cpp" />
+    <ClCompile Include="HWCL\calculator\node.cpp">
+      <Filter>calculator</Filter>
+    </ClCompile>
+    <ClCompile Include="HWCL\calculator\node_build.cpp">
+      <Filter>calculator</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
