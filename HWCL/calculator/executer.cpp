@@ -1,4 +1,5 @@
 #include "executer.h"
+#include "tree.h"
 
 using namespace calculator;
 
@@ -36,7 +37,7 @@ node::nextT executer::Execute()
   }
   catch (end_of_queue &e)
   {
-
+    return GetLevel(0).front();
   }
 
   auto IsBegin = [this](node::nextT p)
@@ -83,10 +84,17 @@ node::nextT executer::Execute()
         throw_assert(registers[2]->first == VARIABLE);
         if (registers[3]->second != "(")
           throw syntax_error();
-        auto param = VacuumBraces(next);
-        auto result = token{ NUMBER, convert<string>(param.first) };
+        try
+        {
+          auto param = VacuumBraces(next);
+          auto result = token{ NUMBER, convert<string>(param.first) };
 
-        Replace(el, param.second, make_shared<node>(result));
+          Replace(el, param.second, make_shared<node>(result));
+        }
+        catch (cant_vacuum)
+        {
+          return GetLevel(0).front();
+        }
         continue;
       }
 
@@ -129,6 +137,7 @@ node::nextT executer::Execute()
       i--;
     }
   }
+  dead_space();
 }
 
 #include <set>
@@ -185,4 +194,58 @@ executer::token_map::const_reference executer::GetLevel(int lvl)
   throw_assert(offset < turing_tape.size());
 
   return turing_tape.at(offset);
+}
+
+pair<double, node::nextT> executer::VacuumBraces(node::nextT origin)
+{
+  node::nextT cur = origin;
+  word deeplevel = 0;
+
+  auto GetNext = [this](node::nextT p)
+  {
+    try
+    {
+      return Next(p);
+    }
+    catch (end_of_queue)
+    {
+      auto ret = make_unique<node>(token(EMPTY, "after brace vacuum"));
+      return p->AttachNext(ret.release());
+    }
+  };
+
+  try
+  {
+    cur = Next(origin);
+    auto tok = cur->Token();
+    if (tok.second == "(")
+      deeplevel++;
+    if (tok.second == ")")
+      if (deeplevel)
+        deeplevel--;
+      else
+      {
+        auto sequence = Erase(origin, cur);
+        throw_assert(sequence);
+        tree t;
+        auto result = t.Calculate(sequence.get(), GetVariable);
+        return pair<double, node::nextT>{ result, GetNext(cur) };
+      }
+  }
+  catch (end_of_queue)
+  {
+    throw cant_vacuum();
+  }
+
+  dead_space();
+}
+
+node::nextT executer::Erase(node::nextT, node::nextT)
+{
+  todo(ERASE);
+}
+
+node::nextT executer::Replace(node::nextT, node::nextT, node::nextT value)
+{
+  todo(Replace);
 }

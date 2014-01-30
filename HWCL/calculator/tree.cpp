@@ -368,3 +368,21 @@ double tree::Calculate(::calculator::calculator::get_callback Get)
 
   throw calculation_failed();
 }
+
+double tree::Calculate(node *r, ::calculator::calculator::get_callback Get)
+{
+  double ret;
+  root = r;
+  try
+  {
+    ret = Calculate(Get);
+  }
+  catch (...)
+  {
+    root = NULL;
+    throw;
+  }
+
+  root = NULL;
+  return ret;
+}

@@ -17,6 +17,7 @@ namespace calculator
     word nodes_count;
   public:
     void Build(string);
+    double Calculate(node *, calculator::get_callback);
     double Calculate(calculator::get_callback);
   };
 

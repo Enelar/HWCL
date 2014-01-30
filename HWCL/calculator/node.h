@@ -21,11 +21,19 @@ namespace calculator
 
       node *Forward() const;
       node *Backward() const;
+
+      ~connect()
+      {
+        if (next)
+          next.reset();
+        if (prev)
+          prev.reset();
+      }
     };
 
     connect next, down;
 
-    void Attach(node *const he, connect node::* me);
+    nextT Attach(node *const he, connect node::* me);
     nextT Deattach(connect node::* me);
 
     tokenqueue Process(const tokenqueue &);
@@ -37,14 +45,14 @@ namespace calculator
     {
     }
 
-    void AttachNext(node *const);
-    void AttachPrev(node *const);
+    nextT AttachNext(node *const);
+    nextT AttachPrev(node *const);
 
     nextT DeattachNext();
     nextT DeattachPrev();
 
-    void AttachDown(node *const);
-    void AttachUp(node *const);
+    nextT AttachDown(node *const);
+    nextT AttachUp(node *const);
 
     nextT DeattachDown();
     nextT DeattachUp();

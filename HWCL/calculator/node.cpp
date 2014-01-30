@@ -2,7 +2,7 @@
 
 using namespace calculator;
 
-void node::Attach(node *const he, connect node::* _me)
+node::nextT node::Attach(node *const he, connect node::* _me)
 {
   throw_assert(he);
   throw_assert(this); // lol
@@ -16,6 +16,8 @@ void node::Attach(node *const he, connect node::* _me)
 
   my.next.reset(he);
   his.prev.reset(this);
+
+  return my.next;
 }
 
 node::nextT node::Deattach(connect node::* _me)
@@ -34,18 +36,18 @@ node::nextT node::Deattach(connect node::* _me)
   return next;
 }
 
-void node::AttachNext(node *const p)
+node::nextT node::AttachNext(node *const p)
 {
   throw_assert(p);
 
-  Attach(p, &node::next);
+  return Attach(p, &node::next);
 }
 
-void node::AttachPrev(node *const p)
+node::nextT node::AttachPrev(node *const p)
 {
   throw_assert(p);
 
-  p->AttachNext(this);
+  return p->AttachNext(this);
 }
 
 node::nextT node::DeattachNext()
@@ -58,18 +60,18 @@ node::nextT node::DeattachPrev()
   return next.Backward()->DeattachNext();
 }
 
-void node::AttachDown(node *const p)
+node::nextT node::AttachDown(node *const p)
 {
   throw_assert(p);
 
-  Attach(p, &node::down);
+  return Attach(p, &node::down);
 }
 
-void node::AttachUp(node *const p)
+node::nextT node::AttachUp(node *const p)
 {
   throw_assert(p);
 
-  p->AttachDown(this);
+  return p->AttachDown(this);
 }
 
 node::nextT node::DeattachDown()

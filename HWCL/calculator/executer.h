@@ -24,8 +24,9 @@ namespace calculator
     token Recognize(token);
     node::nextT Execute();
     pair<double, node::nextT> VacuumBraces(node::nextT);
-    void Erase(node::nextT, node::nextT);
-    void Replace(node::nextT, node::nextT, node::nextT value);
+    // returns ptr to previous sequence copy
+    node::nextT Erase(node::nextT, node::nextT);
+    node::nextT Replace(node::nextT, node::nextT, node::nextT value);
   private:
     enum COMMANDS
     {
@@ -34,5 +35,10 @@ namespace calculator
     list<COMMANDS> commands;
     node::nextT Next(node::nextT);
     token_map::const_reference GetLevel(int);
+  };
+
+  struct cant_vacuum
+  {
+
   };
 }
