@@ -34,7 +34,7 @@ namespace calculator
     };
     list<COMMANDS> commands;
     node::nextT Next(node::nextT);
-    token_map::const_reference GetLevel(int);
+    token_map::iterator GetLevel(int);
   };
 
   struct cant_vacuum

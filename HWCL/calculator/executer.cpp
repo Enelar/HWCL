@@ -25,7 +25,7 @@ node::nextT executer::Execute()
     do
     {
       auto level = GetLevel(cur_level);
-      level.push_back(cur);
+      level->push_back(cur);
       cur = Next(cur);
 
       if (commands.back() != NEXT)
@@ -37,7 +37,6 @@ node::nextT executer::Execute()
   }
   catch (end_of_queue &e)
   {
-    return GetLevel(0).front();
   }
 
   auto IsBegin = [this](node::nextT p)
@@ -50,12 +49,22 @@ node::nextT executer::Execute()
     return p == cur;
   };
 
-  unique_ptr<token> registers[3];
+  token orig = { UNDEFINED, "register empty" };
+  token registers[3] = { orig, orig, orig };
+
+  auto ResetRegisters = [&registers]()
+  {
+    token t;
+    //registers[0].reset(make_unique<token>(t));
+    //registers[1].reset(make_unique<token>({ EMPTY, "" }));
+    //registers[2].reset(make_unique<token>({ EMPTY, "" }));
+  };
 
   for (auto level : turing_tape)
   {
     for (word i = 0; i < level.size(); i++)
     {
+      ResetRegisters();
       auto it = level.begin() + i;
       auto &el = *it;
       if (el->Alone())
@@ -72,17 +81,19 @@ node::nextT executer::Execute()
         continue;
       }
       if (tok.first == SYMBOL)
-        registers[2] = make_unique<token>(tok);
-      if (tok.first == VARIABLE)
-        registers[2] = make_unique<token>(tok);
+        registers[1] = tok;
+      else if (tok.first == VARIABLE)
+        registers[1] = tok;
+      else
+        continue;
       auto next = Next(el);
       throw_assert(next);
-      registers[3] = make_unique<token>(next->Token());
+      registers[2] = next->Token();
 
       if (el->Edge())
       {
-        throw_assert(registers[2]->first == VARIABLE);
-        if (registers[3]->second != "(")
+        throw_assert(registers[1].first == VARIABLE);
+        if (registers[2].second != "(")
           throw syntax_error();
         try
         {
@@ -93,7 +104,7 @@ node::nextT executer::Execute()
         }
         catch (cant_vacuum)
         {
-          return GetLevel(0).front();
+          return GetLevel(0)->front();
         }
         continue;
       }
@@ -109,26 +120,32 @@ node::nextT executer::Execute()
         return el->Down();
       }();
 
-      if (prev->Token().first != NUMBER)
+      registers[0] = prev->Token();
+      if (registers[0].first != NUMBER)
         continue;
 
       auto
-        a = convert<double>(prev->Token().second),
-        b = convert<double>(next->Token().second);
+        a = convert<double>(registers[0].second),
+        b = convert<double>(registers[2].second);
       token result;
       
-      switch (tok.second[0])
+      switch (registers[1].second[0])
       {
       case '+':
         result = { NUMBER, convert<string>(a + b) };
+        break;
       case '-':
         result = { NUMBER, convert<string>(a - b) };
+        break;
       case '*':
         result = { NUMBER, convert<string>(a * b) };
+        break;
       case '/':
         result = { NUMBER, convert<string>(a / b) };
+        break;
       case '^':
         result = { NUMBER, convert<string>(pow(a, b)) };
+        break;
       default:
         dead_space();
       }
@@ -162,20 +179,21 @@ node::nextT executer::Next(node::nextT n)
     commands.push_back(NEXT);
     return n->next.next;
   }
+
+  if (n->Edge())
+    throw end_of_queue();
+
   if (n->down.next)
   {
     commands.push_back(DOWN);
     return n->down.next;
   }
 
-  if (!n->next.prev)
-    throw end_of_queue();
-
   commands.push_back(UP);
   return n->down.prev;
 }
 
-executer::token_map::const_reference executer::GetLevel(int lvl)
+executer::token_map::iterator executer::GetLevel(int lvl)
 {
   int offset = zero_level_offset + lvl;
 
@@ -193,7 +211,7 @@ executer::token_map::const_reference executer::GetLevel(int lvl)
   }
   throw_assert(offset < turing_tape.size());
 
-  return turing_tape.at(offset);
+  return turing_tape.begin() + offset;
 }
 
 pair<double, node::nextT> executer::VacuumBraces(node::nextT origin)
