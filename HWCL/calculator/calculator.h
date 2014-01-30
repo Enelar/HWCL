@@ -19,4 +19,14 @@ namespace calculator
 
     ~calculator();
   };
+
+  struct calculation_failed
+  {
+
+  };
+
+  struct syntax_error
+  {
+
+  };
 }

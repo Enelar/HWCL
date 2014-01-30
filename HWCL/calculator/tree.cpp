@@ -335,8 +335,36 @@ double tree::Calculate(::calculator::calculator::get_callback Get)
 {
   word remain_iterations = nodes_count;
 
-  executer ex(root);
+  shared_ptr<node> safe_node(root);
+  root = NULL;
+
+
   while (remain_iterations--)
   {
+    executer ex(safe_node);
+    auto ret = ex.Execute();
+    throw_assert(ret);
+    safe_node.swap(ret);
+
+    if (!ret->Alone())
+      continue;
+
+    auto token = ret->Token();
+    if (token.first != TAG::NUMBER)
+      break;
+    return [token]()
+    {
+      stringstream ss;
+      ss << token.second;
+      double ret;
+      ss >> ret;
+      return ret;
+    }();
   }
+  
+  throw_assert(safe_node.unique())
+  root = safe_node.get();
+  safe_node.reset();
+
+  throw calculation_failed();
 }

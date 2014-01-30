@@ -8,13 +8,16 @@ namespace calculator
 {
   class node
   {
+  public:
+    typedef shared_ptr<node> nextT;
+  private:
     function<double(string)> GetVariable;
     token t;
 
     friend class tree;
     struct connect
     {
-      node *next, *prev;
+      nextT next, prev;
 
       node *Forward() const;
       node *Backward() const;
@@ -23,7 +26,7 @@ namespace calculator
     connect next, down;
 
     void Attach(node *const he, connect node::* me);
-    node *Deattach(connect node::* me);
+    nextT Deattach(connect node::* me);
 
     tokenqueue Process(const tokenqueue &);
 
@@ -32,26 +35,32 @@ namespace calculator
     node(const token &);
     ~node()
     {
-      delete DeattachNext();
-      delete DeattachPrev();
-      delete DeattachDown();
-      delete DeattachUp();
     }
 
     void AttachNext(node *const);
     void AttachPrev(node *const);
 
-    node *DeattachNext();
-    node *DeattachPrev();
+    nextT DeattachNext();
+    nextT DeattachPrev();
 
     void AttachDown(node *const);
     void AttachUp(node *const);
 
-    node *DeattachDown();
-    node *DeattachUp();
+    nextT DeattachDown();
+    nextT DeattachUp();
 
+    nextT Back();
+    nextT Forward();
+    nextT Up();
+    nextT Down();
 
     static node *Build(tokenqueue);
+
+    bool Alone() const;
+    bool Edge() const;
+
+    token Token() const;
+    token Token(token) const;
   };
 
   struct back_token

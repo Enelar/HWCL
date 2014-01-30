@@ -14,19 +14,20 @@ void node::Attach(node *const he, connect node::* _me)
   throw_assert(!my.next);
   throw_assert(!his.prev);
 
-  my.next = he;
-  his.prev = this;
+  my.next.reset(he);
+  his.prev.reset(this);
 }
 
-node *node::Deattach(connect node::* _me)
+node::nextT node::Deattach(connect node::* _me)
 {
   throw_assert(this); // lol
   connect &my = (this->*_me);
 
-  node *next = my.next;
+  auto next = my.next;
   throw_assert(next);
-  connect &his = (next->*_me);
-  throw_assert(his.prev == this);
+
+  connect &his = (next.get()->*_me);
+  throw_assert(his.prev.get() == this);
 
   his.prev = NULL;
   my.next = NULL;
@@ -47,12 +48,12 @@ void node::AttachPrev(node *const p)
   p->AttachNext(this);
 }
 
-node *node::DeattachNext()
+node::nextT node::DeattachNext()
 {
   return Deattach(&node::next);
 }
 
-node *node::DeattachPrev()
+node::nextT node::DeattachPrev()
 {
   return next.Backward()->DeattachNext();
 }
@@ -71,12 +72,12 @@ void node::AttachUp(node *const p)
   p->AttachDown(this);
 }
 
-node *node::DeattachDown()
+node::nextT node::DeattachDown()
 {
   return Deattach(&node::down);
 }
 
-node *node::DeattachUp()
+node::nextT node::DeattachUp()
 {
   return down.Backward()->DeattachDown();
 }
@@ -84,13 +85,13 @@ node *node::DeattachUp()
 node *node::connect::Forward() const
 {
   throw_assert(next);
-  return next;
+  return next.get();
 }
 
 node *node::connect::Backward() const
 {
   throw_assert(prev);
-  return prev;
+  return prev.get();
 }
 
 node::node(const token &_t)
