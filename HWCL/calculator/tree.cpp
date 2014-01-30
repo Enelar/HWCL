@@ -331,9 +331,9 @@ void tree::Build(string s)
   nodes_count = queue.size();
 }
 
-#include "executer.h"
 #include "../parser/parser.h"
 #include <set>
+#include <deque>
 
 namespace
 {
