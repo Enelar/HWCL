@@ -200,5 +200,8 @@
     <ClCompile Include="HWCL\calculator\node_build.cpp">
       <Filter>calculator</Filter>
     </ClCompile>
+    <ClCompile Include="HWCL\calculator\prepare_queue.cpp">
+      <Filter>calculator</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

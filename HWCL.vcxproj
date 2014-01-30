@@ -125,6 +125,7 @@
     <ClCompile Include="HWCL\calculator\calculator.cpp" />
     <ClCompile Include="HWCL\calculator\node.cpp" />
     <ClCompile Include="HWCL\calculator\node_build.cpp" />
+    <ClCompile Include="HWCL\calculator\prepare_queue.cpp" />
     <ClCompile Include="HWCL\calculator\tree.cpp" />
     <ClCompile Include="HWCL\main.cpp" />
     <ClCompile Include="HWCL\parser\parser.cpp" />
