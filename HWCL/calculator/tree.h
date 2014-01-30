@@ -8,19 +8,6 @@
 
 namespace calculator
 {
-  class node;
-  class tree
-  {
-    calculator::get_callback GetVariable;
-
-    node *root;
-    word nodes_count;
-  public:
-    void Build(string);
-    double Calculate(node *, calculator::get_callback);
-    double Calculate(calculator::get_callback);
-  };
-
   enum TAG
   {
     UNDEFINED,
@@ -33,6 +20,20 @@ namespace calculator
 
   typedef pair<TAG, string> token;
   typedef list<token> tokenqueue;
+
+  class node;
+  class tree
+  {
+    calculator::get_callback GetVariable;
+
+    tokenqueue queue;
+    node *root;
+    word nodes_count;
+  public:
+    void Build(string);
+    double Calculate(node *, calculator::get_callback);
+    double Calculate(calculator::get_callback);
+  };
 }
 
 #include "node.h"

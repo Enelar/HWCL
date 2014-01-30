@@ -16,9 +16,9 @@ namespace
     return (ch >= '0' && ch <= '9');
   }
 
-  list<pair<TAG, string>> Explode(string s)
+  tokenqueue Explode(string s)
   {
-    list<pair<TAG, string>> ret;
+    tokenqueue ret;
     auto i = s.begin(), e = s.end();
 
     string summator;
@@ -79,9 +79,9 @@ namespace
     return ret;
   }
 
-  list<pair<TAG, string>> VacuumNumber(list<pair<TAG, string>> res)
+  tokenqueue VacuumNumber(tokenqueue res)
   {
-    list<pair<TAG, string>> ret;
+    tokenqueue ret;
 
     auto Move = [&ret, &res](word count)
     {
@@ -143,9 +143,9 @@ namespace
     return ret;
   }
 
-  list<pair<TAG, string>> VacuumVariable(list<pair<TAG, string>> res)
+  tokenqueue VacuumVariable(tokenqueue res)
   {
-    list<pair<TAG, string>> ret;
+    tokenqueue ret;
 
     auto Move = [&ret, &res](word count)
     {
@@ -187,9 +187,9 @@ namespace
     return ret;
   }
 
-  list<pair<TAG, string>> VacuumContext(list<pair<TAG, string>> res)
+  tokenqueue VacuumContext(tokenqueue res)
   {
-    list<pair<TAG, string>> ret;
+    tokenqueue ret;
 
     auto Move = [&ret, &res](word count)
     {
@@ -231,9 +231,9 @@ namespace
     return ret;
   }
 
-  list<pair<TAG, string>> VacuumStruct(list<pair<TAG, string>> res)
+  tokenqueue VacuumStruct(tokenqueue res)
   {
-    list<pair<TAG, string>> ret;
+    tokenqueue ret;
 
     auto Move = [&ret, &res](word count)
     {
@@ -277,9 +277,9 @@ namespace
     return ret;
   }
 
-  list<pair<TAG, string>> VacuumPower(list<pair<TAG, string>> res)
+  tokenqueue VacuumPower(list<pair<TAG, string>> res)
   {
-    list<pair<TAG, string>> ret;
+    tokenqueue ret;
 
     auto Move = [&ret, &res](word count)
     {
@@ -323,7 +323,7 @@ namespace
 
 void tree::Build(string s)
 {
-  auto queue = Explode(s);
+  queue = Explode(s);
   queue = VacuumPower(VacuumContext(VacuumStruct(VacuumNumber(VacuumVariable(queue)))));
   root = node::Build(queue);
   nodes_count = queue.size();
@@ -333,7 +333,11 @@ void tree::Build(string s)
 
 double tree::Calculate(::calculator::calculator::get_callback Get)
 {
+  
+  // reverse polish notation
+  dead_space();
   word remain_iterations = nodes_count;
+
 
   shared_ptr<node> safe_node(root);
   root = NULL;

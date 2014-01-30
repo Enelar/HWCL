@@ -258,8 +258,52 @@ pair<double, node::nextT> executer::VacuumBraces(node::nextT origin)
   dead_space();
 }
 
-node::nextT executer::Erase(node::nextT, node::nextT)
+node::nextT executer::Erase(node::nextT a, node::nextT b)
 {
+  if (a->Edge() || b->Edge())
+  {
+    todo("Edges erase");
+  }
+  COMMANDS com;
+  auto prev = [a, &com]()
+  {
+    if (a->Back())
+    {
+      com = NEXT;
+      return a->Back();
+    }
+    if (a->Up())
+    {
+      com = DOWN;
+      return a->Up();
+    }
+    com = UP;
+    return a->Down();
+  }();
+
+  auto start = [prev, com]()
+  {
+    node::nextT t = make_shared<node>(token{EMPTY, "start erase"});
+    if (com == NEXT)
+    {
+      auto p = prev->DeattachNext();
+      todo("Trying Reverse Polish notation");
+      //t->AttachNext(p);
+      //t->AttachPrev(prev);
+    }
+    return 0;
+  }();
+
+  node::nextT t = a, next;
+
+
+
+  do
+  {
+    next = Next(a);
+    //if ()
+  } while (next != b);
+
   todo(ERASE);
 }
 
