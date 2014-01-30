@@ -49,10 +49,10 @@ namespace calculator
     nextT DeattachDown();
     nextT DeattachUp();
 
-    nextT Back();
-    nextT Forward();
-    nextT Up();
-    nextT Down();
+    nextT Back() const;
+    nextT Forward() const;
+    nextT Up() const;
+    nextT Down() const;
 
     static node *Build(tokenqueue);
 
@@ -60,7 +60,7 @@ namespace calculator
     bool Edge() const;
 
     token Token() const;
-    token Token(token) const;
+    token Token(token);
   };
 
   struct back_token

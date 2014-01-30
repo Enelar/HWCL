@@ -99,3 +99,42 @@ node::node(const token &_t)
 {
 
 }
+
+node::nextT node::Back() const
+{
+  return next.prev;
+}
+
+node::nextT node::Forward() const
+{
+  return next.next;
+}
+
+node::nextT node::Up() const
+{
+  return down.prev;
+}
+node::nextT node::Down() const
+{
+  return down.next;
+}
+
+bool node::Alone() const
+{
+  return !Back() && !Forward() && !Down() && !Up();
+}
+bool node::Edge() const
+{
+  return !!Back() + !!Forward() + !!Down() + !!Up() == 1;
+}
+
+token node::Token() const
+{
+  return t;
+}
+
+token node::Token(token next)
+{
+  ax::Swap<>(t, next);
+  return next;
+}
