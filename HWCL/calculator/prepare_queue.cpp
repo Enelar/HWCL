@@ -112,35 +112,19 @@ namespace
     return ret;
   }
 
-
-  tokenqueue VacuumNumber(tokenqueue res)
+  struct vacuum_number
   {
-    tokenqueue ret;
-
-    auto Move = [&ret, &res](word count)
+    bool
+      comma_allowed,
+      e_allowed;
+    word ret_state = -1;
+    void operator()(tokenqueue &ret, tokenqueue &res, move_callback Move)
     {
-      while (count-- > 0 && res.size())
-      {
-        ret.push_back(res.front());
-        res.pop_front();
-      }
-    };
-
-    bool comma_allowed = true, e_allowed = true;
-
-    while (res.size())
-    {
-      if (res.front().first != NUMBER)
+      if (ret_state != ret.size())
       {
         comma_allowed = true;
         e_allowed = true;
-        Move(1);
-        continue;
-      }
-      if (res.size() < 3)
-      {
-        Move(res.size());
-        continue;
+        ret_state = ret.size();
       }
       auto i = res.begin();
       auto
@@ -151,13 +135,13 @@ namespace
       if (c.first != NUMBER)
       {
         Move(1);
-        continue;
+        return;
       }
 
       if ((b.second == "." && !comma_allowed) || (b.second != "." && b.second != "E") || !e_allowed)
       {
         Move(1);
-        continue;
+        return;
       }
 
       if (b.second == ".")
@@ -173,9 +157,9 @@ namespace
       res.pop_front();
       res.pop_front();
       res.push_front({ NUMBER, str });
+      ret_state = ret.size();
     }
-    return ret;
-  }
+  };
 
   void VacuumVariable(tokenqueue &ret, tokenqueue &res, move_callback Move)
   {
@@ -262,7 +246,8 @@ void tree::Build(string s)
 {
   queue = Explode(s);
   queue = Vacuum(queue, VacuumVariable, VARIABLE, 2);
-  queue = VacuumNumber(queue);
+  vacuum_number VacuumNumber;
+  queue = Vacuum(queue, VacuumNumber, NUMBER, 3);
   queue = Vacuum(queue, VacuumStruct, VARIABLE, 3);
   queue = Vacuum(queue, VacuumContext, SYMBOL, 2);
   queue = Vacuum(queue, VacuumPower, SYMBOL, 2);
