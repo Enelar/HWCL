@@ -78,6 +78,41 @@ namespace
     return ret;
   }
 
+  typedef function<void(word)> move_callback;
+  typedef function<void(tokenqueue &ret, tokenqueue &res, move_callback Move)> vacuum_callback;
+  tokenqueue Vacuum(tokenqueue res, vacuum_callback callback, TAG affects = UNDEFINED, int min_size = 1)
+  {
+    tokenqueue ret;
+
+    auto Move = [&ret, &res](word count)
+    {
+      while (count-- > 0 && res.size())
+      {
+        ret.push_back(res.front());
+        res.pop_front();
+      }
+    };
+
+    while (res.size())
+    {
+      if (affects != UNDEFINED && res.front().first != affects)
+      {
+        Move(1);
+        continue;
+      }
+      if (min_size && res.size() < min_size)
+      {
+        Move(res.size());
+        break;
+      }
+      callback(ret, res, Move);
+    }
+
+
+    return ret;
+  }
+
+
   tokenqueue VacuumNumber(tokenqueue res)
   {
     tokenqueue ret;
@@ -142,181 +177,82 @@ namespace
     return ret;
   }
 
-  tokenqueue VacuumVariable(tokenqueue res)
+  void VacuumVariable(tokenqueue &ret, tokenqueue &res, move_callback Move)
   {
-    tokenqueue ret;
+    auto i = res.begin();
+    auto
+      a = *i++,
+      b = *i++;
 
-    auto Move = [&ret, &res](word count)
+    if (b.first != NUMBER)
     {
-      while (count-- > 0 && res.size())
-      {
-        ret.push_back(res.front());
-        res.pop_front();
-      }
-    };
-
-    while (res.size())
-    {
-      if (res.front().first != VARIABLE)
-      {
-        Move(1);
-        continue;
-      }
-      if (res.size() < 2)
-      {
-        Move(res.size());
-        continue;
-      }
-      auto i = res.begin();
-      auto
-        a = *i++,
-        b = *i++;
-
-      if (b.first != NUMBER)
-      {
-        Move(1);
-        continue;
-      }
-
-      auto str = convert<string, vector<string>>({ a.second, b.second });
-      res.pop_front();
-      res.pop_front();
-      res.push_front({ VARIABLE, str });
+      Move(1);
+      return;
     }
-    return ret;
+
+    auto str = convert<string, vector<string>>({ a.second, b.second });
+    res.pop_front();
+    res.pop_front();
+    res.push_front({ VARIABLE, str });
   }
 
-  tokenqueue VacuumContext(tokenqueue res)
+
+  void VacuumContext(tokenqueue &ret, tokenqueue &res, move_callback Move)
   {
-    tokenqueue ret;
+    auto i = res.begin();
+    auto
+      a = *i++,
+      b = *i++;
 
-    auto Move = [&ret, &res](word count)
+    if (b.first != VARIABLE || a.second != "!")
     {
-      while (count-- > 0 && res.size())
-      {
-        ret.push_back(res.front());
-        res.pop_front();
-      }
-    };
-
-    while (res.size())
-    {
-      if (res.front().first != SYMBOL)
-      {
-        Move(1);
-        continue;
-      }
-      if (res.size() < 2)
-      {
-        Move(res.size());
-        continue;
-      }
-      auto i = res.begin();
-      auto
-        a = *i++,
-        b = *i++;
-
-      if (b.first != VARIABLE || a.second != "!")
-      {
-        Move(1);
-        continue;
-      }
-
-      auto str = convert<string, vector<string>>({ a.second, b.second });
-      res.pop_front();
-      res.pop_front();
-      res.push_front({ VARIABLE, str });
+      Move(1);
+      return;
     }
-    return ret;
+
+    auto str = convert<string, vector<string>>({ a.second, b.second });
+    res.pop_front();
+    res.pop_front();
+    res.push_front({ VARIABLE, str });
   }
 
-  tokenqueue VacuumStruct(tokenqueue res)
+  void VacuumStruct(tokenqueue &ret, tokenqueue &res, move_callback Move)
   {
-    tokenqueue ret;
+    auto i = res.begin();
+    auto
+      a = *i++,
+      b = *i++,
+      c = *i++;
 
-    auto Move = [&ret, &res](word count)
+    if (b.second != "." || c.first != VARIABLE)
     {
-      while (count-- > 0 && res.size())
-      {
-        ret.push_back(res.front());
-        res.pop_front();
-      }
-    };
-
-    while (res.size())
-    {
-      if (res.front().first != VARIABLE)
-      {
-        Move(1);
-        continue;
-      }
-      if (res.size() < 3)
-      {
-        Move(res.size());
-        continue;
-      }
-      auto i = res.begin();
-      auto
-        a = *i++,
-        b = *i++,
-        c = *i++;
-
-      if (b.second != "." || c.first != VARIABLE)
-      {
-        Move(1);
-        continue;
-      }
-
-      auto str = convert<string, vector<string>>({ a.second, b.second, c.second });
-      res.pop_front();
-      res.pop_front();
-      res.pop_front();
-      res.push_front({ VARIABLE, str });
+      Move(1);
+      return;
     }
-    return ret;
+
+    auto str = convert<string, vector<string>>({ a.second, b.second, c.second });
+    res.pop_front();
+    res.pop_front();
+    res.pop_front();
+    res.push_front({ VARIABLE, str });
   }
 
-  tokenqueue VacuumPower(list<pair<TAG, string>> res)
+  void VacuumPower(tokenqueue &ret, tokenqueue &res, move_callback Move)
   {
-    tokenqueue ret;
+    auto i = res.begin();
+    auto
+      a = *i++,
+      b = *i++;
 
-    auto Move = [&ret, &res](word count)
+    if (a.second != "*" || b.second != "*")
     {
-      while (count-- > 0 && res.size())
-      {
-        ret.push_back(res.front());
-        res.pop_front();
-      }
-    };
-
-    while (res.size())
-    {
-      if (res.front().first != SYMBOL)
-      {
-        Move(1);
-        continue;
-      }
-      if (res.size() < 2)
-      {
-        Move(res.size());
-        continue;
-      }
-      auto i = res.begin();
-      auto
-        a = *i++,
-        b = *i++;
-
-      if (a.second != "*" || b.second != "*")
-      {
-        Move(1);
-        continue;
-      }
-
-      res.pop_front();
-      res.pop_front();
-      res.push_front({ SYMBOL, "^" });
+      Move(1);
+      return;
     }
-    return ret;
+
+    res.pop_front();
+    res.pop_front();
+    res.push_front({ SYMBOL, "^" });
   }
 }
 
@@ -325,6 +261,10 @@ namespace
 void tree::Build(string s)
 {
   queue = Explode(s);
-  queue = VacuumPower(VacuumContext(VacuumStruct(VacuumNumber(VacuumVariable(queue)))));
+  queue = Vacuum(queue, VacuumVariable, VARIABLE, 2);
+  queue = VacuumNumber(queue);
+  queue = Vacuum(queue, VacuumStruct, VARIABLE, 3);
+  queue = Vacuum(queue, VacuumContext, SYMBOL, 2);
+  queue = Vacuum(queue, VacuumPower, SYMBOL, 2);
   BuildReversePolish();
 }
