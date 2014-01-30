@@ -92,7 +92,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="HWCL\calculator\calculator.h" />
-    <ClInclude Include="HWCL\calculator\node.h" />
     <ClInclude Include="HWCL\calculator\tree.h" />
     <ClInclude Include="HWCL\parser\parser.h" />
     <ClInclude Include="HWCL\program\cached_program.h" />
@@ -123,9 +122,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HWCL\calculator\calculator.cpp" />
-    <ClCompile Include="HWCL\calculator\node.cpp" />
-    <ClCompile Include="HWCL\calculator\node_build.cpp" />
     <ClCompile Include="HWCL\calculator\prepare_queue.cpp" />
+    <ClCompile Include="HWCL\calculator\reverse_polish.cpp" />
     <ClCompile Include="HWCL\calculator\tree.cpp" />
     <ClCompile Include="HWCL\main.cpp" />
     <ClCompile Include="HWCL\parser\parser.cpp" />

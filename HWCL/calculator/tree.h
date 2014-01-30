@@ -29,14 +29,11 @@ namespace calculator
   {
     calculator::get_callback GetVariable;
 
-    tokenqueue queue;
-    node *root;
+    tokenqueue queue, reverse_polish;
     word nodes_count;
+    void BuildReversePolish();
   public:
     void Build(string);
-    double Calculate(node *, calculator::get_callback);
     double Calculate(calculator::get_callback);
   };
 }
-
-#include "node.h"

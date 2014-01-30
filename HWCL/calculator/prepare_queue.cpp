@@ -326,6 +326,5 @@ void tree::Build(string s)
 {
   queue = Explode(s);
   queue = VacuumPower(VacuumContext(VacuumStruct(VacuumNumber(VacuumVariable(queue)))));
-  root = node::Build(queue);
-  nodes_count = queue.size();
+  BuildReversePolish();
 }
