@@ -64,7 +64,7 @@ void local::Execute(vm::context &c)
 {
   if (init_value == "undefined")
     return;
-  auto var = c.Local(name);
+  auto &var = c.Local(name);
   stringstream ss;
   ss << init_value;
   ss >> var;
