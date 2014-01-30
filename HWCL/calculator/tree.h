@@ -14,6 +14,8 @@ namespace calculator
     NUMBER,
     VARIABLE,
     FUNCTION,
+    EXTERN_CONTEXT,
+    STRUCT,
     SYMBOL,
     FLUSH,
     EMPTY

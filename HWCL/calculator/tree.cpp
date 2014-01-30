@@ -4,6 +4,7 @@ using namespace calculator;
 
 #include <vector>
 
+#pragma region Vacuum
 namespace
 {
   bool IsChar(char ch)
@@ -320,6 +321,7 @@ namespace
     return ret;
   }
 }
+#pragma endregion /* Vacuuming token of queue */
 
 void tree::Build(string s)
 {
@@ -330,6 +332,7 @@ void tree::Build(string s)
 }
 
 #include "executer.h"
+#include "../parser/parser.h"
 #include <set>
 
 namespace
@@ -338,9 +341,14 @@ namespace
   {
     if (t.first != VARIABLE)
       return t;
+    const auto &str = t.second;
     set<string> functions = { "SQRT" };
+    if (str[0] == '!')
+      return token{ EXTERN_CONTEXT, str };
     if (functions.find(t.second) != functions.end())
-      return token{ FUNCTION, t.second };
+      return token{ FUNCTION, str };
+    if (str.find('.') != -1)
+      return token{ STRUCT, str };
     return t;
   }
   int Level(string s)
@@ -437,11 +445,11 @@ double tree::Calculate(::calculator::calculator::get_callback Get)
   token result;
   double res;
 
-  auto TokenToNumber = [Get]( token t )
+  auto TokenToNumber = [Get](token t)
   {
     if (t.first == NUMBER)
       return convert<double>(t.second);
-    if (t.first != VARIABLE)
+    if (t.first != VARIABLE && t.first != STRUCT && t.first != EXTERN_CONTEXT)
       throw_message("Cant convert token to variable");
     return Get(t.second);
   };
@@ -451,7 +459,7 @@ double tree::Calculate(::calculator::calculator::get_callback Get)
     result.first = UNDEFINED;
     auto token = input.front();
     bool recognized = false;
-    if (!recognized && (token.first == NUMBER || token.first == VARIABLE))
+    if (!recognized && (token.first == NUMBER || token.first == VARIABLE || token.first == EXTERN_CONTEXT || token.first == STRUCT))
       result = token, recognized = true;
     if (!recognized && token.first == SYMBOL)
     {
@@ -502,6 +510,7 @@ double tree::Calculate(::calculator::calculator::get_callback Get)
         todo(FUNCTION);
     }
 
+    throw_assert(recognized);
     if (recognized)
     {
       input.pop_front();
@@ -513,7 +522,7 @@ double tree::Calculate(::calculator::calculator::get_callback Get)
   }
 
   throw_assert(stack.size() == 1);
-  return convert<double>(stack.front().second);
+  return TokenToNumber(stack.front());
 
   // reverse polish notation
   dead_space();

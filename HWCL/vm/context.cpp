@@ -22,8 +22,18 @@ word context::Label(const std::string &name)
 
 double &context::Local(const std::string &name)
 {
-  if (name[0] != '!') // local context
   {
+    auto find = alias.find(name);
+    if (find != alias.end())
+      return Local(name);
+  }
+
+  auto tokens = parser::Split(name, '.');
+
+  if (tokens.size() == 1) // local context
+  {
+    if (name == "DAY")
+      return local.DAY;
     auto find = localpoint.find(name);
     if (find == localpoint.end())
       throw runtime_error(convert<string, vector<string>>({ "Undefined variable", name }));
@@ -35,12 +45,8 @@ double &context::Local(const std::string &name)
     return local_NN[offset];
   }
 
-  auto find = alias.find(name);
-  if (find == alias.end())
+  if (tokens.size() != 2)
     throw runtime_error(convert<string, vector<string>>({ "Undefined variable", name }));
-
-  auto tokens = parser::Split(name.substr(1), ".");
-  throw_assert(tokens.size() == 2);
   auto context = External(tokens[0]);
   return context->Local(tokens[1]);
 }

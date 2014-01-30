@@ -5,6 +5,7 @@
 #include <string>
 #include <map>
 #include <memory>
+#include <algorithm>
 
 namespace vm
 {
@@ -14,6 +15,7 @@ namespace vm
     {
       double NN[80];
       bool FL[127];
+      double DAY;
       // time TIME[4];
       std::string STR = std::string(64, 0); // fill 64 byte with zeros
     } local;
@@ -27,8 +29,21 @@ namespace vm
 
     typedef shared_ptr<context> mapped_context;
   private:
-    map<string, string> alias;
-    map<string, word> localpoint;
+    struct case_insesitive_cmp
+    {
+      bool operator() (const std::string& lhs, const std::string& rhs) const
+      {
+        auto tolower = [](string s)
+        {
+          transform(s.begin(), s.end(), s.begin(), ::tolower);
+          return s;
+        };
+        return tolower(lhs) < tolower(rhs);
+      }
+    };
+
+    map<string, string, case_insesitive_cmp> alias;
+    map<string, word, case_insesitive_cmp> localpoint;
 
     map<string, mapped_context> external;
     word last_wild = 80;
