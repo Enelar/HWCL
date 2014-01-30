@@ -29,6 +29,7 @@ void set::Bind(vm::context &c)
 
   auto t = parser::Split(tokens[1], '=', true);
   auto name = t[0];
+  variable = name;
 
   decltype(tokens) expr_tokens;
   if (t.size() > 1)

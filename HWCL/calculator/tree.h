@@ -13,6 +13,7 @@ namespace calculator
     UNDEFINED,
     NUMBER,
     VARIABLE,
+    FUNCTION,
     SYMBOL,
     FLUSH,
     EMPTY

@@ -330,9 +330,19 @@ void tree::Build(string s)
 }
 
 #include "executer.h"
+#include <set>
 
 namespace
 {
+  token RecognizeFunction(token t)
+  {
+    if (t.first != VARIABLE)
+      return t;
+    set<string> functions = { "SQRT" };
+    if (functions.find(t.second) != functions.end())
+      return token{ FUNCTION, t.second };
+    return t;
+  }
   int Level(string s)
   {
     if (s == "^")
@@ -384,12 +394,20 @@ namespace
           PopBraces();
           continue;
         }
-        while (stack.size() && Level(stack.back().second) >= Level(t.second))
+        while (stack.size() && Level(stack.back().second) > Level(t.second))
         {
           ret.push_back(stack.back());
           stack.pop_back();
         }
         stack.push_back(t);
+      }
+      if (t.first == VARIABLE)
+      {
+        auto func = RecognizeFunction(t);
+        if (func.first == FUNCTION)
+          stack.push_back(func);
+        else
+          ret.push_back(func);
       }
     }
 
@@ -417,12 +435,23 @@ double tree::Calculate(::calculator::calculator::get_callback Get)
   deque<token> input{ polish_source.begin(), polish_source.end() };
   std::vector<token> stack;
   token result;
+  double res;
+
+  auto TokenToNumber = [Get]( token t )
+  {
+    if (t.first == NUMBER)
+      return convert<double>(t.second);
+    if (t.first != VARIABLE)
+      throw_message("Cant convert token to variable");
+    return Get(t.second);
+  };
 
   while (input.size())
   {
+    result.first = UNDEFINED;
     auto token = input.front();
     bool recognized = false;
-    if (!recognized && token.first == NUMBER)
+    if (!recognized && (token.first == NUMBER || token.first == VARIABLE))
       result = token, recognized = true;
     if (!recognized && token.first == SYMBOL)
     {
@@ -430,25 +459,25 @@ double tree::Calculate(::calculator::calculator::get_callback Get)
       if (stack.size() < 2)
         throw syntax_error();
       double
-        a = convert<double>(stack[stack.size() - 1].second),
-        b = convert<double>(stack[stack.size() - 2].second);
+        a = TokenToNumber(stack[stack.size() - 2]),
+        b = TokenToNumber(stack[stack.size() - 1]);
 
       switch (token.second[0])
       {
       case '+':
-        result = { NUMBER, convert<string>(a + b) };
+        res = a + b;
         break;
       case '-':
-        result = { NUMBER, convert<string>(a - b) };
+        res = a - b;
         break;
       case '*':
-        result = { NUMBER, convert<string>(a * b) };
+        res = a * b;
         break;
       case '/':
-        result = { NUMBER, convert<string>(a / b) };
+        res = a / b;
         break;
       case '^':
-        result = { NUMBER, convert<string>(pow(a, b)) };
+        res = pow(a, b);
         break;
       default:
         recognized = false;
@@ -461,10 +490,25 @@ double tree::Calculate(::calculator::calculator::get_callback Get)
       }
     }
 
+    if (!recognized && token.first == FUNCTION)
+    {
+      recognized = true;
+      if (token.second == "SQRT")
+      {
+        res = sqrt(TokenToNumber(stack[stack.size() - 1]));
+        stack.pop_back();
+      }
+      else
+        todo(FUNCTION);
+    }
+
     if (recognized)
     {
       input.pop_front();
-      stack.push_back(result);
+      if (result.first != UNDEFINED)
+        stack.push_back(result);
+      else
+        stack.push_back({ NUMBER, convert<string>(res) });
     }
   }
 
