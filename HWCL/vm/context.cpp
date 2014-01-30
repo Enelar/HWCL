@@ -22,24 +22,31 @@ word context::Label(const std::string &name)
 
 double &context::Local(const std::string &name)
 {
-  if (name[0] != '!') // local context
   {
+    auto find = alias.find(name);
+    if (find != alias.end())
+      return Local(name);
+  }
+
+  auto tokens = parser::Split(name, '.');
+
+  if (tokens.size() == 1) // local context
+  {
+    if (name == "DAY")
+      return local.DAY;
     auto find = localpoint.find(name);
     if (find == localpoint.end())
       throw runtime_error(convert<string, vector<string>>({ "Undefined variable", name }));
     auto offset = find->second;
     if (offset < 80)
       return local.NN[offset];
-    todo(Alias without NN mapping);
-    dead_space();
+    // Extra local variables
+    offset -= 80;
+    return local_NN[offset];
   }
 
-  auto find = alias.find(name);
-  if (find == alias.end())
+  if (tokens.size() != 2)
     throw runtime_error(convert<string, vector<string>>({ "Undefined variable", name }));
-
-  auto tokens = parser::Split(name.substr(1), ".");
-  throw_assert(tokens.size() == 2);
   auto context = External(tokens[0]);
   return context->Local(tokens[1]);
 }
@@ -53,6 +60,7 @@ void context::AddLocal(const std::string &name)
     "\n"
   });
   localpoint.insert({ name, last_wild++ });
+  local_NN.push_back(0);
 }
 
 void context::AddLocal(const std::string &name, const string &addr)

@@ -131,8 +131,13 @@ std::vector<std::string> parser::Split(const std::string &str, const std::string
     if (++next == e)
       break;
 
-    *i = i->substr(0, i->length() - 1);
-    *next = AddBefore(del, *next);
+    word comp = ax::StrMasqEq(delimeter.c_str(), i->c_str());
+    if (comp == i->length())
+    {
+      *next = convert<string, vector<string>>({ *i, *next });
+      i->clear();
+    }
+
     ++i;
   }
 

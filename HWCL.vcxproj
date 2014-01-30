@@ -91,6 +91,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="HWCL\calculator\calculator.h" />
+    <ClInclude Include="HWCL\calculator\tree.h" />
     <ClInclude Include="HWCL\parser\parser.h" />
     <ClInclude Include="HWCL\program\cached_program.h" />
     <ClInclude Include="HWCL\program\instruction.h" />
@@ -119,10 +121,15 @@
     <ClInclude Include="HWCL\vm\vm.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="HWCL\calculator\calculator.cpp" />
+    <ClCompile Include="HWCL\calculator\prepare_queue.cpp" />
+    <ClCompile Include="HWCL\calculator\reverse_polish.cpp" />
+    <ClCompile Include="HWCL\calculator\tree.cpp" />
     <ClCompile Include="HWCL\main.cpp" />
     <ClCompile Include="HWCL\parser\parser.cpp" />
     <ClCompile Include="HWCL\program\cached_program.cpp" />
     <ClCompile Include="HWCL\program\instruction.cpp" />
+    <ClCompile Include="HWCL\program\instructions\calculate.cpp" />
     <ClCompile Include="HWCL\program\instructions\condition.cpp" />
     <ClCompile Include="HWCL\program\instructions\end.cpp" />
     <ClCompile Include="HWCL\program\instructions\external.cpp" />
@@ -136,6 +143,7 @@
     <ClCompile Include="HWCL\program\instructions\set.cpp" />
     <ClCompile Include="HWCL\program\instructions\step.cpp" />
     <ClCompile Include="HWCL\program\program.cpp" />
+    <ClCompile Include="HWCL\stdafx.cpp" />
     <ClCompile Include="HWCL\translator\translator.cpp" />
     <ClCompile Include="HWCL\vm\context.cpp" />
     <ClCompile Include="HWCL\vm\process.cpp" />

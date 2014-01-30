@@ -77,6 +77,12 @@
     <ClInclude Include="HWCL\program\instructions\composite.h">
       <Filter>program\instructions</Filter>
     </ClInclude>
+    <ClInclude Include="HWCL\calculator\calculator.h">
+      <Filter>calculator</Filter>
+    </ClInclude>
+    <ClInclude Include="HWCL\calculator\tree.h">
+      <Filter>calculator</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="vm">
@@ -105,6 +111,9 @@
     </Filter>
     <Filter Include="vm\types">
       <UniqueIdentifier>{76ad3b9a-6033-477e-98b4-73ad48a7227d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="calculator">
+      <UniqueIdentifier>{7e703d70-2ef0-4bf8-baf6-198b2d7fe561}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -171,6 +180,22 @@
     </ClCompile>
     <ClCompile Include="HWCL\vm\context.cpp">
       <Filter>vm\src</Filter>
+    </ClCompile>
+    <ClCompile Include="HWCL\program\instructions\calculate.cpp">
+      <Filter>program\instructions\src</Filter>
+    </ClCompile>
+    <ClCompile Include="HWCL\calculator\calculator.cpp">
+      <Filter>calculator</Filter>
+    </ClCompile>
+    <ClCompile Include="HWCL\calculator\tree.cpp">
+      <Filter>calculator</Filter>
+    </ClCompile>
+    <ClCompile Include="HWCL\stdafx.cpp" />
+    <ClCompile Include="HWCL\calculator\prepare_queue.cpp">
+      <Filter>calculator</Filter>
+    </ClCompile>
+    <ClCompile Include="HWCL\calculator\reverse_polish.cpp">
+      <Filter>calculator</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -7,7 +7,7 @@ namespace program
   {
     class local : public instruction
     {
-      std::string init_value;
+      std::string init_value, name;
     public:
       local(const string &);
 
