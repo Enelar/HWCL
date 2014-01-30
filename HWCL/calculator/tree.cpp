@@ -331,9 +331,146 @@ void tree::Build(string s)
 
 #include "executer.h"
 
+namespace
+{
+  int Level(string s)
+  {
+    if (s == "^")
+      return 2;
+    if (s == "*" || s == "/")
+      return 1;
+    return 0;
+  }
+  tokenqueue GetReversePolish(tokenqueue q)
+  {
+    tokenqueue ret;
+    tokenqueue stack;
+
+    auto PopBraces = [&stack, &ret]()
+    {
+      while (stack.size())
+      {
+        auto t = stack.back();
+        if (t.first == SYMBOL)
+        {
+          if (t.second == "(")
+          {
+            stack.pop_back();
+            return;
+          }
+        }
+        stack.pop_back();
+        ret.push_back(t);
+      }
+      throw syntax_error();
+    };
+
+    for (auto t : q)
+    {
+      if (t.first == NUMBER)
+      {
+        ret.push_back(t);
+        continue;
+      }
+      if (t.first == SYMBOL)
+      {
+        if (t.second == "(")
+        {
+          stack.push_back(t);
+          continue;
+        }
+        if (t.second == ")")
+        {
+          PopBraces();
+          continue;
+        }
+        while (stack.size() && Level(stack.back().second) >= Level(t.second))
+        {
+          ret.push_back(stack.back());
+          stack.pop_back();
+        }
+        stack.push_back(t);
+      }
+    }
+
+    try
+    {
+      PopBraces();
+    }
+    catch (syntax_error)
+    {
+    }
+    if (stack.size())
+    {
+      throw syntax_error();
+    }
+
+    return ret;
+  }
+}
+
+
+
 double tree::Calculate(::calculator::calculator::get_callback Get)
 {
-  
+  auto polish_source = GetReversePolish(queue);
+  deque<token> input{ polish_source.begin(), polish_source.end() };
+  std::vector<token> stack;
+  token result;
+
+  while (input.size())
+  {
+    auto token = input.front();
+    bool recognized = false;
+    if (!recognized && token.first == NUMBER)
+      result = token, recognized = true;
+    if (!recognized && token.first == SYMBOL)
+    {
+      recognized = true;
+      if (stack.size() < 2)
+        throw syntax_error();
+      double
+        a = convert<double>(stack[stack.size() - 1].second),
+        b = convert<double>(stack[stack.size() - 2].second);
+
+      switch (token.second[0])
+      {
+      case '+':
+        result = { NUMBER, convert<string>(a + b) };
+        break;
+      case '-':
+        result = { NUMBER, convert<string>(a - b) };
+        break;
+      case '*':
+        result = { NUMBER, convert<string>(a * b) };
+        break;
+      case '/':
+        result = { NUMBER, convert<string>(a / b) };
+        break;
+      case '^':
+        result = { NUMBER, convert<string>(pow(a, b)) };
+        break;
+      default:
+        recognized = false;
+      }
+
+      if (recognized)
+      {
+        stack.pop_back();
+        stack.pop_back();
+      }
+    }
+
+    if (recognized)
+    {
+      input.pop_front();
+      stack.push_back(result);
+    }
+  }
+
+  throw_assert(stack.size() == 1);
+  return convert<double>(stack.front().second);
+
   // reverse polish notation
   dead_space();
   word remain_iterations = nodes_count;
