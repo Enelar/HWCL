@@ -363,8 +363,9 @@ namespace
   {
     tokenqueue ret;
     tokenqueue stack;
+    bool on_exit_state = false;
 
-    auto PopBraces = [&stack, &ret]()
+    auto PopBraces = [&stack, &ret, &on_exit_state]()
     {
       while (stack.size())
       {
@@ -373,6 +374,8 @@ namespace
         {
           if (t.second == "(")
           {
+            if (on_exit_state)
+              throw syntax_error();
             stack.pop_back();
             return;
           }
@@ -380,7 +383,8 @@ namespace
         stack.pop_back();
         ret.push_back(t);
       }
-      throw syntax_error();
+      if (!on_exit_state)
+        throw syntax_error();
     };
 
     for (auto t : q)
@@ -419,17 +423,11 @@ namespace
       }
     }
 
-    try
-    {
-      PopBraces();
-    }
-    catch (syntax_error)
-    {
-    }
+    on_exit_state = true;
     if (stack.size())
-    {
+      PopBraces();
+    if (stack.size())
       throw syntax_error();
-    }
 
     return ret;
   }
@@ -521,46 +519,9 @@ double tree::Calculate(::calculator::calculator::get_callback Get)
     }
   }
 
-  throw_assert(stack.size() == 1);
+  if (stack.size() != 1)
+    throw calculation_failed();
   return TokenToNumber(stack.front());
-
-  // reverse polish notation
-  dead_space();
-  word remain_iterations = nodes_count;
-
-
-  shared_ptr<node> safe_node(root);
-  root = NULL;
-
-
-  while (remain_iterations--)
-  {
-    executer ex(safe_node);
-    auto ret = ex.Execute();
-    throw_assert(ret);
-    safe_node.swap(ret);
-
-    if (!ret->Alone())
-      continue;
-
-    auto token = ret->Token();
-    if (token.first != TAG::NUMBER)
-      break;
-    return [token]()
-    {
-      stringstream ss;
-      ss << token.second;
-      double ret;
-      ss >> ret;
-      return ret;
-    }();
-  }
-  
-  throw_assert(safe_node.unique())
-  root = safe_node.get();
-  safe_node.reset();
-
-  throw calculation_failed();
 }
 
 double tree::Calculate(node *r, ::calculator::calculator::get_callback Get)
