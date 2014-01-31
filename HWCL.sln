@@ -11,6 +11,7 @@ Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug MD|Win32 = Debug MD|Win32
 		Debug|Win32 = Debug|Win32
+		DLL Debug|Win32 = DLL Debug|Win32
 		Production MD|Win32 = Production MD|Win32
 		Production|Win32 = Production|Win32
 		Release MD|Win32 = Release MD|Win32
@@ -19,8 +20,10 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{BDCD6B51-C167-47DE-9B9A-578F3549C437}.Debug MD|Win32.ActiveCfg = Debug|Win32
 		{BDCD6B51-C167-47DE-9B9A-578F3549C437}.Debug MD|Win32.Build.0 = Debug|Win32
-		{BDCD6B51-C167-47DE-9B9A-578F3549C437}.Debug|Win32.ActiveCfg = Debug DLL|Win32
-		{BDCD6B51-C167-47DE-9B9A-578F3549C437}.Debug|Win32.Build.0 = Debug DLL|Win32
+		{BDCD6B51-C167-47DE-9B9A-578F3549C437}.Debug|Win32.ActiveCfg = Debug|Win32
+		{BDCD6B51-C167-47DE-9B9A-578F3549C437}.Debug|Win32.Build.0 = Debug|Win32
+		{BDCD6B51-C167-47DE-9B9A-578F3549C437}.DLL Debug|Win32.ActiveCfg = Debug DLL|Win32
+		{BDCD6B51-C167-47DE-9B9A-578F3549C437}.DLL Debug|Win32.Build.0 = Debug DLL|Win32
 		{BDCD6B51-C167-47DE-9B9A-578F3549C437}.Production MD|Win32.ActiveCfg = Release|Win32
 		{BDCD6B51-C167-47DE-9B9A-578F3549C437}.Production MD|Win32.Build.0 = Release|Win32
 		{BDCD6B51-C167-47DE-9B9A-578F3549C437}.Production|Win32.ActiveCfg = Release|Win32
@@ -33,6 +36,8 @@ Global
 		{792C27E3-863B-434C-A47A-F5F0515BFB20}.Debug MD|Win32.Build.0 = Debug MD|Win32
 		{792C27E3-863B-434C-A47A-F5F0515BFB20}.Debug|Win32.ActiveCfg = Debug|Win32
 		{792C27E3-863B-434C-A47A-F5F0515BFB20}.Debug|Win32.Build.0 = Debug|Win32
+		{792C27E3-863B-434C-A47A-F5F0515BFB20}.DLL Debug|Win32.ActiveCfg = Debug|Win32
+		{792C27E3-863B-434C-A47A-F5F0515BFB20}.DLL Debug|Win32.Build.0 = Debug|Win32
 		{792C27E3-863B-434C-A47A-F5F0515BFB20}.Production MD|Win32.ActiveCfg = Production MD|Win32
 		{792C27E3-863B-434C-A47A-F5F0515BFB20}.Production MD|Win32.Build.0 = Production MD|Win32
 		{792C27E3-863B-434C-A47A-F5F0515BFB20}.Production|Win32.ActiveCfg = Production|Win32

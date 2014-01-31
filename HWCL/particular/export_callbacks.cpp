@@ -16,7 +16,40 @@ hash_map<prog_handle, program::cached_program> compilator_cache;
 
 #include <math.h>
 
-_HWCL_METHOD_ prog_handle particular::CompileProgram(char *filename)
+#include "process_handle.h"
+#include "program_handle.h"
+
+template<>
+program_handle convert(const prog_handle &a)
+{
+  return remote_handle::Undestand<program_handle>(a);
+}
+
+template<>
+process_handle convert(const prog_handle &a)
+{
+  return remote_handle::Undestand<process_handle>(a);
+}
+
+template<typename B, typename A>
+B convertp(A *a)
+{
+  IMPLEMENTATION_REQUIRED
+}
+
+template<>
+prog_handle convertp(program_handle *a)
+{
+  return reinterpret_cast<prog_handle>(a);
+}
+
+template<>
+proc_handle convertp(process_handle *a)
+{
+  return reinterpret_cast<proc_handle>(a);
+}
+
+_HWCL_METHOD_ prog_handle particular::CompileProgram(const char *filename)
 {
   std::string source = [filename]()->std::string
   {
@@ -40,8 +73,8 @@ _HWCL_METHOD_ prog_handle particular::CompileProgram(char *filename)
     auto hash = rand();
     if (compilator_cache.find(hash) != compilator_cache.end())
       continue;
-    compilator_cache.insert({hash, prog});
-    return hash;
+    compilator_cache.insert({ hash, prog });
+    return convertp<prog_handle>(NEW program_handle(hash));
   } while (true);
 
   dead_space();
@@ -54,7 +87,7 @@ vm::virtual_machine computer;
 
 _HWCL_METHOD_ proc_handle particular::ExecuteProgram(prog_handle ph)
 {
-  auto h = remote_handle::Undestand<program_handle>(ph);
+  auto h = convert<program_handle>(ph);
 
   auto source = [h]()
   {
@@ -63,7 +96,7 @@ _HWCL_METHOD_ proc_handle particular::ExecuteProgram(prog_handle ph)
   }();
 
   auto ret = NEW process_handle({ computer.Execute(source) });
-  return reinterpret_cast<proc_handle>(ret);
+  return convertp<proc_handle>(ret);
 }
 
 _HWCL_METHOD_ void particular::VM_Step(double dt)
@@ -73,7 +106,7 @@ _HWCL_METHOD_ void particular::VM_Step(double dt)
 
 _HWCL_METHOD_ void particular::CloseHandle(prog_handle ph)
 {
-  auto h = remote_handle::Undestand<process_handle>(ph);
+  auto h = convert<process_handle>(ph);
   delete &h;
 }
 

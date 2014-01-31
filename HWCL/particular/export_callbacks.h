@@ -23,7 +23,7 @@ namespace particular
     _FICTIVE_VALUE // Dont mess with comma and CVS
   };
 
-  _HWCL_METHOD_ prog_handle CompileProgram(char *filename);
+  _HWCL_METHOD_ prog_handle CompileProgram(const char *filename);
   _HWCL_METHOD_ proc_handle ExecuteProgram(prog_handle);
   _HWCL_METHOD_ void VM_Step(double dt);
   _HWCL_METHOD_ void CloseHandle(proc_handle);

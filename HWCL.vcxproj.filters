@@ -98,6 +98,11 @@
     <ClInclude Include="HWCL\particular\process_handle.h">
       <Filter>particular</Filter>
     </ClInclude>
+    <ClInclude Include="HWCL\particular\export_header.h" />
+    <ClInclude Include="header.h" />
+    <ClInclude Include="HWCL\program\instructions\read.h">
+      <Filter>program\instructions</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="vm">
@@ -217,6 +222,10 @@
     </ClCompile>
     <ClCompile Include="HWCL\particular\export_callbacks.cpp">
       <Filter>particular</Filter>
+    </ClCompile>
+    <ClCompile Include="HWCL\particular\import_callbacks.cpp" />
+    <ClCompile Include="HWCL\program\instructions\read.cpp">
+      <Filter>program\instructions\src</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

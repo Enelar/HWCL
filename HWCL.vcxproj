@@ -61,7 +61,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug DLL|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(SolutionDir)..\build\$(SolutionName)\</OutDir>
+    <OutDir>$(SolutionDir)..\..\Exe\</OutDir>
     <IntDir>$(SolutionDir)..\intermediate\$(SolutionName)\$(Configuration)\$(ProjectName)\</IntDir>
     <IncludePath>$(SolutionDir)AX/source;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <SourcePath>$(SolutionDir)AX/source;$(VC_SourcePath);</SourcePath>
@@ -128,6 +128,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="header.h" />
     <ClInclude Include="HWCL\calculator\calculator.h" />
     <ClInclude Include="HWCL\calculator\tree.h" />
     <ClInclude Include="HWCL\parser\parser.h" />
@@ -150,6 +151,7 @@
     <ClInclude Include="HWCL\program\instructions\local.h" />
     <ClInclude Include="HWCL\program\instructions\nop.h" />
     <ClInclude Include="HWCL\program\instructions\phase.h" />
+    <ClInclude Include="HWCL\program\instructions\read.h" />
     <ClInclude Include="HWCL\program\instructions\send.h" />
     <ClInclude Include="HWCL\program\instructions\sequence.h" />
     <ClInclude Include="HWCL\program\instructions\set.h" />
@@ -183,6 +185,7 @@
     <ClCompile Include="HWCL\program\instructions\local.cpp" />
     <ClCompile Include="HWCL\program\instructions\nop.cpp" />
     <ClCompile Include="HWCL\program\instructions\phase.cpp" />
+    <ClCompile Include="HWCL\program\instructions\read.cpp" />
     <ClCompile Include="HWCL\program\instructions\send.cpp" />
     <ClCompile Include="HWCL\program\instructions\sequence.cpp" />
     <ClCompile Include="HWCL\program\instructions\set.cpp" />
