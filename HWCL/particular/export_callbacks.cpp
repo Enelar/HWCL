@@ -16,7 +16,7 @@ hash_map<prog_handle, program::cached_program> compilator_cache;
 
 #include <math.h>
 
-prog_handle particular::CompileProgram(char *filename)
+_HWCL_METHOD_ prog_handle particular::CompileProgram(char *filename)
 {
   std::string source = [filename]()->std::string
   {
@@ -52,7 +52,7 @@ prog_handle particular::CompileProgram(char *filename)
 
 vm::virtual_machine computer;
 
-proc_handle particular::ExecuteProgram(prog_handle ph)
+_HWCL_METHOD_ proc_handle particular::ExecuteProgram(prog_handle ph)
 {
   auto h = remote_handle::Undestand<program_handle>(ph);
 
@@ -66,18 +66,18 @@ proc_handle particular::ExecuteProgram(prog_handle ph)
   return reinterpret_cast<proc_handle>(ret);
 }
 
-void particular::VM_Step(double dt)
+_HWCL_METHOD_ void particular::VM_Step(double dt)
 {
   computer.Cycle();
 }
 
-void particular::CloseHandle(prog_handle ph)
+_HWCL_METHOD_ void particular::CloseHandle(prog_handle ph)
 {
   auto h = remote_handle::Undestand<process_handle>(ph);
   delete &h;
 }
 
-PROC_STATUSES particular::ProcessStatus(prog_handle)
+_HWCL_METHOD_ PROC_STATUSES particular::ProcessStatus(prog_handle)
 {
   return UNDEFINED;
 }

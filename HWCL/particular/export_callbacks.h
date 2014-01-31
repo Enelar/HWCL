@@ -1,4 +1,5 @@
 #pragma once
+#include "export_header.h"
 
 namespace particular
 {
@@ -22,9 +23,9 @@ namespace particular
     _FICTIVE_VALUE // Dont mess with comma and CVS
   };
 
-  prog_handle CompileProgram(char *filename);
-  proc_handle ExecuteProgram(prog_handle);
-  void VM_Step(double dt);
-  void CloseHandle(proc_handle);
-  PROC_STATUSES ProcessStatus(proc_handle);
+  _HWCL_METHOD_ prog_handle CompileProgram(char *filename);
+  _HWCL_METHOD_ proc_handle ExecuteProgram(prog_handle);
+  _HWCL_METHOD_ void VM_Step(double dt);
+  _HWCL_METHOD_ void CloseHandle(proc_handle);
+  _HWCL_METHOD_ PROC_STATUSES ProcessStatus(proc_handle);
 }

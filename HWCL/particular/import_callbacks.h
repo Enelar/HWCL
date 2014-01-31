@@ -1,4 +1,5 @@
 #pragma once
+#include "export_header.h"
 
 namespace particular
 {
@@ -11,7 +12,5 @@ namespace particular
   };
   typedef void *(*get_struct_field_callback)(const char *struct_name, const char *field_name, char *data_type);
 
-  void SetStructFieldCallback(get_struct_field_callback);
-
-
+  _HWCL_METHOD_ void SetStructFieldCallback(get_struct_field_callback);
 }
