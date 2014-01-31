@@ -94,6 +94,11 @@
     <ClInclude Include="HWCL\calculator\calculator.h" />
     <ClInclude Include="HWCL\calculator\tree.h" />
     <ClInclude Include="HWCL\parser\parser.h" />
+    <ClInclude Include="HWCL\particular\export_callbacks.h" />
+    <ClInclude Include="HWCL\particular\import_callbacks.h" />
+    <ClInclude Include="HWCL\particular\process_handle.h" />
+    <ClInclude Include="HWCL\particular\program_handle.h" />
+    <ClInclude Include="HWCL\particular\remote_handle.h" />
     <ClInclude Include="HWCL\program\cached_program.h" />
     <ClInclude Include="HWCL\program\instruction.h" />
     <ClInclude Include="HWCL\program\instructions.h" />
@@ -127,6 +132,7 @@
     <ClCompile Include="HWCL\calculator\tree.cpp" />
     <ClCompile Include="HWCL\main.cpp" />
     <ClCompile Include="HWCL\parser\parser.cpp" />
+    <ClCompile Include="HWCL\particular\export_callbacks.cpp" />
     <ClCompile Include="HWCL\program\cached_program.cpp" />
     <ClCompile Include="HWCL\program\instruction.cpp" />
     <ClCompile Include="HWCL\program\instructions\calculate.cpp" />

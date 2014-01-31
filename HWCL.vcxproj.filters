@@ -83,6 +83,21 @@
     <ClInclude Include="HWCL\calculator\tree.h">
       <Filter>calculator</Filter>
     </ClInclude>
+    <ClInclude Include="HWCL\particular\import_callbacks.h">
+      <Filter>particular</Filter>
+    </ClInclude>
+    <ClInclude Include="HWCL\particular\export_callbacks.h">
+      <Filter>particular</Filter>
+    </ClInclude>
+    <ClInclude Include="HWCL\particular\program_handle.h">
+      <Filter>particular</Filter>
+    </ClInclude>
+    <ClInclude Include="HWCL\particular\remote_handle.h">
+      <Filter>particular</Filter>
+    </ClInclude>
+    <ClInclude Include="HWCL\particular\process_handle.h">
+      <Filter>particular</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="vm">
@@ -114,6 +129,9 @@
     </Filter>
     <Filter Include="calculator">
       <UniqueIdentifier>{7e703d70-2ef0-4bf8-baf6-198b2d7fe561}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="particular">
+      <UniqueIdentifier>{1fc4aa26-51dc-49e8-b4c1-1cc20d42ecd8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -196,6 +214,9 @@
     </ClCompile>
     <ClCompile Include="HWCL\calculator\reverse_polish.cpp">
       <Filter>calculator</Filter>
+    </ClCompile>
+    <ClCompile Include="HWCL\particular\export_callbacks.cpp">
+      <Filter>particular</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
