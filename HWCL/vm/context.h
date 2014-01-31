@@ -51,8 +51,9 @@ namespace vm
     void AddAlias(const string &, const string &);
 
     double &Local(const std::string &);
-    void AddLocal(const std::string &);
-    void AddLocal(const std::string &, const string &);
+    void AddLocal(const std::string &var);
+    void AddLocal(const std::string &var, const string &addr);
+    void AddLocal(const std::string &var, const string &addr, const string &type);
 
     void AddExternal(const string &);
     mapped_context External(const string &);

@@ -43,19 +43,39 @@ void local::Bind(vm::context &c)
     return;
   }
 
-  throw_assert(tokens.size() == 4);
+  throw_assert(init_value == "undefined");
 
-  if (tokens[2] == "=")
+  bool type_specialised = name.back() == ':';
+  if (type_specialised)
+    name.pop_back();
+
+  word AT_pos = [&]()
   {
-    c.AddLocal(name);
-    init_value = tokens[3];
-    return;
-  }
-  if (ax::StrMasqEq(tokens[2].c_str(), "at") != 2)
-    throw syntax_error();
+    word ret = 0;
+    while (ax::StrMasqEq(tokens[ret].c_str(), "at") != 2)
+    {
+      ret++;
+      throw_assert(ret < tokens.size());
+    }
+    return ret;
+  }();
 
-  auto variable = tokens[3];
-  c.AddLocal(name, variable);
+  throw_assert(tokens.size() == AT_pos + 1);
+  throw_assert(AT_pos > 2);
+
+  string element_type = "NUMBER";
+  string additional;
+
+  if (ax::StrMasqEq(tokens[2].c_str(), "ARRAY") != 5)
+    element_type = tokens[2];
+  if (AT_pos == 4)
+    additional = tokens[3];
+  else if (AT_pos == 5)
+    additional == convert<string, vector<string>>({ tokens[3], tokens[4] });
+
+  string addr = tokens[AT_pos + 1];
+
+  c.AddLocal(name, addr, additional);
 }
 
 #include <sstream>
