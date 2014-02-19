@@ -103,6 +103,12 @@
     <ClInclude Include="HWCL\program\instructions\read.h">
       <Filter>program\instructions</Filter>
     </ClInclude>
+    <ClInclude Include="HWCL\vm\types\pointer.h">
+      <Filter>vm\src</Filter>
+    </ClInclude>
+    <ClInclude Include="HWCL\vm\types\pointer.hpp">
+      <Filter>vm\src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="vm">

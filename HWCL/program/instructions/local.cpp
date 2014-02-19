@@ -60,7 +60,7 @@ void local::Bind(vm::context &c)
     return ret;
   }();
 
-  throw_assert(tokens.size() == AT_pos + 1);
+  throw_assert(tokens.size() - 1 == AT_pos + 1);
   throw_assert(AT_pos > 2);
 
   string element_type = "NUMBER";
