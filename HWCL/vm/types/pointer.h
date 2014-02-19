@@ -20,16 +20,26 @@ namespace vm
     VAR_TYPE type;
     word offset;
 
-    mutable context *origin = nullptr;
+    mutable vm::context *origin = nullptr;
   public:
     pointer(string code);
 
-    void Origin(context *const) const;
+    void Origin(vm::context *const) const;
     pointer operator +(const word offset) const;
     T &operator*() const;
     pointer &Set(const string &);
+    template <typename = typename enable_if<!is_same<T, string>::value>::type>
     pointer &Set(const T &);
+
+    VAR_TYPE Type() const;
+
   };
+
+  template<typename T>
+  bool CheckPointerType(const pointer<T> &)
+  {
+    IMPLEMENTATION_REQUIRED
+  }
 
   template<typename A, typename B>
   A pointer_convert(const B &b)
@@ -39,3 +49,4 @@ namespace vm
 }
 
 #include "../context.h"
+#include "pointer.hpp"

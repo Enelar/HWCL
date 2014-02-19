@@ -1,6 +1,7 @@
 #include "context.h"
 #include "process.h"
 #include "../parser/parser.h"
+#include "types\pointer.h"
 
 using namespace vm;
 
@@ -90,6 +91,7 @@ void context::AddLocal(const std::string &name, const string &addr)
 
 void context::AddLocal(const std::string &var, const string &addr, const string &type)
 {
+  pointer<float> p = addr;
   enum TYPE
   {
     NUMBER,

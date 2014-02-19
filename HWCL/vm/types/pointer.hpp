@@ -31,13 +31,13 @@ namespace vm
   }
 
   template<typename T>
-  void pointer<T>::Origin(context *const _origin) const
+  void pointer<T>::Origin(vm::context *const _origin) const
   {
     origin = _origin;
   }
 
   template<typename T>
-  pointer pointer<T>::operator +(const word _offset) const
+  pointer<T> pointer<T>::operator +(const word _offset) const
   {
     return{ context, addr, type, offset + _offset };
   }
@@ -50,17 +50,43 @@ namespace vm
   }
 
   template<typename T>
-  pointer &pointer<T>::Set(const string &str)
+  pointer<T> &pointer<T>::Set(const string &str)
   {
     return Set(pointer_convert<T>(str));
   }
 
   template<typename T>
-  pointer &pointer<T>::Set(const T &val)
+  template<typename enable>
+  pointer<T> &pointer<T>::Set<enable>(const T &val)
   {
     **this = val;
     return *this;
   }
+
+  template<typename T>
+  VAR_TYPE pointer<T>::Type() const
+  {
+    return type;
+  }
+
+  template<>
+  bool CheckPointerType<bool>(const pointer<bool> &p)
+  {
+    return p.Type() == BOOLEAN;
+  }
+
+  template<>
+  bool CheckPointerType<float>(const pointer<float> &p)
+  {
+    return p.Type() == NUMBER;
+  }
+
+  template<>
+  bool CheckPointerType<string>(const pointer<string> &p)
+  {
+    return p.Type() == STRING;
+  }
+
 }
 
 #include "../context.h"
