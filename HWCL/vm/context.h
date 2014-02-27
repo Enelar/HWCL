@@ -49,16 +49,21 @@ namespace vm
       }
     };
 
-    map<string, raw_pointer> pointers;
+    map<string, shared_ptr<raw_pointer>> pointers;
     map<string, string, case_insesitive_cmp> alias;
     map<string, word, case_insesitive_cmp> localpoint;
 
     map<string, mapped_context> external;
     word last_wild = 80;
+
+    void AddPointer(const string &name, const shared_ptr<raw_pointer> );
   public:
     void AddAlias(const string &, const string &);
 
     double &Local(const std::string &);
+    VAR_TYPE GetType(const std::string &name) const;
+    template<typename T>
+    shared_ptr<pointer<T>> GetPointer(const std::string &name) const;
 
     DEPRECATED
     void AddLocal(const std::string &var);
@@ -68,9 +73,10 @@ namespace vm
     void AddLocal(const std::string &var, const string &addr, const string &type);
 
     template<typename T>
-    void AddLocal(const string &name, const pointer<T> &)
-    {
-      IMPLEMENTATION_REQUIRED    }
+    void AddLocal(const string &name, shared_ptr<pointer<T>>);
+    template<typename T>
+    void AddLocal(const string &name, const pointer<T> &);
+
 
     void AddExternal(const string &);
     mapped_context External(const string &);

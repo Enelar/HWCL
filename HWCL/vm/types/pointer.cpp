@@ -3,19 +3,19 @@
 using namespace vm;
 
 template<>
-bool vm::CheckPointerType<bool>(const pointer<bool> &p)
+bool vm::CheckPointerType<bool>(const raw_pointer &p)
 {
   return p.Type() == BOOLEAN;
 }
 
 template<>
-bool vm::CheckPointerType<floating_point>(const pointer<floating_point> &p)
+bool vm::CheckPointerType<floating_point>(const raw_pointer &p)
 {
   return p.Type() == NUMBER;
 }
 
 template<>
-bool vm::CheckPointerType<string>(const pointer<string> &p)
+bool vm::CheckPointerType<string>(const raw_pointer &p)
 {
   return p.Type() == STRING;
 }

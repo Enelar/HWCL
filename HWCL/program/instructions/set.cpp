@@ -46,9 +46,33 @@ void set::Bind(vm::context &c)
 void set::Execute(vm::context &c)
 {
   throw_assert(proc);
-  calculator::calculator::get_callback GetC = [&](string name) -> dbl
+
+  auto type = c.GetType(variable);
+
+  if (type == vm::STRING)
   {
-    return c.Local(name);
+    todo("String");
+    auto p = c.GetPointer<string>(variable);
+    p->Set("lala");
+    return;
+  }
+
+  if (type == vm::BOOLEAN)
+  {
+    DebugOutput
+    ({
+      "NEED IMPLEMENTATION"
+    });
+    auto p = c.GetPointer<bool>(variable);
+    p->Set(true);
+    return;
+  }
+
+  throw_assert(type == vm::NUMBER);
+
+  calculator::calculator::get_callback GetC = [&](string name) -> vm::floating_point
+  {
+    return **c.GetPointer<vm::floating_point>(variable);
   };
 
   double res = proc->Calculate(GetC);

@@ -30,11 +30,22 @@ namespace
     }
     return ret;
   }
+  string AddSpaceAfterComma(const string &str)
+  {
+    string ret;
+    for (auto ch : str)
+    {
+      ret += ch;
+      if (ch == ',')
+        ret += ' ';
+    }
+    return ret;
+  }
 }
 
 void external::Bind(vm::context &c)
 {
-  auto name = parser::Split(Source(), ' ', true);
+  auto name = parser::Split(AddSpaceAfterComma(Source()), ' ', true);
   throw_assert(name.size() > 1);
 
   word i = 1;

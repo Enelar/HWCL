@@ -179,38 +179,15 @@ context::mapped_context context::External(const string &name)
   return find->second;
 }
 
-template<>
-void context::AddLocal(const string &name, const pointer<floating_point> &p)
+void context::AddPointer(const string &name, const shared_ptr<raw_pointer> p)
 {
-  if (p.Context() != "this")
-  {
-    auto context = External(p.Context());
-    context->AddLocal(name, p.SwitchContext());
-    return;
-  }
+  p->Origin(this);
 
-  dynamic_typing.insert({ name, p.Type() });}
+  dynamic_typing.insert({ name, p->Type() });
+  pointers.insert({ name, p });
+}
 
-template<>
-void context::AddLocal(const string &name, const pointer<bool> &p)
+VAR_TYPE context::GetType(const std::string &name) const
 {
-  if (p.Context() != "this")
-  {
-    auto context = External(p.Context());
-    context->AddLocal(name, p.SwitchContext());
-    return;
-  }
-
-  dynamic_typing.insert({ name, p.Type() });}
-
-template<>
-void context::AddLocal(const string &name, const pointer<string> &p)
-{
-  if (p.Context() != "this")
-  {
-    auto context = External(p.Context());
-    context->AddLocal(name, p.SwitchContext());
-    return;
-  }
-
-  dynamic_typing.insert({ name, p.Type() });}
+  return dynamic_typing.find(name)->second;
+}

@@ -10,4 +10,7 @@ void main()
     "AP103J.CL"
   );
   auto proc = particular::ExecuteProgram(prog);
+
+  while (1)
+    particular::VM_Step(0);
 }

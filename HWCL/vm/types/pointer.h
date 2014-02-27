@@ -11,18 +11,23 @@ namespace vm
     STRING
   };
 
+  struct context;
   struct raw_pointer : object
   {
   protected:
     VAR_TYPE type;
+    mutable vm::context *origin = nullptr;
   public:
     VAR_TYPE Type() const
     {
       return type;
     }
+    void Origin(vm::context *const _origin) const
+    {
+      origin = _origin;
+    }
   };
 
-  struct context;
   template<typename T>
   struct pointer : raw_pointer
   {
@@ -31,13 +36,10 @@ namespace vm
     string context, addr;
     word offset;
 
-    mutable vm::context *origin = nullptr;
-
-    pointer(const pointer &) = default;
   public:
     pointer(string code);
+    pointer(const pointer &) = default;
 
-    void Origin(vm::context *const) const;
     pointer operator +(const word offset) const;
     T &operator*() const;
     pointer &Set(const T &);
@@ -45,10 +47,12 @@ namespace vm
     string Context() const;
 
     pointer SwitchContext(const string &new_context = "this") const;
+
+    shared_ptr<pointer> Share() const;
   };
 
   template<typename T>
-  bool CheckPointerType(const pointer<T> &)
+  bool CheckPointerType(const raw_pointer &)
   {
     IMPLEMENTATION_REQUIRED
   }

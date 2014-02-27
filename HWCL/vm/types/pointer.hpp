@@ -35,12 +35,6 @@ namespace vm
   }
 
   template<typename T>
-  void pointer<T>::Origin(vm::context *const _origin) const
-  {
-    origin = _origin;
-  }
-
-  template<typename T>
   pointer<T> pointer<T>::operator +(const word _offset) const
   {
     return{ context, addr, type, offset + _offset };
@@ -74,12 +68,18 @@ namespace vm
     return ret;
   }
 
+  template<typename T>
+  shared_ptr<pointer<T>> pointer<T>::Share() const
+  {
+    return make_shared<pointer<T>>(*this);
+  }
+
   template<>
-  bool CheckPointerType<bool>(const pointer<bool> &p);
+  bool CheckPointerType<bool>(const raw_pointer &p);
   template<>
-  bool CheckPointerType<floating_point>(const pointer<floating_point> &p);
+  bool CheckPointerType<floating_point>(const raw_pointer &p);
   template<>
-  bool CheckPointerType<string>(const pointer<string> &p);
+  bool CheckPointerType<string>(const raw_pointer &p);
 }
 
 #include "../context.h"
