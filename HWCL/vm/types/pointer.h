@@ -25,7 +25,11 @@ namespace vm
   struct pointer_interface : raw_pointer
   {
     virtual T &operator*() const = 0;
-    virtual pointer_interface &Set(const T &) = 0;
+    virtual pointer_interface &Set(const T &val)
+    {
+      **this = val;
+      return *this;
+    }
     virtual string Context() const = 0;
   };
 
@@ -50,6 +54,27 @@ namespace vm
     pointer SwitchContext(const string &new_context = "this") const;
 
     shared_ptr<pointer> Share() const;
+  };
+
+  template<typename T>
+  struct extern_pointer : pointer_interface<T>
+  {
+  private:
+    T *ptr;
+  public:
+    extern_pointer(void *_ptr, VAR_TYPE type)
+      : ptr(_ptr), raw_pointer{type}
+    {
+      throw_assert(ptr);
+    }
+    T &operator*() const
+    {
+      return *ptr;
+    }
+    string Context() const
+    {
+      return this;
+    }
   };
 
   template<typename T>
