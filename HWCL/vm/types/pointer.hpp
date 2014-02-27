@@ -68,7 +68,7 @@ namespace vm
   }
 
   template<typename T>
-  pointer<T> &pointer<T>::Set(const T &val)
+  pointer_interface<T> &pointer<T>::Set(const T &val)
   {
     **this = val;
     return *this;

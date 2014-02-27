@@ -22,7 +22,15 @@ namespace vm
   };
 
   template<typename T>
-  struct pointer : raw_pointer
+  struct pointer_interface : raw_pointer
+  {
+    virtual T &operator*() const = 0;
+    virtual pointer_interface &Set(const T &) = 0;
+    virtual string Context() const = 0;
+  };
+
+  template<typename T>
+  struct pointer : pointer_interface<T>
   {
   public:
   private:
@@ -35,7 +43,7 @@ namespace vm
 
     pointer operator +(const word offset) const;
     T &operator*() const;
-    pointer &Set(const T &);
+    pointer_interface &Set(const T &);
 
     string Context() const;
 

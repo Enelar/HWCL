@@ -21,5 +21,6 @@ namespace vm
   template<typename T>
   void context::AddLocal(const string &name, shared_ptr<pointer<T>> p)
   {
-    AddPointer(name, static_pointer_cast<raw_pointer>(p));  }
+    AddPointer(name, static_pointer_cast<raw_pointer>(p));
+  }
 };
