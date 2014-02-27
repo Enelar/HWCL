@@ -85,7 +85,7 @@ namespace vm
     friend class process;
   };
 
-  struct extern_context : private context
+  struct extern_context : public context
   {
   public:
     void AddLocal(const string &name, void *ptr, VAR_TYPE t)
@@ -112,6 +112,10 @@ namespace vm
         auto p = make_shared<pointer_t>(ptr, t);
         dynamic_typing.insert({ name, t });
         pointers.insert({ name, p });
+        return;
+      }
+      if (t == ENUM)
+      {
         return;
       }
       dead_space();

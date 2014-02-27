@@ -7,6 +7,7 @@ namespace vm
     NUMBER,
     BOOLEAN,
     DATE,
-    STRING
+    STRING,
+    ENUM
   };
 };

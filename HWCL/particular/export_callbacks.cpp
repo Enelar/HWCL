@@ -96,20 +96,28 @@ void GetStructLoopBack(int count, particular::param *p)
 
 struct particular_vm : vm::virtual_machine
 {
+  std::map<string, vm::context::mapped_context> already_mapped;
+
   virtual vm::context::mapped_context GetExternalContext(const string &name) override
   {
-    unique_ptr<vm::context> ret = make_unique<vm::context>();
-    auto StructCatched = [&ret](int count, particular::param *params)
+    auto find = already_mapped.find(name);
+    if (find != already_mapped.end())
+      return find->second;
+
+    unique_ptr<vm::extern_context> res = make_unique<vm::extern_context>();
+    auto StructCatched = [&res](int count, particular::param *params)
     {
       for (int i = 0; i < count; i++)
       {
         particular::param &p = params[i];
-        ret->AddLocal(p.name, p.addr, p.type);
+        res->AddLocal(p.name, p.addr, p.type);
       }
     };
     ActualHook = StructCatched;
-    bool res = (*GSCB)(name.c_str(), GetStructLoopBack);
-    return virtual_machine::GetExternalContext(name);
+    bool found = (*GSCB)(name.c_str(), GetStructLoopBack);
+    auto ret = vm::context::mapped_context(res.release());
+    already_mapped.insert({ name, ret });
+    return ret;
   }
 };
 
