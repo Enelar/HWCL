@@ -62,10 +62,11 @@ namespace vm
   private:
     T *ptr;
   public:
-    extern_pointer(void *_ptr, VAR_TYPE type)
-      : ptr(_ptr), raw_pointer{type}
+    extern_pointer(void *_ptr, VAR_TYPE _type)
+      : ptr(reinterpret_cast<T *>(_ptr))
     {
       throw_assert(ptr);
+      type = _type;
     }
     T &operator*() const
     {
@@ -73,7 +74,7 @@ namespace vm
     }
     string Context() const
     {
-      return this;
+      return "this";
     }
   };
 

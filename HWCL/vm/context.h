@@ -35,7 +35,7 @@ namespace vm
     word Label(const std::string &);
 
     typedef shared_ptr<context> mapped_context;
-  private:
+  protected:
     struct case_insesitive_cmp
     {
       bool operator() (const std::string& lhs, const std::string& rhs) const
@@ -63,7 +63,7 @@ namespace vm
     double &Local(const std::string &);
     VAR_TYPE GetType(const std::string &name) const;
     template<typename T>
-    shared_ptr<pointer<T>> GetPointer(const std::string &name) const;
+    shared_ptr<pointer_interface<T>> GetPointer(const std::string &name) const;
 
     DEPRECATED
     void AddLocal(const std::string &var);
@@ -83,6 +83,39 @@ namespace vm
     mapped_context External(const string &) const;
 
     friend class process;
+  };
+
+  struct extern_context : private context
+  {
+  public:
+    void AddLocal(const string &name, void *ptr, VAR_TYPE t)
+    {
+      if (t == NUMBER)
+      {
+        typedef extern_pointer<vm::floating_point> pointer_t;
+        auto p = make_shared<pointer_t>(ptr, t);
+        dynamic_typing.insert({ name, t });
+        pointers.insert({ name, p });
+        return;
+      }
+      if (t == BOOLEAN)
+      {
+        typedef extern_pointer<bool> pointer_t;
+        auto p = make_shared<pointer_t>(ptr, t);
+        dynamic_typing.insert({ name, t });
+        pointers.insert({ name, p });
+        return;
+      }
+      if (t == STRING)
+      {
+        typedef extern_pointer<string> pointer_t;
+        auto p = make_shared<pointer_t>(ptr, t);
+        dynamic_typing.insert({ name, t });
+        pointers.insert({ name, p });
+        return;
+      }
+      dead_space();
+    }
   };
 }
 

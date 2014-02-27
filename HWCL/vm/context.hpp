@@ -5,7 +5,7 @@
 namespace vm
 {
   template<typename T>
-  shared_ptr<pointer<T>> context::GetPointer(const std::string &name) const
+  shared_ptr<pointer_interface<T>> context::GetPointer(const std::string &name) const
   {
     auto pointer = pointers.find(name)->second;
     throw_assert(CheckPointerType<T>(*pointer));
