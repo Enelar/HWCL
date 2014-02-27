@@ -44,7 +44,27 @@ namespace vm
   T &pointer<T>::operator*() const
   {
     throw_assert(origin);
-    todo("Access addr");
+    if (Context() != "this")
+    {
+      auto external = origin->External(Context());
+      auto switched = SwitchContext();
+      switched.Origin(external.get());
+      return *switched;
+    }
+
+    void *ret;
+
+    if (Type() == NUMBER)
+      ret = origin->local.NN + offset;
+    else if (Type() == BOOLEAN)
+      ret = origin->local.FL + offset;
+    else if (Type() == STRING)
+      todo("String access");
+    else
+      todo("Other types");
+
+    throw_assert(CheckPointerType<T>(*this));
+    return *reinterpret_cast<T *>(ret);
   }
 
   template<typename T>

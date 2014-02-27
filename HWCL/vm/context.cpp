@@ -171,7 +171,7 @@ void context::AddAlias(const string &a, const string &b)
   alias.insert({ a, b });
 }
 
-context::mapped_context context::External(const string &name)
+context::mapped_context context::External(const string &name) const
 {
   auto find = external.find(name);
   if (find == external.end())
@@ -189,5 +189,20 @@ void context::AddPointer(const string &name, const shared_ptr<raw_pointer> p)
 
 VAR_TYPE context::GetType(const std::string &name) const
 {
-  return dynamic_typing.find(name)->second;
+  {
+    auto ts = dynamic_typing.find(name);
+    if (ts != dynamic_typing.end())
+      return ts->second;
+  }
+  {
+    auto p = pointers.find(name);
+    if (p != pointers.end())
+      return p->second->Type();
+  }
+  {
+    auto parts = parser::Split(name, '.');
+    throw_assert(parts.size() == 2);
+    auto external = External(parts[0]);    return external->GetType(parts[1]);
+
+  }
 }

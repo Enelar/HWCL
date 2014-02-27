@@ -79,7 +79,7 @@ namespace vm
 
 
     void AddExternal(const string &);
-    mapped_context External(const string &);
+    mapped_context External(const string &) const;
 
     friend class process;
   };
