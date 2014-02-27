@@ -109,6 +109,9 @@
     <ClInclude Include="HWCL\vm\types\pointer.hpp">
       <Filter>vm\src</Filter>
     </ClInclude>
+    <ClInclude Include="HWCL\vm\context.hpp">
+      <Filter>vm</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="vm">
@@ -232,6 +235,9 @@
     <ClCompile Include="HWCL\particular\import_callbacks.cpp" />
     <ClCompile Include="HWCL\program\instructions\read.cpp">
       <Filter>program\instructions\src</Filter>
+    </ClCompile>
+    <ClCompile Include="HWCL\vm\types\pointer.cpp">
+      <Filter>vm\src</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

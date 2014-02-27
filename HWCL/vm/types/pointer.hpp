@@ -1,6 +1,7 @@
 #pragma once
 #include "pointer.h"
-#include "../../parser/parser.h"
+
+#include "../context.hpp"
 
 namespace vm
 {
@@ -14,6 +15,15 @@ namespace vm
       parts[0] = "this";
     }
 
+    auto offset_str = parser::Split(parts[1], '(');
+    throw_assert(parts.size() == 2);
+    stringstream ss;
+    ss << offset_str[1];
+    ss >> offset;
+
+    context = parts[0];
+    addr = offset_str[0];
+
     if (addr.find("NN") != string::npos)
       type = NUMBER;
     else if (addr.find("FL") != string::npos)
@@ -22,12 +32,6 @@ namespace vm
       type = STRING;
     else
       throw_message("Other types");
-
-    auto offset_str = parser::Split(parts[1], '(');
-    throw_assert(parts.size() == 2);
-    stringstream ss;
-    ss << offset_str[0];
-    ss >> offset;
   }
 
   template<typename T>
@@ -57,29 +61,25 @@ namespace vm
   }
 
   template<typename T>
-  VAR_TYPE pointer<T>::Type() const
+  string pointer<T>::Context() const
   {
-    return type;
+    return context;
+  }
+
+  template<typename T>
+  pointer<T> pointer<T>::SwitchContext(const string &new_context) const
+  {
+    pointer ret = *this;
+    ret.context = new_context;
+    return ret;
   }
 
   template<>
-  bool CheckPointerType<bool>(const pointer<bool> &p)
-  {
-    return p.Type() == BOOLEAN;
-  }
-
+  bool CheckPointerType<bool>(const pointer<bool> &p);
   template<>
-  bool CheckPointerType<float>(const pointer<float> &p)
-  {
-    return p.Type() == NUMBER;
-  }
-
+  bool CheckPointerType<float>(const pointer<float> &p);
   template<>
-  bool CheckPointerType<string>(const pointer<string> &p)
-  {
-    return p.Type() == STRING;
-  }
-
+  bool CheckPointerType<string>(const pointer<string> &p);
 }
 
 #include "../context.h"

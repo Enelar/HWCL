@@ -1,4 +1,9 @@
-#pragma once
+#ifndef HWCL_CONTEXT_DECLARED
+
+#ifndef HWCL_POINTER_DEFINED
+#include "types\pointer.h"
+#else
+
 #include "../stdafx.h"
 
 #include <vector>
@@ -9,6 +14,7 @@
 
 namespace vm
 {
+  struct raw_pointer;
   struct context : object
   {
     struct
@@ -22,6 +28,7 @@ namespace vm
 
     vector<double> local_NN;
 
+    map<string, VAR_TYPE> dynamic_typing;
     std::map<std::string, word> labels;
 
     void Label(const std::string &, word);
@@ -42,6 +49,7 @@ namespace vm
       }
     };
 
+    map<string, raw_pointer> pointers;
     map<string, string, case_insesitive_cmp> alias;
     map<string, word, case_insesitive_cmp> localpoint;
 
@@ -51,9 +59,18 @@ namespace vm
     void AddAlias(const string &, const string &);
 
     double &Local(const std::string &);
+
+    DEPRECATED
     void AddLocal(const std::string &var);
+    DEPRECATED
     void AddLocal(const std::string &var, const string &addr);
+    DEPRECATED
     void AddLocal(const std::string &var, const string &addr, const string &type);
+
+    template<typename T>
+    void AddLocal(const string &name, const pointer<T> &)
+    {
+      IMPLEMENTATION_REQUIRED    }
 
     void AddExternal(const string &);
     mapped_context External(const string &);
@@ -61,3 +78,11 @@ namespace vm
     friend class process;
   };
 }
+
+#define HWCL_CONTEXT_DECLARED
+
+#include "context.hpp"
+#include "types/pointer.hpp"
+#endif
+
+#endif

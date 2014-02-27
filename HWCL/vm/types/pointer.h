@@ -11,17 +11,29 @@ namespace vm
     STRING
   };
 
+  struct raw_pointer : object
+  {
+  protected:
+    VAR_TYPE type;
+  public:
+    VAR_TYPE Type() const
+    {
+      return type;
+    }
+  };
+
   struct context;
   template<typename T>
-  struct pointer
+  struct pointer : raw_pointer
   {
   public:
   private:
     string context, addr;
-    VAR_TYPE type;
     word offset;
 
     mutable vm::context *origin = nullptr;
+
+    pointer(const pointer &) = default;
   public:
     pointer(string code);
 
@@ -30,8 +42,9 @@ namespace vm
     T &operator*() const;
     pointer &Set(const T &);
 
-    VAR_TYPE Type() const;
+    string Context() const;
 
+    pointer SwitchContext(const string &new_context = "this") const;
   };
 
   template<typename T>
@@ -47,5 +60,6 @@ namespace vm
   }
 }
 
+#define HWCL_POINTER_DEFINED
 #include "../context.h"
 #include "pointer.hpp"

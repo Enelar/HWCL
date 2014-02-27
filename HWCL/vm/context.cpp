@@ -174,3 +174,15 @@ context::mapped_context context::External(const string &name)
     throw runtime_error(convert<string, vector<string>>({ "Undefined external", name }));
   return find->second;
 }
+
+template<>
+void context::AddLocal(const string &name, const pointer<double> &p)
+{
+  if (p.Context() != "this")
+  {
+    auto context = External(p.Context());
+    context->AddLocal(name, p.SwitchContext());
+    return;
+  }
+
+  dynamic_typing.insert({ name, p.Type() });}
