@@ -5,7 +5,7 @@
 namespace vm
 {
   template<>
-  void context::AddLocal(const string &name, const pointer<double> &p);
+  void context::AddLocal(const string &name, const pointer<floating_point> &p);
   template<>
   void context::AddLocal(const string &name, const pointer<bool> &p);
   template<>

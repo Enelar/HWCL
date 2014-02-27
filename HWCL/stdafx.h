@@ -31,3 +31,8 @@ namespace parser
   bool CompareCommand(const std::string &line, const std::string &mask);
 };
 
+namespace vm
+{
+  typedef double floating_point;
+};
+

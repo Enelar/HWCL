@@ -91,25 +91,9 @@ void context::AddLocal(const std::string &name, const string &addr)
 
 void context::AddLocal(const std::string &var, const string &addr, const string &type)
 {
-  pointer<float> p = addr;
-  enum TYPE
-  {
-    NUMBER,
-    LOGICAL,
-    STRING
-  } t;
-
-  if (addr.find("NN") != string::npos)
-    t = NUMBER;
-  else if (addr.find("FL") != string::npos)
-    t = LOGICAL;
-  else if (addr.find("STR") != string::npos)
-    t = STRING;
-  else
-    throw_message("Other types");
-
   if (type.find("ARRAY") != string::npos)
   {
+    todo(array);
     word start_index, end_index;
     auto GetIndexes = [&]()
     {
@@ -154,12 +138,32 @@ void context::AddLocal(const std::string &var, const string &addr, const string 
     return;
   }
 
-
-  if (t == NUMBER)
   {
-    AddLocal(var, addr);
-    return;
+    pointer<floating_point> p = addr;
+    if (CheckPointerType<floating_point>(p))
+    {
+      AddLocal(var, p);
+      return;
+    }
   }
+  {
+    pointer<bool> p = addr;
+    if (CheckPointerType<bool>(p))
+    {
+      AddLocal(var, p);
+      return;
+    }
+  }
+  {
+    pointer<string> p = addr;
+    if (CheckPointerType<string>(p))
+    {
+      AddLocal(var, p);
+      return;
+    }
+  }
+
+  dead_space();
 }
 
 void context::AddAlias(const string &a, const string &b)
@@ -176,7 +180,7 @@ context::mapped_context context::External(const string &name)
 }
 
 template<>
-void context::AddLocal(const string &name, const pointer<double> &p)
+void context::AddLocal(const string &name, const pointer<floating_point> &p)
 {
   if (p.Context() != "this")
   {
@@ -185,4 +189,28 @@ void context::AddLocal(const string &name, const pointer<double> &p)
     return;
   }
 
-  dynamic_typing.insert({ name, p.Type() });}
+  dynamic_typing.insert({ name, p.Type() });}
+
+template<>
+void context::AddLocal(const string &name, const pointer<bool> &p)
+{
+  if (p.Context() != "this")
+  {
+    auto context = External(p.Context());
+    context->AddLocal(name, p.SwitchContext());
+    return;
+  }
+
+  dynamic_typing.insert({ name, p.Type() });}
+
+template<>
+void context::AddLocal(const string &name, const pointer<string> &p)
+{
+  if (p.Context() != "this")
+  {
+    auto context = External(p.Context());
+    context->AddLocal(name, p.SwitchContext());
+    return;
+  }
+
+  dynamic_typing.insert({ name, p.Type() });}

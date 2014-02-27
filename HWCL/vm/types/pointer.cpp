@@ -9,7 +9,7 @@ bool vm::CheckPointerType<bool>(const pointer<bool> &p)
 }
 
 template<>
-bool vm::CheckPointerType<float>(const pointer<float> &p)
+bool vm::CheckPointerType<floating_point>(const pointer<floating_point> &p)
 {
   return p.Type() == NUMBER;
 }

@@ -77,7 +77,7 @@ namespace vm
   template<>
   bool CheckPointerType<bool>(const pointer<bool> &p);
   template<>
-  bool CheckPointerType<float>(const pointer<float> &p);
+  bool CheckPointerType<floating_point>(const pointer<floating_point> &p);
   template<>
   bool CheckPointerType<string>(const pointer<string> &p);
 }
