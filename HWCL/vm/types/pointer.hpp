@@ -10,7 +10,7 @@ namespace vm
     auto parts = parser::Split(code, ".");
     if (parts.size() == 1)
     {
-      parts.push_back(parts[0])
+      parts.push_back(parts[0]);
       parts[0] = "this";
     }
 
@@ -24,7 +24,7 @@ namespace vm
       throw_message("Other types");
 
     auto offset_str = parser::Split(parts[1], '(');
-    throw_assert(spaces.size() == 2);
+    throw_assert(parts.size() == 2);
     stringstream ss;
     ss << offset_str[0];
     ss >> offset;
@@ -50,14 +50,7 @@ namespace vm
   }
 
   template<typename T>
-  pointer<T> &pointer<T>::Set(const string &str)
-  {
-    return Set(pointer_convert<T>(str));
-  }
-
-  template<typename T>
-  template<typename enable>
-  pointer<T> &pointer<T>::Set<enable>(const T &val)
+  pointer<T> &pointer<T>::Set(const T &val)
   {
     **this = val;
     return *this;

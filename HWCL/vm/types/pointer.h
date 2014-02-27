@@ -15,6 +15,7 @@ namespace vm
   template<typename T>
   struct pointer
   {
+  public:
   private:
     string context, addr;
     VAR_TYPE type;
@@ -27,8 +28,6 @@ namespace vm
     void Origin(vm::context *const) const;
     pointer operator +(const word offset) const;
     T &operator*() const;
-    pointer &Set(const string &);
-    template <typename = typename enable_if<!is_same<T, string>::value>::type>
     pointer &Set(const T &);
 
     VAR_TYPE Type() const;
