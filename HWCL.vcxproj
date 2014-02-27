@@ -166,6 +166,7 @@
     <ClInclude Include="HWCL\vm\process_handler.h" />
     <ClInclude Include="HWCL\vm\types\pointer.h" />
     <ClInclude Include="HWCL\vm\types\pointer.hpp" />
+    <ClInclude Include="HWCL\vm\types\pointer_var_type.h" />
     <ClInclude Include="HWCL\vm\types\type.h" />
     <ClInclude Include="HWCL\vm\vm.h" />
   </ItemGroup>

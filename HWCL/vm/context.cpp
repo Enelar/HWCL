@@ -89,6 +89,11 @@ void context::AddLocal(const std::string &name, const string &addr)
   localpoint.insert({ name, offset });
 }
 
+void context::AddLocal(const string &name, void *addr, VAR_TYPE type)
+{
+  todo(Direct pointers);
+}
+
 void context::AddLocal(const std::string &var, const string &addr, const string &type)
 {
   if (type.find("ARRAY") != string::npos)
@@ -202,7 +207,9 @@ VAR_TYPE context::GetType(const std::string &name) const
   {
     auto parts = parser::Split(name, '.');
     throw_assert(parts.size() == 2);
-    auto external = External(parts[0]);    return external->GetType(parts[1]);
+    auto external = External(parts[0]);
+    return external->GetType(parts[1]);
+
 
   }
 }

@@ -1,16 +1,9 @@
 #pragma once
 #include "../../stdafx.h"
+#include "pointer_var_type.h"
 
 namespace vm
 {
-  enum VAR_TYPE
-  {
-    NUMBER,
-    BOOLEAN,
-    DATE,
-    STRING
-  };
-
   struct context;
   struct raw_pointer : object
   {

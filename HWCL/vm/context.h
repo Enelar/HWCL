@@ -76,6 +76,7 @@ namespace vm
     void AddLocal(const string &name, shared_ptr<pointer<T>>);
     template<typename T>
     void AddLocal(const string &name, const pointer<T> &);
+    void AddLocal(const string &name, void *ptr, VAR_TYPE type);
 
 
     void AddExternal(const string &);

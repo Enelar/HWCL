@@ -1,8 +1,15 @@
 #include "../header.h"
 
 
+bool RequestStruct(const char *name, particular::get_struct_callback cb)
+{
+  cb(0, nullptr);
+  return true;
+}
+
 void main()
 {
+  particular::GetStructCallback(&RequestStruct);
   auto prog = 
   particular::CompileProgram
   (

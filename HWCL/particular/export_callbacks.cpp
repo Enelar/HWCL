@@ -82,8 +82,38 @@ _HWCL_METHOD_ prog_handle particular::CompileProgram(const char *filename)
 
 #include "process_handle.h"
 #include "program_handle.h"
+#include "import_callbacks.h"
+#include <functional>
 
-vm::virtual_machine computer;
+extern particular::request_get_struct_callback GSCB;
+function<void(int, particular::param *)> ActualHook = nullptr;
+
+void GetStructLoopBack(int count, particular::param *p)
+{
+  throw_assert(ActualHook);
+  ActualHook(count, p);
+}
+
+struct particular_vm : vm::virtual_machine
+{
+  virtual vm::context::mapped_context GetExternalContext(const string &name) override
+  {
+    unique_ptr<vm::context> ret = make_unique<vm::context>();
+    auto StructCatched = [&ret](int count, particular::param *params)
+    {
+      for (int i = 0; i < count; i++)
+      {
+        particular::param &p = params[i];
+        ret->AddLocal(p.name, p.addr, p.type);
+      }
+    };
+    ActualHook = StructCatched;
+    bool res = (*GSCB)(name.c_str(), GetStructLoopBack);
+    return virtual_machine::GetExternalContext(name);
+  }
+};
+
+particular_vm computer;
 
 _HWCL_METHOD_ proc_handle particular::ExecuteProgram(prog_handle ph)
 {
