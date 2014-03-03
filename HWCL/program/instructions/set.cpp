@@ -36,6 +36,7 @@ void set::Bind(vm::context &c)
   {
     throw_assert(t.size() == 2); // mean SET A=B=C
     expr_tokens.assign(t.begin() + 1, t.end());
+    assignee = t[1];
   }
   expr_tokens.insert(expr_tokens.end(), tokens.begin() + 2, tokens.end());
 
@@ -59,12 +60,16 @@ void set::Execute(vm::context &c)
 
   if (type == vm::BOOLEAN)
   {
-    DebugOutput
-    ({
-      "NEED IMPLEMENTATION"
-    });
     auto p = c.GetPointer<bool>(variable);
     p->Set(true);
+    return;
+  }
+
+  if (type == vm::ENUM)
+  {
+    auto p = c.GetPointer<int>(variable);
+    auto val = c.EnumWorkAround(variable, assignee);
+    p->Set(val);
     return;
   }
 

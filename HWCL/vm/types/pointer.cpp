@@ -19,3 +19,9 @@ bool vm::CheckPointerType<string>(const raw_pointer &p)
 {
   return p.Type() == STRING;
 }
+
+template<>
+bool vm::CheckPointerType<int>(const raw_pointer &p)
+{
+  return p.Type() == ENUM;
+}

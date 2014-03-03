@@ -86,6 +86,7 @@ _HWCL_METHOD_ prog_handle particular::CompileProgram(const char *filename)
 #include <functional>
 
 extern particular::request_get_struct_callback GSCB;
+extern particular::get_enum_value_callback GECB;
 function<void(int, particular::param *)> ActualHook = nullptr;
 
 void GetStructLoopBack(int count, particular::param *p)
@@ -105,6 +106,11 @@ struct particular_vm : vm::virtual_machine
       return find->second;
 
     unique_ptr<vm::extern_context> res = make_unique<vm::extern_context>();
+    res->GetEnumField = [=](const string &a, const string &b)
+    {
+      return this->GetEnumValue(a, b);
+    };
+
     auto StructCatched = [&res](int count, particular::param *params)
     {
       for (int i = 0; i < count; i++)
@@ -114,10 +120,17 @@ struct particular_vm : vm::virtual_machine
       }
     };
     ActualHook = StructCatched;
+    throw_assert(GSCB);
     bool found = (*GSCB)(name.c_str(), GetStructLoopBack);
     auto ret = vm::context::mapped_context(res.release());
     already_mapped.insert({ name, ret });
     return ret;
+  }
+
+  virtual int GetEnumValue(const string &struct_name, const string &name) override
+  {
+    throw_assert(GECB);
+    return (*GECB)(struct_name.c_str(), name.c_str());
   }
 };
 

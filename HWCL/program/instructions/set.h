@@ -13,7 +13,7 @@ namespace program
     class set : public instruction
     {
       calculator::calculator *proc = NULL;
-      std::string variable;
+      std::string variable, assignee;
     public:
       ~set();
       set(const string &);

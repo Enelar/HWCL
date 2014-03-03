@@ -37,6 +37,7 @@ namespace particular
 
       addr = a.addr;
       type = a.type;
+      return *this;
     }
 
     ~param()
@@ -50,8 +51,9 @@ namespace particular
   typedef bool(*request_get_struct_callback)(const char *name, get_struct_callback);
   _HWCL_METHOD_ bool GetStructCallback(request_get_struct_callback);
 
-  typedef void *(*get_struct_field_callback)(const char *struct_name, const char *field_name, char *data_type);
+  //typedef void*(*get_struct_field_callback)(const char *struct_name, const char *field_name, char *data_type);
+  //_HWCL_METHOD_ void SetStructFieldCallback(get_struct_field_callback);
 
-
-  _HWCL_METHOD_ void SetStructFieldCallback(get_struct_field_callback);
+  typedef int(*get_enum_value_callback)(const char *struct_name, const char *name);
+  _HWCL_METHOD_ bool GetEnumValueCallback(get_enum_value_callback);
 }

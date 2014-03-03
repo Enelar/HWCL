@@ -184,6 +184,41 @@ context::mapped_context context::External(const string &name) const
   return find->second;
 }
 
+int context::EnumWorkAround(const string &namelist, const string &name)
+{
+  int ret;
+
+  if (!EnumWorkAround(namelist, name, ret))
+    throw_message("Enum name not found");
+  return ret;
+}
+
+bool context::EnumWorkAround(const string &namelist, const string &name, int &ret )
+{
+  auto i_enum = enums.find(namelist);
+  if (i_enum == enums.end())
+  {
+    auto parts = parser::Split(namelist, '.');
+    if (parts.size() != 2)
+      return false;
+    auto external = External(parts[0]);
+    try
+    {
+      ret = external->EnumWorkAround(parts[1], name);
+      return true;
+    }
+    catch (...)
+    {
+      return false;
+    }
+  }
+  auto i_field = i_enum->second.find(name);
+  if (i_field == i_enum->second.end())
+    return false;
+  ret = i_field->second;
+  return true;
+}
+
 void context::AddPointer(const string &name, const shared_ptr<raw_pointer> p)
 {
   p->Origin(this);

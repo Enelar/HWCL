@@ -56,3 +56,8 @@ context::mapped_context virtual_machine::GetExternalContext(const string &)
 {
   return make_shared<context>();
 }
+
+int virtual_machine::GetEnumValue(const string &enum_name, const string &value_name)
+{
+  return 0;
+}

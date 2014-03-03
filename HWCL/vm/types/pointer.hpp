@@ -100,6 +100,8 @@ namespace vm
   bool CheckPointerType<floating_point>(const raw_pointer &p);
   template<>
   bool CheckPointerType<string>(const raw_pointer &p);
+  template<>
+  bool CheckPointerType<int>(const raw_pointer &p);
 }
 
 #include "../context.h"
