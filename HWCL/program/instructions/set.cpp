@@ -52,9 +52,12 @@ void set::Execute(vm::context &c)
 
   if (type == vm::STRING)
   {
-    todo("String");
     auto p = c.GetPointer<string>(variable);
-    p->Set("lala");
+    auto parts = parser::Split(assignee, '"');
+    throw_assert(parts.size() >= 2);
+    throw_assert(parts.size() < 3); // 0"1"2
+
+    p->Set(parts[1]);
     return;
   }
 
