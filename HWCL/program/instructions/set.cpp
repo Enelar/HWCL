@@ -73,13 +73,20 @@ void set::Execute(vm::context &c)
     return;
   }
 
-  throw_assert(type == vm::NUMBER);
-
-  calculator::calculator::get_callback GetC = [&](string name) -> vm::floating_point
+  if (type == vm::NUMBER)
   {
-    return **c.GetPointer<vm::floating_point>(variable);
-  };
+    auto p = c.GetPointer<vm::floating_point>(variable);
 
-  double res = proc->Calculate(GetC);
-  c.Local(variable) = res;
+    calculator::calculator::get_callback GetC = [&](string name) -> vm::floating_point
+    {
+      return **c.GetPointer<vm::floating_point>(variable);
+    };
+
+    double res = proc->Calculate(GetC);
+
+    p->Set(res);
+    return;
+  }
+
+  dead_space();
 }
