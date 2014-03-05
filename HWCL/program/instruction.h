@@ -1,7 +1,10 @@
 #pragma once
 #include "../stdafx.h"
 
-#include "../vm/context.h"
+namespace vm
+{
+  struct context;
+};
 
 namespace program
 {
@@ -23,8 +26,7 @@ namespace program
     const decltype(source) &OriginalSource() const;
 
     virtual void Execute(vm::context &) = 0;
-    virtual void Bind(vm::context &)
-    {}
+    virtual void Bind(vm::context &);
   };
 
   struct goto_instruction
@@ -42,3 +44,5 @@ namespace program
     std::string name;
   };
 }
+
+#include "../vm/context.h"

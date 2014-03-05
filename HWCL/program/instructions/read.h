@@ -1,22 +1,15 @@
 #pragma once
 #include "../instruction.h"
 
-namespace calculator
-{
-  class calculator;
-}
-
 namespace program
 {
   namespace instructions
   {
-    class set : public instruction
+    class read : public instruction
     {
-      calculator::calculator *proc = NULL;
-      std::string variable, assignee;
+      unique_ptr<instruction> compiled;
     public:
-      ~set();
-      set(const string &);
+      read(const string &);
 
       void Execute(vm::context &) override;
       void Bind(vm::context &) override;

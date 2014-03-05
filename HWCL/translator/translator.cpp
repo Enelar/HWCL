@@ -38,11 +38,8 @@ struct translation_route
     if (ret)
       return ret;
 
-    return [&]()
-    {
-      translation_route<Tuple, level - 1> t;
-      return t(source);
-    }();
+    translation_route<Tuple, level - 1> t;
+    return t(source);
   }
 };
 
@@ -81,6 +78,7 @@ std::shared_ptr<program::instruction> translator::Translate(const std::string &s
     jump,
     local,
     phase,
+    read,
     send,
     sequence,
     set,

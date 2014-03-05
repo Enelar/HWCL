@@ -26,6 +26,7 @@ namespace vm
 
     map<string, context::mapped_context> external_contexts;
 
-    context::mapped_context GetExternalContext(const string &);
+    virtual context::mapped_context GetExternalContext(const string &);
+    virtual int GetEnumValue(const string &enum_name, const string &value_name);
   };
 }

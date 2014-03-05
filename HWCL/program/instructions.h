@@ -10,6 +10,7 @@
 #include "instructions\local.h"
 #include "instructions\nop.h"
 #include "instructions\phase.h"
+#include "instructions\read.h"
 #include "instructions\set.h"
 #include "instructions\sequence.h"
 #include "instructions\send.h"

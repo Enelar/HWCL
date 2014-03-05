@@ -38,7 +38,7 @@ namespace
       case SPACE:
         if (ch == ' ')
           break;
-        if (!IsAlph(ch))
+        if (!IsAlph(ch) && !IsNum(ch)) REFACTOR
           return -1;
         state = LABEL_NAME;
         break;

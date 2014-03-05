@@ -1,6 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug DLL|Win32">
+      <Configuration>Debug DLL</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
       <Platform>Win32</Platform>
@@ -22,6 +26,12 @@
     <PlatformToolset>v120</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug DLL|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
@@ -35,6 +45,9 @@
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug DLL|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
@@ -42,6 +55,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)..\build\$(SolutionName)\</OutDir>
+    <IntDir>$(SolutionDir)..\intermediate\$(SolutionName)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IncludePath>$(SolutionDir)AX/source;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <SourcePath>$(SolutionDir)AX/source;$(VC_SourcePath);</SourcePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug DLL|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)..\..\Exe\</OutDir>
     <IntDir>$(SolutionDir)..\intermediate\$(SolutionName)\$(Configuration)\$(ProjectName)\</IntDir>
     <IncludePath>$(SolutionDir)AX/source;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <SourcePath>$(SolutionDir)AX/source;$(VC_SourcePath);</SourcePath>
@@ -70,6 +90,24 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug DLL|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;_HOLY_HWCL_TERRITORY_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <MinimalRebuild>false</MinimalRebuild>
+      <ShowIncludes>false</ShowIncludes>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -91,9 +129,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="header.h" />
     <ClInclude Include="HWCL\calculator\calculator.h" />
     <ClInclude Include="HWCL\calculator\tree.h" />
     <ClInclude Include="HWCL\parser\parser.h" />
+    <ClInclude Include="HWCL\particular\export_callbacks.h" />
+    <ClInclude Include="HWCL\particular\export_header.h" />
+    <ClInclude Include="HWCL\particular\import_callbacks.h" />
+    <ClInclude Include="HWCL\particular\process_handle.h" />
+    <ClInclude Include="HWCL\particular\program_handle.h" />
+    <ClInclude Include="HWCL\particular\remote_handle.h" />
     <ClInclude Include="HWCL\program\cached_program.h" />
     <ClInclude Include="HWCL\program\instruction.h" />
     <ClInclude Include="HWCL\program\instructions.h" />
@@ -107,6 +152,7 @@
     <ClInclude Include="HWCL\program\instructions\local.h" />
     <ClInclude Include="HWCL\program\instructions\nop.h" />
     <ClInclude Include="HWCL\program\instructions\phase.h" />
+    <ClInclude Include="HWCL\program\instructions\read.h" />
     <ClInclude Include="HWCL\program\instructions\send.h" />
     <ClInclude Include="HWCL\program\instructions\sequence.h" />
     <ClInclude Include="HWCL\program\instructions\set.h" />
@@ -115,8 +161,12 @@
     <ClInclude Include="HWCL\stdafx.h" />
     <ClInclude Include="HWCL\translator\translator.h" />
     <ClInclude Include="HWCL\vm\context.h" />
+    <ClInclude Include="HWCL\vm\context.hpp" />
     <ClInclude Include="HWCL\vm\process.h" />
     <ClInclude Include="HWCL\vm\process_handler.h" />
+    <ClInclude Include="HWCL\vm\types\pointer.h" />
+    <ClInclude Include="HWCL\vm\types\pointer.hpp" />
+    <ClInclude Include="HWCL\vm\types\pointer_var_type.h" />
     <ClInclude Include="HWCL\vm\types\type.h" />
     <ClInclude Include="HWCL\vm\vm.h" />
   </ItemGroup>
@@ -127,6 +177,8 @@
     <ClCompile Include="HWCL\calculator\tree.cpp" />
     <ClCompile Include="HWCL\main.cpp" />
     <ClCompile Include="HWCL\parser\parser.cpp" />
+    <ClCompile Include="HWCL\particular\export_callbacks.cpp" />
+    <ClCompile Include="HWCL\particular\import_callbacks.cpp" />
     <ClCompile Include="HWCL\program\cached_program.cpp" />
     <ClCompile Include="HWCL\program\instruction.cpp" />
     <ClCompile Include="HWCL\program\instructions\calculate.cpp" />
@@ -138,6 +190,7 @@
     <ClCompile Include="HWCL\program\instructions\local.cpp" />
     <ClCompile Include="HWCL\program\instructions\nop.cpp" />
     <ClCompile Include="HWCL\program\instructions\phase.cpp" />
+    <ClCompile Include="HWCL\program\instructions\read.cpp" />
     <ClCompile Include="HWCL\program\instructions\send.cpp" />
     <ClCompile Include="HWCL\program\instructions\sequence.cpp" />
     <ClCompile Include="HWCL\program\instructions\set.cpp" />
@@ -148,6 +201,7 @@
     <ClCompile Include="HWCL\vm\context.cpp" />
     <ClCompile Include="HWCL\vm\process.cpp" />
     <ClCompile Include="HWCL\vm\process_handler.cpp" />
+    <ClCompile Include="HWCL\vm\types\pointer.cpp" />
     <ClCompile Include="HWCL\vm\vm.cpp" />
   </ItemGroup>
   <ItemGroup>

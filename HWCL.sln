@@ -7,10 +7,13 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HWCL", "HWCL.vcxproj", "{BD
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AX", "AX\AX.vcxproj", "{792C27E3-863B-434C-A47A-F5F0515BFB20}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Tester", "Tester\Tester.vcxproj", "{ED34E132-12B5-40E3-9719-4334D30AC6CC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug MD|Win32 = Debug MD|Win32
 		Debug|Win32 = Debug|Win32
+		DLL Debug|Win32 = DLL Debug|Win32
 		Production MD|Win32 = Production MD|Win32
 		Production|Win32 = Production|Win32
 		Release MD|Win32 = Release MD|Win32
@@ -21,6 +24,8 @@ Global
 		{BDCD6B51-C167-47DE-9B9A-578F3549C437}.Debug MD|Win32.Build.0 = Debug|Win32
 		{BDCD6B51-C167-47DE-9B9A-578F3549C437}.Debug|Win32.ActiveCfg = Debug|Win32
 		{BDCD6B51-C167-47DE-9B9A-578F3549C437}.Debug|Win32.Build.0 = Debug|Win32
+		{BDCD6B51-C167-47DE-9B9A-578F3549C437}.DLL Debug|Win32.ActiveCfg = Debug DLL|Win32
+		{BDCD6B51-C167-47DE-9B9A-578F3549C437}.DLL Debug|Win32.Build.0 = Debug DLL|Win32
 		{BDCD6B51-C167-47DE-9B9A-578F3549C437}.Production MD|Win32.ActiveCfg = Release|Win32
 		{BDCD6B51-C167-47DE-9B9A-578F3549C437}.Production MD|Win32.Build.0 = Release|Win32
 		{BDCD6B51-C167-47DE-9B9A-578F3549C437}.Production|Win32.ActiveCfg = Release|Win32
@@ -33,6 +38,8 @@ Global
 		{792C27E3-863B-434C-A47A-F5F0515BFB20}.Debug MD|Win32.Build.0 = Debug MD|Win32
 		{792C27E3-863B-434C-A47A-F5F0515BFB20}.Debug|Win32.ActiveCfg = Debug|Win32
 		{792C27E3-863B-434C-A47A-F5F0515BFB20}.Debug|Win32.Build.0 = Debug|Win32
+		{792C27E3-863B-434C-A47A-F5F0515BFB20}.DLL Debug|Win32.ActiveCfg = Debug|Win32
+		{792C27E3-863B-434C-A47A-F5F0515BFB20}.DLL Debug|Win32.Build.0 = Debug|Win32
 		{792C27E3-863B-434C-A47A-F5F0515BFB20}.Production MD|Win32.ActiveCfg = Production MD|Win32
 		{792C27E3-863B-434C-A47A-F5F0515BFB20}.Production MD|Win32.Build.0 = Production MD|Win32
 		{792C27E3-863B-434C-A47A-F5F0515BFB20}.Production|Win32.ActiveCfg = Production|Win32
@@ -41,6 +48,20 @@ Global
 		{792C27E3-863B-434C-A47A-F5F0515BFB20}.Release MD|Win32.Build.0 = Release MD|Win32
 		{792C27E3-863B-434C-A47A-F5F0515BFB20}.Release|Win32.ActiveCfg = Release|Win32
 		{792C27E3-863B-434C-A47A-F5F0515BFB20}.Release|Win32.Build.0 = Release|Win32
+		{ED34E132-12B5-40E3-9719-4334D30AC6CC}.Debug MD|Win32.ActiveCfg = Debug|Win32
+		{ED34E132-12B5-40E3-9719-4334D30AC6CC}.Debug MD|Win32.Build.0 = Debug|Win32
+		{ED34E132-12B5-40E3-9719-4334D30AC6CC}.Debug|Win32.ActiveCfg = Debug|Win32
+		{ED34E132-12B5-40E3-9719-4334D30AC6CC}.Debug|Win32.Build.0 = Debug|Win32
+		{ED34E132-12B5-40E3-9719-4334D30AC6CC}.DLL Debug|Win32.ActiveCfg = Debug|Win32
+		{ED34E132-12B5-40E3-9719-4334D30AC6CC}.DLL Debug|Win32.Build.0 = Debug|Win32
+		{ED34E132-12B5-40E3-9719-4334D30AC6CC}.Production MD|Win32.ActiveCfg = Release|Win32
+		{ED34E132-12B5-40E3-9719-4334D30AC6CC}.Production MD|Win32.Build.0 = Release|Win32
+		{ED34E132-12B5-40E3-9719-4334D30AC6CC}.Production|Win32.ActiveCfg = Release|Win32
+		{ED34E132-12B5-40E3-9719-4334D30AC6CC}.Production|Win32.Build.0 = Release|Win32
+		{ED34E132-12B5-40E3-9719-4334D30AC6CC}.Release MD|Win32.ActiveCfg = Release|Win32
+		{ED34E132-12B5-40E3-9719-4334D30AC6CC}.Release MD|Win32.Build.0 = Release|Win32
+		{ED34E132-12B5-40E3-9719-4334D30AC6CC}.Release|Win32.ActiveCfg = Release|Win32
+		{ED34E132-12B5-40E3-9719-4334D30AC6CC}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

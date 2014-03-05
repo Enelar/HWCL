@@ -36,6 +36,7 @@ void set::Bind(vm::context &c)
   {
     throw_assert(t.size() == 2); // mean SET A=B=C
     expr_tokens.assign(t.begin() + 1, t.end());
+    assignee = t[1];
   }
   expr_tokens.insert(expr_tokens.end(), tokens.begin() + 2, tokens.end());
 
@@ -46,11 +47,49 @@ void set::Bind(vm::context &c)
 void set::Execute(vm::context &c)
 {
   throw_assert(proc);
-  calculator::calculator::get_callback GetC = [&](string name) -> dbl
-  {
-    return c.Local(name);
-  };
 
-  double res = proc->Calculate(GetC);
-  c.Local(variable) = res;
+  auto type = c.GetType(variable);
+
+  if (type == vm::STRING)
+  {
+    auto p = c.GetPointer<string>(variable);
+    auto parts = parser::Split(assignee, '"');
+    throw_assert(parts.size() >= 2);
+    throw_assert(parts.size() < 3); // 0"1"2
+
+    p->Set(parts[1]);
+    return;
+  }
+
+  if (type == vm::BOOLEAN)
+  {
+    auto p = c.GetPointer<bool>(variable);
+    p->Set(true);
+    return;
+  }
+
+  if (type == vm::ENUM)
+  {
+    auto p = c.GetPointer<int>(variable);
+    auto val = c.EnumWorkAround(variable, assignee);
+    p->Set(val);
+    return;
+  }
+
+  if (type == vm::NUMBER)
+  {
+    auto p = c.GetPointer<vm::floating_point>(variable);
+
+    calculator::calculator::get_callback GetC = [&](string name) -> vm::floating_point
+    {
+      return **c.GetPointer<vm::floating_point>(variable);
+    };
+
+    double res = proc->Calculate(GetC);
+
+    p->Set(res);
+    return;
+  }
+
+  dead_space();
 }

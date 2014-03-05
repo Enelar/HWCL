@@ -27,3 +27,8 @@ const decltype(instruction::source) &instruction::OriginalSource() const
 {
   return source;
 }
+
+void instruction::Bind(vm::context &)
+{
+
+}
