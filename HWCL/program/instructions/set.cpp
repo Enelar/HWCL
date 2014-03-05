@@ -1,6 +1,6 @@
 #include "set.h"
 #include "../../parser/parser.h"
-#include "../../calculator/calculator.h"
+#include "../../algebra/calculator/calculator.h"
 #include "../../vm/process.h"
 
 using namespace program::instructions;

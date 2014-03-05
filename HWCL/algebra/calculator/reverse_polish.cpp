@@ -1,8 +1,9 @@
 #include "tree.h"
 
 using namespace calculator;
+using namespace algebra;
 
-#include "../parser/parser.h"
+#include "../../parser/parser.h"
 #include <set>
 #include <deque>
 

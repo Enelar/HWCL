@@ -3,7 +3,7 @@
 #include <memory>
 
 calculator::calculator::calculator(string expression)
-: calculation_tree(make_unique<tree>().release())
+: calculator_interface(expression), calculation_tree(make_unique<tree>().release())
 {
   calculation_tree->Build(expression);
 }

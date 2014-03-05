@@ -1,21 +1,22 @@
 #pragma once
-#include "../stdafx.h"
+#include "../../stdafx.h"
+#include "../calculator_interface.h"
 
 #include <functional>
 
 namespace calculator
 {
   class tree;
-  class calculator
+  class calculator : algebra::calculator_interface<vm::floating_point, function<double(string)>>
   {
   public:
-    typedef function<double(string)> get_callback;
+    typedef ArgumentT get_callback;
   private:
     get_callback GetVariable;
     tree *calculation_tree = NULL;
   public:
     calculator(string expression);
-    double Calculate(get_callback);
+    ResultT Calculate(get_callback);
 
     ~calculator();
   };
