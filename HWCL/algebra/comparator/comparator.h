@@ -20,7 +20,8 @@ namespace algebra
     bool CheckPart(const token_queue &);
     bool CheckPart(const list<token_queue> &);
   public:
-    void Build(const string &);
+    comparator(const string &);
+    void Build();
     double Calculate(get_callback) override;
   };
 }

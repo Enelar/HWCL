@@ -19,9 +19,9 @@ namespace
   }
 }
 
-void comparator::Build(const string &src)
+void comparator::Build()
 {
-  tq.Build(src);
+  tq.Build(src_str);
   tq = ConditionOperators(tq);
 }
 
@@ -208,4 +208,10 @@ bool comparator::CheckPart(const list<token_queue> &tokens)
       return false;
   }
   return total_result;
+}
+
+comparator::comparator(const string &str)
+: calculator_interface(str)
+{
+
 }

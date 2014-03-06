@@ -103,9 +103,6 @@
     <ClInclude Include="HWCL\vm\types\pointer.hpp">
       <Filter>vm\src</Filter>
     </ClInclude>
-    <ClInclude Include="HWCL\vm\context.hpp">
-      <Filter>vm</Filter>
-    </ClInclude>
     <ClInclude Include="HWCL\vm\types\pointer_var_type.h">
       <Filter>vm\src</Filter>
     </ClInclude>
@@ -126,6 +123,9 @@
     </ClInclude>
     <ClInclude Include="HWCL\algebra\comparator\comparator.h">
       <Filter>algebra\comparator</Filter>
+    </ClInclude>
+    <ClInclude Include="HWCL\vm\context.hpp">
+      <Filter>vm\src</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -231,9 +231,6 @@
     <ClCompile Include="HWCL\program\instructions\end.cpp">
       <Filter>program\instructions\src</Filter>
     </ClCompile>
-    <ClCompile Include="HWCL\vm\context.cpp">
-      <Filter>vm\src</Filter>
-    </ClCompile>
     <ClCompile Include="HWCL\program\instructions\calculate.cpp">
       <Filter>program\instructions\src</Filter>
     </ClCompile>
@@ -267,6 +264,9 @@
     </ClCompile>
     <ClCompile Include="HWCL\algebra\comparator\comparator.cpp">
       <Filter>algebra\comparator</Filter>
+    </ClCompile>
+    <ClCompile Include="HWCL\vm\context.cpp">
+      <Filter>vm\src</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

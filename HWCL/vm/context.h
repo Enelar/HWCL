@@ -63,6 +63,8 @@ namespace vm
 
     double &Local(const std::string &);
     VAR_TYPE GetType(const std::string &name) const;
+
+    shared_ptr<raw_pointer> GetRawPointer(const std::string &name) const;
     template<typename T>
     shared_ptr<pointer_interface<T>> GetPointer(const std::string &name) const;
 
