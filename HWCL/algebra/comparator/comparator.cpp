@@ -27,13 +27,73 @@ void comparator::Build()
 
 namespace
 {
-  list<token_queue> SplitByBraces(const token_queue &)
+  list<tokenqueue> SplitByBraces(const token_queue &src)
   {
-    return{};
+    list<tokenqueue> ret;
+    tokenqueue cur;
+    bool in_brace = false, need_operator = false;
+
+    for (auto token : src.queue)
+    {
+      if (need_operator)
+        throw_sassert(token.first == OPERATOR, "Expected operator");
+      if (token.first == OPERATOR && !in_brace)
+      {
+        ret.push_back(cur);
+        ret.push_back({ token });
+        cur.clear();
+        continue;
+      }
+      if (token.first == SYMBOL)
+      {
+        if (token.second == "(")
+        {
+          throw_sassert(!in_brace, "Double braces in condition no yet supported");
+          throw_sassert(!cur.size(), "Only supporting braces after OR/AND token");
+          in_brace = true;
+          continue;
+        }
+        if (token.second == ")")
+        {
+          throw_sassert(in_brace, "Missbrace found");
+          throw_sassert(cur.size(), "Empty braces");
+          in_brace = false;
+          need_operator = true;
+          continue;
+        }
+      }
+      cur.push_back(token);
+    }
+    if (cur.size())
+      ret.push_back(cur);
+    throw_sassert(ret.size(), "Empty condition found");
+    return ret;
   }
-  vector<list<token_queue>> SplitByOperators(const list<token_queue> &)
+  vector<list<tokenqueue>> SplitByOperators(const list<tokenqueue> &src)
   {
-    return{};
+    vector<list<tokenqueue>> ret;
+
+    for (auto part : src)
+    {
+      ret.push_back({});
+      auto &this_part = ret.back();
+      this_part.push_back({});
+
+      for (auto token : part)
+      {
+        if (token.first == OPERATOR)
+        {
+          throw_sassert(this_part.back().size(), "Found empty part near OR/AND statement");
+          this_part.push_back({ token });
+          this_part.push_back({});
+          continue;
+        }
+        auto &this_queue = this_part.back();
+        this_queue.push_back(token);
+      }
+      throw_sassert(this_part.front().size(), "Found empty part in condition token queue");
+    }
+    return ret;
   }
   int ComparePointers(const shared_ptr<vm::raw_pointer> &a, const shared_ptr<vm::raw_pointer> &b)
   {
@@ -114,7 +174,7 @@ double comparator::Calculate(comparator::get_callback GetC)
       return total_result;
 
     auto next = tokens[i_brace + 1];
-    if (next.begin()->queue.front().second == "OR")
+    if (next.begin()->front().second == "OR")
     {
       if (total_result)
         return true;
@@ -126,7 +186,7 @@ double comparator::Calculate(comparator::get_callback GetC)
   return total_result;
 }
 
-bool comparator::CheckPart(const token_queue &src)
+bool comparator::CheckPart(const tokenqueue &src)
 {
   auto tokens = convert<tokenqueue>(src);
   throw_assert(tokens.size());
@@ -171,7 +231,7 @@ bool comparator::CheckPart(const token_queue &src)
 
 }
 
-bool comparator::CheckPart(const list<token_queue> &tokens)
+bool comparator::CheckPart(const list<tokenqueue> &tokens)
 {
   word i_brace, e_brace = tokens.size();
 
@@ -198,7 +258,7 @@ bool comparator::CheckPart(const list<token_queue> &tokens)
 
     auto next = i;
     next++;
-    if (next->queue.front().second == "OR")
+    if (next->front().second == "OR")
     {
       if (total_result)
         return true;

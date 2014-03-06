@@ -17,8 +17,8 @@ namespace algebra
     get_callback GetVariable;
 
     token_queue tq;
-    bool CheckPart(const token_queue &);
-    bool CheckPart(const list<token_queue> &);
+    bool CheckPart(const tokenqueue &);
+    bool CheckPart(const list<tokenqueue> &);
   public:
     comparator(const string &);
     void Build();
