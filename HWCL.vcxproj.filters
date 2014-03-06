@@ -124,6 +124,9 @@
     <ClInclude Include="HWCL\algebra\token_queue.h">
       <Filter>algebra</Filter>
     </ClInclude>
+    <ClInclude Include="HWCL\algebra\comparator\comparator.h">
+      <Filter>algebra\comparator</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="vm">
@@ -161,6 +164,9 @@
     </Filter>
     <Filter Include="algebra\calculator">
       <UniqueIdentifier>{139e8f6e-f2fd-4a6d-9e6e-15f029d730b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="algebra\comparator">
+      <UniqueIdentifier>{d9d61b40-aa54-4783-a61b-753d389918e4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -257,7 +263,10 @@
       <Filter>algebra\calculator</Filter>
     </ClCompile>
     <ClCompile Include="HWCL\algebra\token_queue.cpp">
-      <Filter>algebra\calculator</Filter>
+      <Filter>algebra</Filter>
+    </ClCompile>
+    <ClCompile Include="HWCL\algebra\comparator\comparator.cpp">
+      <Filter>algebra\comparator</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

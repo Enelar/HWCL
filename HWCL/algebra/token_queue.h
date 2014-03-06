@@ -27,5 +27,16 @@ namespace algebra
     word nodes_count;
 
     virtual void Build(const string &);
+    token_queue &operator=(const tokenqueue &tq)
+    {
+      queue = tq;
+      nodes_count = tq.size();
+      return *this;
+    }
+
+    operator tokenqueue() const
+    {
+      return queue;
+    }
   };
 }
