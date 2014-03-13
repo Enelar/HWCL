@@ -36,3 +36,5 @@ namespace vm
   typedef double floating_point;
 };
 
+bool KnownBoolNames(const string &name);
+

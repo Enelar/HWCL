@@ -256,7 +256,8 @@ shared_ptr<raw_pointer> context::GetRawPointer(const std::string &name) const
   if (pointer == pointers.end())
   {
     auto parts = parser::Split(name, '.');
-    throw_assert(parts.size() == 2);
+    if (parts.size() != 2)
+      throw context::variable_not_found();
     auto external = External(parts[0]);
     return external->GetRawPointer(parts[1]);
   }

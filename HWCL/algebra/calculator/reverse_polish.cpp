@@ -30,6 +30,8 @@ namespace
       return 2;
     if (s == "*" || s == "/")
       return 1;
+    if (s == "OR" || s == "AND")
+      return -1;
     return 0;
   }
   tokenqueue GetReversePolish(tokenqueue q)
@@ -67,7 +69,7 @@ namespace
         ret.push_back(t);
         continue;
       }
-      if (t.first == SYMBOL)
+      if (t.first == SYMBOL || t.first == OPERATOR)
       {
         if (t.second == "(")
         {

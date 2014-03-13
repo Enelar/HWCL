@@ -40,29 +40,6 @@ void set::Bind(vm::context &c)
   proc = NEW calculator::calculator(expr);
 }
 
-bool KnownBoolNames(const string &name)
-{
-  if (name == "ON")
-    return true;
-  if (name == "OFF")
-    return false;
-
-  for (word i = 0; i < 5; i++)
-  DebugOutput(
-  {
-    "ATTENTION!!"
-  });
-
-  DebugOutput(
-  {
-    "ATTENTION!! ",
-    "BOOL VALUE '",
-    name,
-    "' UNKNOWN ASSUMING TRUE"
-  });
-  return true;
-}
-
 void set::Execute(vm::context &c)
 {
   throw_assert(proc);

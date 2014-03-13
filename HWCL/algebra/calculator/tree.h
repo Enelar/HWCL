@@ -10,11 +10,12 @@
 namespace calculator
 {
   class node;
-  class tree : algebra::token_queue
+  class tree : public algebra::token_queue
   {
     calculator::get_callback GetVariable;
-
+  public:
     algebra::tokenqueue reverse_polish;
+  protected:
     void BuildReversePolish();
   public:
     void Build(const string &) override;

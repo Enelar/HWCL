@@ -91,6 +91,7 @@ namespace vm
     bool EnumWorkAround(const string &namelist, const string &name, int &exception); REFACTOR
 
     friend class process;
+    struct variable_not_found {};
   };
 
   struct extern_context : public context
