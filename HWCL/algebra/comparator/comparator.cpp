@@ -6,13 +6,22 @@ namespace
 {
   tokenqueue ConditionOperators(const tokenqueue &src)
   {
+    auto EmptyString = [](const string &str)
+    {
+      for (auto ch : str)
+        if (ch != ' ')
+          return false;
+      return true;
+    };
+
     tokenqueue ret;
     for (auto token : src)
     {
       if (token.first == VARIABLE &&
         (token.second == "OR" || token.second == "AND"))
         token.first = OPERATOR;
-
+      if (token.first == SYMBOL && EmptyString(token.second))
+        continue;
       ret.push_back(token);
     }
     return ret;
@@ -75,6 +84,11 @@ namespace
 
     for (auto part : src)
     {
+      if (part.size() == 1)
+      {
+        ret.push_back({ part });
+        continue;
+      }
       ret.push_back({});
       auto &this_part = ret.back();
       this_part.push_back({});
@@ -152,7 +166,10 @@ namespace
 
 double comparator::Calculate(comparator::get_callback GetC)
 {
-  GetVariable = GetC;  auto tokens = SplitByOperators(SplitByBraces(tq));  word i_brace, e_brace = tokens.size();
+  GetVariable = GetC;
+  auto tokens = SplitByOperators(SplitByBraces(tq));
+
+  word i_brace, e_brace = tokens.size();
 
   if (e_brace == 1)
     return CheckPart(tokens[0]);

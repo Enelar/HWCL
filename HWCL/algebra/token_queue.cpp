@@ -170,10 +170,11 @@ namespace
       b = *i++;
 
     if (b.first != NUMBER)
-    {
-      Move(1);
-      return;
-    }
+      if (b.first != VARIABLE || !IsNum(a.second.back()))
+      {
+        Move(1);
+        return;
+      }
 
     auto str = convert<string, vector<string>>({ a.second, b.second });
     res.pop_front();
