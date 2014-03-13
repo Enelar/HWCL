@@ -1,6 +1,6 @@
 #include "set.h"
 #include "../../parser/parser.h"
-#include "../../calculator/calculator.h"
+#include "../../algebra/calculator/calculator.h"
 #include "../../vm/process.h"
 
 using namespace program::instructions;
@@ -25,20 +25,16 @@ bool set::Signature(const string &source)
 void set::Bind(vm::context &c)
 {
   auto tokens = parser::Split(Source() , ' ', true);
-  string expr;
+  string expr = convert<string, vector<string>>({tokens.begin() + 1, tokens.end()});
 
-  auto t = parser::Split(tokens[1], '=', true);
+  auto t = parser::Split(expr, '=', true);
   auto name = t[0];
   variable = name;
 
   decltype(tokens) expr_tokens;
-  if (t.size() > 1)
-  {
-    throw_assert(t.size() == 2); // mean SET A=B=C
-    expr_tokens.assign(t.begin() + 1, t.end());
-    assignee = t[1];
-  }
-  expr_tokens.insert(expr_tokens.end(), tokens.begin() + 2, tokens.end());
+  throw_assert(t.size() == 2); // mean SET A=B=C
+  expr_tokens.assign(t.begin() + 1, t.end());
+  assignee = t[1];
 
   expr = convert<string>(expr_tokens);
   proc = NEW calculator::calculator(expr);
@@ -64,7 +60,13 @@ void set::Execute(vm::context &c)
   if (type == vm::BOOLEAN)
   {
     auto p = c.GetPointer<bool>(variable);
-    p->Set(true);
+    if (parser::Split(assignee, '.').size() == 2)
+    {
+      auto val = c.GetPointer<bool>(assignee);
+      p->Set(**val);
+      return;
+    }
+    p->Set(KnownBoolNames(assignee));
     return;
   }
 

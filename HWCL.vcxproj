@@ -130,8 +130,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="header.h" />
-    <ClInclude Include="HWCL\calculator\calculator.h" />
-    <ClInclude Include="HWCL\calculator\tree.h" />
+    <ClInclude Include="HWCL\algebra\calculator\calculator.h" />
+    <ClInclude Include="HWCL\algebra\calculator\tree.h" />
+    <ClInclude Include="HWCL\algebra\calculator_interface.h" />
+    <ClInclude Include="HWCL\algebra\calculator_interface.hpp" />
+    <ClInclude Include="HWCL\algebra\comparator\comparator.h" />
+    <ClInclude Include="HWCL\algebra\token_queue.h" />
     <ClInclude Include="HWCL\parser\parser.h" />
     <ClInclude Include="HWCL\particular\export_callbacks.h" />
     <ClInclude Include="HWCL\particular\export_header.h" />
@@ -171,10 +175,12 @@
     <ClInclude Include="HWCL\vm\vm.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="HWCL\calculator\calculator.cpp" />
-    <ClCompile Include="HWCL\calculator\prepare_queue.cpp" />
-    <ClCompile Include="HWCL\calculator\reverse_polish.cpp" />
-    <ClCompile Include="HWCL\calculator\tree.cpp" />
+    <ClCompile Include="HWCL\algebra\calculator\calculator.cpp" />
+    <ClCompile Include="HWCL\algebra\calculator\prepare_queue.cpp" />
+    <ClCompile Include="HWCL\algebra\calculator\reverse_polish.cpp" />
+    <ClCompile Include="HWCL\algebra\calculator\tree.cpp" />
+    <ClCompile Include="HWCL\algebra\comparator\comparator.cpp" />
+    <ClCompile Include="HWCL\algebra\token_queue.cpp" />
     <ClCompile Include="HWCL\main.cpp" />
     <ClCompile Include="HWCL\parser\parser.cpp" />
     <ClCompile Include="HWCL\particular\export_callbacks.cpp" />

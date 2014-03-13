@@ -248,3 +248,20 @@ VAR_TYPE context::GetType(const std::string &name) const
 
   }
 }
+
+shared_ptr<raw_pointer> context::GetRawPointer(const std::string &name) const
+{
+  auto pointer = pointers.find(name);
+
+  if (pointer == pointers.end())
+  {
+    auto parts = parser::Split(name, '.');
+    if (parts.size() != 2)
+      throw context::variable_not_found();
+    auto external = External(parts[0]);
+    return external->GetRawPointer(parts[1]);
+  }
+
+  auto ret = pointer->second;
+  return ret;
+}

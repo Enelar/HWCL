@@ -63,6 +63,8 @@ namespace vm
 
     double &Local(const std::string &);
     VAR_TYPE GetType(const std::string &name) const;
+
+    shared_ptr<raw_pointer> GetRawPointer(const std::string &name) const;
     template<typename T>
     shared_ptr<pointer_interface<T>> GetPointer(const std::string &name) const;
 
@@ -89,6 +91,7 @@ namespace vm
     bool EnumWorkAround(const string &namelist, const string &name, int &exception); REFACTOR
 
     friend class process;
+    struct variable_not_found {};
   };
 
   struct extern_context : public context

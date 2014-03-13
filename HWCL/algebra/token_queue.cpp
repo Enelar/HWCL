@@ -1,6 +1,7 @@
-#include "tree.h"
+#include "token_queue.h"
+#include <functional>
 
-using namespace calculator;
+using namespace algebra;
 
 #pragma region Vacuum
 namespace
@@ -115,8 +116,8 @@ namespace
   struct vacuum_number
   {
     bool
-      comma_allowed,
-      e_allowed;
+    comma_allowed,
+    e_allowed;
     word ret_state = -1;
     void operator()(tokenqueue &ret, tokenqueue &res, move_callback Move)
     {
@@ -169,10 +170,11 @@ namespace
       b = *i++;
 
     if (b.first != NUMBER)
-    {
-      Move(1);
-      return;
-    }
+      if (b.first != VARIABLE || !IsNum(a.second.back()))
+      {
+        Move(1);
+        return;
+      }
 
     auto str = convert<string, vector<string>>({ a.second, b.second });
     res.pop_front();
@@ -242,7 +244,8 @@ namespace
 
 #pragma endregion /* Vacuuming token of queue */
 
-void tree::Build(string s)
+
+void algebra::token_queue::Build(const string &s)
 {
   queue = Explode(s);
   queue = Vacuum(queue, VacuumVariable, VARIABLE, 2);
@@ -251,5 +254,4 @@ void tree::Build(string s)
   queue = Vacuum(queue, VacuumStruct, VARIABLE, 3);
   queue = Vacuum(queue, VacuumContext, SYMBOL, 2);
   queue = Vacuum(queue, VacuumPower, SYMBOL, 2);
-  BuildReversePolish();
 }

@@ -1,6 +1,7 @@
 #include "tree.h"
 
 using namespace calculator;
+using namespace algebra;
 
 #include <deque>
 

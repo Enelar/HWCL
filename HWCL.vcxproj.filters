@@ -77,12 +77,6 @@
     <ClInclude Include="HWCL\program\instructions\composite.h">
       <Filter>program\instructions</Filter>
     </ClInclude>
-    <ClInclude Include="HWCL\calculator\calculator.h">
-      <Filter>calculator</Filter>
-    </ClInclude>
-    <ClInclude Include="HWCL\calculator\tree.h">
-      <Filter>calculator</Filter>
-    </ClInclude>
     <ClInclude Include="HWCL\particular\import_callbacks.h">
       <Filter>particular</Filter>
     </ClInclude>
@@ -109,10 +103,28 @@
     <ClInclude Include="HWCL\vm\types\pointer.hpp">
       <Filter>vm\src</Filter>
     </ClInclude>
-    <ClInclude Include="HWCL\vm\context.hpp">
-      <Filter>vm</Filter>
-    </ClInclude>
     <ClInclude Include="HWCL\vm\types\pointer_var_type.h">
+      <Filter>vm\src</Filter>
+    </ClInclude>
+    <ClInclude Include="HWCL\algebra\calculator_interface.h">
+      <Filter>algebra</Filter>
+    </ClInclude>
+    <ClInclude Include="HWCL\algebra\calculator\calculator.h">
+      <Filter>algebra\calculator</Filter>
+    </ClInclude>
+    <ClInclude Include="HWCL\algebra\calculator\tree.h">
+      <Filter>algebra\calculator</Filter>
+    </ClInclude>
+    <ClInclude Include="HWCL\algebra\calculator_interface.hpp">
+      <Filter>algebra</Filter>
+    </ClInclude>
+    <ClInclude Include="HWCL\algebra\token_queue.h">
+      <Filter>algebra</Filter>
+    </ClInclude>
+    <ClInclude Include="HWCL\algebra\comparator\comparator.h">
+      <Filter>algebra\comparator</Filter>
+    </ClInclude>
+    <ClInclude Include="HWCL\vm\context.hpp">
       <Filter>vm\src</Filter>
     </ClInclude>
   </ItemGroup>
@@ -144,11 +156,17 @@
     <Filter Include="vm\types">
       <UniqueIdentifier>{76ad3b9a-6033-477e-98b4-73ad48a7227d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="calculator">
-      <UniqueIdentifier>{7e703d70-2ef0-4bf8-baf6-198b2d7fe561}</UniqueIdentifier>
-    </Filter>
     <Filter Include="particular">
       <UniqueIdentifier>{1fc4aa26-51dc-49e8-b4c1-1cc20d42ecd8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="algebra">
+      <UniqueIdentifier>{90029b79-e16a-427d-bd93-d9b2ba0091d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="algebra\calculator">
+      <UniqueIdentifier>{139e8f6e-f2fd-4a6d-9e6e-15f029d730b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="algebra\comparator">
+      <UniqueIdentifier>{d9d61b40-aa54-4783-a61b-753d389918e4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -213,25 +231,10 @@
     <ClCompile Include="HWCL\program\instructions\end.cpp">
       <Filter>program\instructions\src</Filter>
     </ClCompile>
-    <ClCompile Include="HWCL\vm\context.cpp">
-      <Filter>vm\src</Filter>
-    </ClCompile>
     <ClCompile Include="HWCL\program\instructions\calculate.cpp">
       <Filter>program\instructions\src</Filter>
     </ClCompile>
-    <ClCompile Include="HWCL\calculator\calculator.cpp">
-      <Filter>calculator</Filter>
-    </ClCompile>
-    <ClCompile Include="HWCL\calculator\tree.cpp">
-      <Filter>calculator</Filter>
-    </ClCompile>
     <ClCompile Include="HWCL\stdafx.cpp" />
-    <ClCompile Include="HWCL\calculator\prepare_queue.cpp">
-      <Filter>calculator</Filter>
-    </ClCompile>
-    <ClCompile Include="HWCL\calculator\reverse_polish.cpp">
-      <Filter>calculator</Filter>
-    </ClCompile>
     <ClCompile Include="HWCL\particular\export_callbacks.cpp">
       <Filter>particular</Filter>
     </ClCompile>
@@ -243,6 +246,27 @@
     </ClCompile>
     <ClCompile Include="HWCL\particular\import_callbacks.cpp">
       <Filter>particular</Filter>
+    </ClCompile>
+    <ClCompile Include="HWCL\algebra\calculator\calculator.cpp">
+      <Filter>algebra\calculator</Filter>
+    </ClCompile>
+    <ClCompile Include="HWCL\algebra\calculator\prepare_queue.cpp">
+      <Filter>algebra\calculator</Filter>
+    </ClCompile>
+    <ClCompile Include="HWCL\algebra\calculator\reverse_polish.cpp">
+      <Filter>algebra\calculator</Filter>
+    </ClCompile>
+    <ClCompile Include="HWCL\algebra\calculator\tree.cpp">
+      <Filter>algebra\calculator</Filter>
+    </ClCompile>
+    <ClCompile Include="HWCL\algebra\token_queue.cpp">
+      <Filter>algebra</Filter>
+    </ClCompile>
+    <ClCompile Include="HWCL\algebra\comparator\comparator.cpp">
+      <Filter>algebra\comparator</Filter>
+    </ClCompile>
+    <ClCompile Include="HWCL\vm\context.cpp">
+      <Filter>vm\src</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
