@@ -1,5 +1,13 @@
 #pragma once
 
+#include "../export_header.h"
+#include <memory>
+
+namespace vm
+{
+  class process_handler;
+}
+
 namespace particular
 {
   enum PROC_STATUSES
@@ -20,9 +28,16 @@ namespace particular
     _FICTIVE_VALUE // Dont mess with comma and CVS
   };
 
-
-  _HWCL_METHOD_ class process
+  class process_impl
   {
+
+  };
+
+  class process
+  {
+    std::shared_ptr<process_impl> p;
+  public:
+    process(const ::vm::process_handler &);
     PROC_STATUSES Status();
   };
 }

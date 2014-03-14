@@ -192,6 +192,8 @@
     <ClCompile Include="HWCL\parser\parser.cpp" />
     <ClCompile Include="HWCL\parser\string_utils.cpp" />
     <ClCompile Include="HWCL\particular\control_center\control_center.cpp" />
+    <ClCompile Include="HWCL\particular\control_center\cc_process.cpp" />
+    <ClCompile Include="HWCL\particular\control_center\cc_program.cpp" />
     <ClCompile Include="HWCL\particular\export_callbacks.cpp" />
     <ClCompile Include="HWCL\particular\import_callbacks.cpp" />
     <ClCompile Include="HWCL\particular\import_center\import_center.cpp" />

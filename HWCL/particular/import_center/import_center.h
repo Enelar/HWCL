@@ -5,9 +5,11 @@
 
 #include <string>
 
+#include "../control_center/control_center.h"
+
 namespace particular
 {
-  _HWCL_METHOD_ struct import_center
+  struct import_center
   {
     static import_center &GetImportCenter();
     typedef void(*get_struct_callback)(int field_count, param *fields);
@@ -17,17 +19,20 @@ namespace particular
 
     typedef bool(*get_bool_value_callback)(const std::string &name);
 
+    virtual bool Imported() const = 0;
+    control_center GetControlCenter() const;
+
     virtual bool GetStructCallback(request_get_struct_callback) = 0;
     virtual bool GetEnumValueCallback(get_enum_value_callback) = 0;
   };
 
   struct import_center_with_storage : import_center
   {
-
     request_get_struct_callback rgscb = nullptr;
     get_enum_value_callback gevcb = nullptr;
 
     bool GetStructCallback(request_get_struct_callback) override;
     bool GetEnumValueCallback(get_enum_value_callback) override;
+    bool Imported() const override;
   };
 }

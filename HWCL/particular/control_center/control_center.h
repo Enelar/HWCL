@@ -8,8 +8,9 @@
 
 namespace particular
 {
-  _HWCL_METHOD_ struct control_center
+  class control_center
   {
+  public:
     program CompileProgram(const std::string &filename);
     process ExecuteProgram(const program &);
     void VM_Step(double dt);

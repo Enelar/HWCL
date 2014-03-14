@@ -310,5 +310,11 @@
     <ClCompile Include="HWCL\particular\particular_vm.cpp">
       <Filter>particular</Filter>
     </ClCompile>
+    <ClCompile Include="HWCL\particular\control_center\cc_program.cpp">
+      <Filter>particular\control</Filter>
+    </ClCompile>
+    <ClCompile Include="HWCL\particular\control_center\cc_process.cpp">
+      <Filter>particular\control</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
