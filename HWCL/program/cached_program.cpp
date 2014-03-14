@@ -12,3 +12,8 @@ const decltype(declval<::program::program>().Code()) &cached_program::Code() con
 {
   return original->Code();
 }
+
+const ::program::program *cached_program::operator->() const
+{
+  return original.operator->();
+}

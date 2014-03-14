@@ -8,7 +8,7 @@
 
 namespace particular
 {
-  class control_center
+  class _HWCL_METHOD_ control_center
   {
   public:
     program CompileProgram(const std::string &filename);

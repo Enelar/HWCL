@@ -9,7 +9,7 @@
 
 namespace particular
 {
-  struct import_center
+  struct _HWCL_METHOD_ import_center
   {
     static import_center &GetImportCenter();
     typedef void(*get_struct_callback)(int field_count, param *fields);
@@ -24,6 +24,7 @@ namespace particular
 
     virtual bool GetStructCallback(request_get_struct_callback) = 0;
     virtual bool GetEnumValueCallback(get_enum_value_callback) = 0;
+    virtual void SetStoragesPath(const std::string &compiled_files, const std::string &states) = 0;
   };
 
 #if CPP11_SUPPORTED
@@ -31,9 +32,14 @@ namespace particular
   {
     request_get_struct_callback rgscb = nullptr;
     get_enum_value_callback gevcb = nullptr;
+    std::string
+      compiled_files_path,
+      state_files_path;
 
     bool GetStructCallback(request_get_struct_callback) override;
     bool GetEnumValueCallback(get_enum_value_callback) override;
+    void SetStoragesPath(const std::string &compiled_files, const std::string &states) override;
+
     bool Imported() const override;
   };
 #endif

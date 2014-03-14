@@ -36,7 +36,7 @@ namespace particular
 #endif
   ;
 
-  class process
+  class _HWCL_METHOD_ process
   {
     process_impl *i;
   public:

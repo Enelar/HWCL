@@ -11,16 +11,16 @@ namespace program
 
 namespace particular
 {
-  struct program
+  struct _HWCL_METHOD_ program
   {
     ~program();
   private:
-    std::string filename;
-    std::string obj_filename;
+    std::string *filename;
 
     friend class control_center;
     ::program::cached_program GetCode() const;
 
+    friend class control_center;
     program(const std::string &filename );
   };
 }

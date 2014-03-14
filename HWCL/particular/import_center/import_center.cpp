@@ -26,14 +26,37 @@ bool import_center_with_storage::GetEnumValueCallback(get_enum_value_callback cb
   return true;
 }
 
+void import_center_with_storage::SetStoragesPath(const std::string &compiled_files, const std::string &states)
+{
+  compiled_files_path = compiled_files;
+  state_files_path = states;
+}
+
 #include "../../stdafx.h"
 
 bool import_center_with_storage::Imported() const
 {
-  auto *mem = reinterpret_cast<const ub *const>(this);
-  // in case of pointer to virtual table
-  for (word i = WORD_SIZE; i < sizeof(*this); i++)
-    if (!mem[i])
-      return false;
+  struct uninited
+  {
+  };
+
+  auto Assert = [](const bool value)
+  {
+    if (!value)
+      throw uninited();
+  };
+
+  try
+  {
+    Assert(!!rgscb);
+    Assert(!!gevcb);
+    Assert(!!compiled_files_path.length());
+    Assert(!!state_files_path.length());
+  }
+  catch (uninited ?)
+  {
+    return false;
+  }
+
   return true;
 }
