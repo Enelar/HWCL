@@ -1,5 +1,14 @@
 #include "../header.h"
 
+class A
+{
+  class B;
+};
+
+class A::B
+{
+
+};
 
 bool RequestStruct(const std::string &name, particular::import_center::get_struct_callback cb)
 {

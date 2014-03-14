@@ -16,7 +16,7 @@ namespace particular
     ~program();
   private:
     std::string filename;
-    std::string obj_filename = "";
+    std::string obj_filename;
 
     friend class control_center;
     ::program::cached_program GetCode() const;

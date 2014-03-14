@@ -26,6 +26,7 @@ namespace particular
     virtual bool GetEnumValueCallback(get_enum_value_callback) = 0;
   };
 
+#if CPP11_SUPPORTED
   struct import_center_with_storage : import_center
   {
     request_get_struct_callback rgscb = nullptr;
@@ -35,4 +36,5 @@ namespace particular
     bool GetEnumValueCallback(get_enum_value_callback) override;
     bool Imported() const override;
   };
+#endif
 }

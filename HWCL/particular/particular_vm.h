@@ -1,3 +1,4 @@
+#include "export_header.h"
 #include "../vm/vm.h"
 #include "import_center\import_center.h"
 

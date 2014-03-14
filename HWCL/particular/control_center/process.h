@@ -29,14 +29,18 @@ namespace particular
   };
 
   class process_impl
+#if CPP11_SUPPORTED
   {
-
-  };
+    std::shared_ptr<process_impl> p;
+  }
+#endif
+  ;
 
   class process
   {
-    std::shared_ptr<process_impl> p;
+    process_impl *i;
   public:
+    ~process();
     process(const ::vm::process_handler &);
     PROC_STATUSES Status();
   };
