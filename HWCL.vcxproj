@@ -137,6 +137,7 @@
     <ClInclude Include="HWCL\algebra\comparator\comparator.h" />
     <ClInclude Include="HWCL\algebra\token_queue.h" />
     <ClInclude Include="HWCL\parser\parser.h" />
+    <ClInclude Include="HWCL\parser\string_utils.h" />
     <ClInclude Include="HWCL\particular\export_callbacks.h" />
     <ClInclude Include="HWCL\particular\export_header.h" />
     <ClInclude Include="HWCL\particular\import_callbacks.h" />
@@ -183,6 +184,7 @@
     <ClCompile Include="HWCL\algebra\token_queue.cpp" />
     <ClCompile Include="HWCL\main.cpp" />
     <ClCompile Include="HWCL\parser\parser.cpp" />
+    <ClCompile Include="HWCL\parser\string_utils.cpp" />
     <ClCompile Include="HWCL\particular\export_callbacks.cpp" />
     <ClCompile Include="HWCL\particular\import_callbacks.cpp" />
     <ClCompile Include="HWCL\program\cached_program.cpp" />

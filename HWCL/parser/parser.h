@@ -18,4 +18,6 @@ namespace parser
 
     ~parser();
   };
+
+  std::vector<std::string> ContinueString(const std::vector<std::string> &, const char delimeter = '&');
 }

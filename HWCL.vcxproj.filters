@@ -127,6 +127,9 @@
     <ClInclude Include="HWCL\vm\context.hpp">
       <Filter>vm\src</Filter>
     </ClInclude>
+    <ClInclude Include="HWCL\parser\string_utils.h">
+      <Filter>parser</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="vm">
@@ -267,6 +270,9 @@
     </ClCompile>
     <ClCompile Include="HWCL\vm\context.cpp">
       <Filter>vm\src</Filter>
+    </ClCompile>
+    <ClCompile Include="HWCL\parser\string_utils.cpp">
+      <Filter>parser</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
