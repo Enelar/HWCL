@@ -1,7 +1,7 @@
 #include "../header.h"
 
 
-bool RequestStruct(const char *name, particular::get_struct_callback cb)
+bool RequestStruct(const char *name, particular::import_center::get_struct_callback cb)
 {
   cb(0, nullptr);
   return true;

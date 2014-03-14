@@ -138,9 +138,15 @@
     <ClInclude Include="HWCL\algebra\token_queue.h" />
     <ClInclude Include="HWCL\parser\parser.h" />
     <ClInclude Include="HWCL\parser\string_utils.h" />
+    <ClInclude Include="HWCL\particular\control_center\control_center.h" />
+    <ClInclude Include="HWCL\particular\control_center\process.h" />
+    <ClInclude Include="HWCL\particular\control_center\program.h" />
     <ClInclude Include="HWCL\particular\export_callbacks.h" />
     <ClInclude Include="HWCL\particular\export_header.h" />
     <ClInclude Include="HWCL\particular\import_callbacks.h" />
+    <ClInclude Include="HWCL\particular\import_center\import_center.h" />
+    <ClInclude Include="HWCL\particular\import_center\param.h" />
+    <ClInclude Include="HWCL\particular\particular_vm.h" />
     <ClInclude Include="HWCL\particular\process_handle.h" />
     <ClInclude Include="HWCL\particular\program_handle.h" />
     <ClInclude Include="HWCL\particular\remote_handle.h" />
@@ -185,8 +191,11 @@
     <ClCompile Include="HWCL\main.cpp" />
     <ClCompile Include="HWCL\parser\parser.cpp" />
     <ClCompile Include="HWCL\parser\string_utils.cpp" />
+    <ClCompile Include="HWCL\particular\control_center\control_center.cpp" />
     <ClCompile Include="HWCL\particular\export_callbacks.cpp" />
     <ClCompile Include="HWCL\particular\import_callbacks.cpp" />
+    <ClCompile Include="HWCL\particular\import_center\import_center.cpp" />
+    <ClCompile Include="HWCL\particular\particular_vm.cpp" />
     <ClCompile Include="HWCL\program\cached_program.cpp" />
     <ClCompile Include="HWCL\program\instruction.cpp" />
     <ClCompile Include="HWCL\program\instructions\calculate.cpp" />
