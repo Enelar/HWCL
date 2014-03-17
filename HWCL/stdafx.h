@@ -11,7 +11,7 @@ using namespace std;
 #include <sstream>
 
 #include <vector>
-#include <list>
+#include <deque>
 #include <map>
 
 #include <memory>
@@ -24,5 +24,5 @@ namespace vm
 };
 
 bool KnownBoolNames(const string &name);
-void DebugOutput(const vector<string> &a);
+void DebugOutput(const initializer_list<string> &a);
 

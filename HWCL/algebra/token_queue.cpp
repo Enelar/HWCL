@@ -154,7 +154,7 @@ namespace
         e_allowed = false;
       }
 
-      auto str = convert<string, vector<string>>({ a->second, b->second, c->second });
+      auto str = convert<string, initializer_list<string>>({ a->second, b->second, c->second });
       res.pop_front();
       res.pop_front();
       res.pop_front();
@@ -177,7 +177,7 @@ namespace
         return;
       }
 
-    auto str = convert<string, vector<string>>({ a->second, b->second });
+    auto str = convert<string, initializer_list<string>>({ a->second, b->second });
     res.pop_front();
     res.pop_front();
     res.push_front(make_shared<token>(VARIABLE, str ));
@@ -197,7 +197,7 @@ namespace
       return;
     }
 
-    auto str = convert<string, vector<string>>({ a->second, b->second });
+    auto str = convert<string, initializer_list<string>>({ a->second, b->second });
     res.pop_front();
     res.pop_front();
     res.push_front(make_shared<token>( VARIABLE, str ));
@@ -217,7 +217,7 @@ namespace
       return;
     }
 
-    auto str = convert<string, vector<string>>({ a->second, b->second, c->second });
+    auto str = convert<string, initializer_list<string>>({ a->second, b->second, c->second });
 
     res.pop_front();
     res.pop_front();

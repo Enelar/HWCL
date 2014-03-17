@@ -36,7 +36,7 @@ string convert(const word &a)
   };
 
   auto compiled_file = 
-    convert<string, vector<string>>(
+    convert<string, initializer_list<string>>(
     {
       ic.compiled_files_path,
       *filename,
@@ -47,7 +47,7 @@ string convert(const word &a)
     return ::program::program(compiled_file);
 
   auto source_file = 
-    convert<string, vector<string>>(
+    convert<string, initializer_list<string>>(
     {
       ic.cl_files_path,
       *filename,

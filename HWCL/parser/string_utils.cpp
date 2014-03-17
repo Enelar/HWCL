@@ -1,7 +1,7 @@
 #include "string_utils.h"
 
 template<>
-string convert(const vector<string> &a)
+string convert(const initializer_list<string> &a)
 {
   string ret;
 
@@ -10,6 +10,18 @@ string convert(const vector<string> &a)
 
   return ret;
 }
+
+template<>
+string convert(const deque<string> &a)
+{
+  string ret;
+
+  for (auto obj : a)
+    ret += obj;
+
+  return ret;
+}
+
 
 template<>
 double convert(const string &a)
@@ -106,7 +118,7 @@ std::vector<std::string> parser::Split(const std::string &str, const std::string
     word comp = ax::StrMasqEq(delimeter.c_str(), i->c_str());
     if (comp == i->length())
     {
-      *next = convert<string, vector<string>>({ *i, *next });
+      *next = convert<string, initializer_list<string>>({ *i, *next });
       i->clear();
     }
 
@@ -120,7 +132,7 @@ std::vector<std::string> parser::Split(const std::string &str, const std::string
     if (delimeter_length != ax::StrMasqEq(i->c_str(), delimeter.c_str()))
     {
       if (ret.size())
-        ret.back() = convert<string, vector<string>>({ ret.back(), *i });
+        ret.back() = convert<string, initializer_list<string>>({ ret.back(), *i });
       else if (i->length() || !forget_empty)
         ret.push_back(*i);
     }

@@ -3,7 +3,9 @@
 #include "../stdafx.h"
 
 template<>
-string convert(const vector<string> &a);
+string convert(const initializer_list<string> &a);
+template<>
+string convert(const deque<string> &a);
 template<>
 double convert(const string &a);
 template<>

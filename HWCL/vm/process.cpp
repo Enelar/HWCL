@@ -86,7 +86,7 @@ void process::Bind( virtual_machine &_vm )
 }
 
 
-void DebugOutput(const vector<string> &a)
+void DebugOutput(const initializer_list<string> &a)
 {
 #ifdef _DEBUG_
   OutputDebugString(convert<string>(a).c_str());

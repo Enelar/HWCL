@@ -25,7 +25,7 @@ bool set::Signature(const string &source)
 void set::Bind(vm::context &c)
 {
   auto tokens = parser::Split(Source() , ' ', true);
-  string expr = convert<string, vector<string>>({tokens.begin() + 1, tokens.end()});
+  string expr = convert<string, deque<string>>({ tokens.begin() + 1, tokens.end() });
 
   auto t = parser::Split(expr, '=', true);
   auto name = t[0];
@@ -36,7 +36,7 @@ void set::Bind(vm::context &c)
   expr_tokens.assign(t.begin() + 1, t.end());
   assignee = t[1];
 
-  expr = convert<string>(expr_tokens);
+  expr = convert<string, deque<string>>({ expr_tokens.begin(), expr_tokens.end() });
   proc = NEW calculator::calculator(expr);
 }
 

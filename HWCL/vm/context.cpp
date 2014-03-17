@@ -37,7 +37,7 @@ double &context::Local(const std::string &name)
       return local.DAY;
     auto find = localpoint.find(name);
     if (find == localpoint.end())
-      throw runtime_error(convert<string, vector<string>>({ "Undefined variable", name }));
+      throw runtime_error(convert<string, deque<string>>({ "Undefined variable", name }));
     auto offset = find->second;
     if (offset < 80)
       return local.NN[offset];
@@ -47,7 +47,7 @@ double &context::Local(const std::string &name)
   }
 
   if (tokens.size() != 2)
-    throw runtime_error(convert<string, vector<string>>({ "Undefined variable", name }));
+    throw runtime_error(convert<string, deque<string>>({ "Undefined variable", name }));
   auto context = External(tokens[0]);
   return context->Local(tokens[1]);
 }
@@ -180,7 +180,7 @@ context::mapped_context context::External(const string &name) const
 {
   auto find = external.find(name);
   if (find == external.end())
-    throw runtime_error(convert<string, vector<string>>({ "Undefined external", name }));
+    throw runtime_error(convert<string, deque<string>>({ "Undefined external", name }));
   return find->second;
 }
 

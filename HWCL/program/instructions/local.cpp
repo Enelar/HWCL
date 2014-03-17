@@ -78,7 +78,7 @@ void local::Bind(vm::context &c)
   if (AT_pos == 4)
     additional = tokens[3];
   else if (AT_pos == 5)
-    additional == convert<string, vector<string>>({ tokens[3], tokens[4] });
+    additional == convert<string, initializer_list<string>>({ tokens[3], tokens[4] });
 
   string addr = tokens[AT_pos + 1];
 

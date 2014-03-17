@@ -58,7 +58,7 @@ std::vector<std::string> parser::ContinueString(const std::vector<std::string> &
   {
     auto &src = *i++;
     if (src[0] == delimeter)
-      ret.back() = convert<string, vector<string>>({ ret.back(), src.substr(1) });
+      ret.back() = convert<string, initializer_list<string>>({ ret.back(), src.substr(1) });
     else
       ret.push_back(src);
   }
