@@ -9,7 +9,8 @@ namespace parser
 {
   class parser : object
   {
-    program::program p;
+    std::vector<std::string> code;
+
     mutable std::unique_ptr<program::cached_program> compiled;
   public:
     parser(const std::string &source);

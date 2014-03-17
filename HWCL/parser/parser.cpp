@@ -6,35 +6,39 @@
 
 parser::parser::parser(const std::string &_source)
 {
-  auto source = ContinueString(Split(_source));
-
-  for (auto line : source)
-  {
-    if (!line.length())
-      continue;
-
-    try
-    {
-      auto instruction = translator::Translate(line);
-      p.code.push_back(instruction);
-    }
-    catch (program::instructions::composite &c)
-    {
-      for (auto instruction : c.childs)
-        p.code.push_back(instruction);
-    }
-    catch (translator::unrecognized_instruction)
-    {
-      throw;
-    }
-  }
+  code = ContinueString(Split(_source));
 }
 
 program::cached_program parser::parser::Translate() const
 {
   if (!compiled)
+  {
+    program::program p;
+    for (auto line : code)
+    {
+      if (!line.length())
+        continue;
+
+      try
+      {
+        auto instruction = translator::Translate(line);
+        p.code.push_back(instruction);
+      }
+      catch (program::instructions::composite &c)
+      {
+        for (auto instruction : c.childs)
+          p.code.push_back(instruction);
+      }
+      catch (translator::unrecognized_instruction)
+      {
+        throw;
+      }
+    }
+
     compiled.swap(
       std::make_unique<program::cached_program>(p));
+  }
+
   return *compiled;
 }
 
