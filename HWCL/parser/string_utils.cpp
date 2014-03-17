@@ -54,41 +54,24 @@ namespace
 
 #include <deque>
 
+std::string parser::Trim(const std::string &str, const std::string &whitespace)
+{ // http://stackoverflow.com/questions/1798112/removing-leading-and-trailing-spaces-from-a-string
+  const auto strBegin = str.find_first_not_of(whitespace);
+  if (strBegin == std::string::npos)
+    return ""; // no content
+
+  const auto strEnd = str.find_last_not_of(whitespace);
+  const auto strRange = strEnd - strBegin + 1;
+
+  return str.substr(strBegin, strRange);
+}
+
 
 vector<string> parser::Split(const std::string &source, const char delimeter, const bool forget_empty, const bool remain_delimeter)
 {
-  std::stringstream ss;
-  ss << source;
-
-  deque<string> ret;
-
-  auto GetLine = [&ss, delimeter]() -> std::string
-  {
-    const word buf_len = 1000;
-    char buf[buf_len];
-    ss.getline(buf, buf_len, delimeter);
-    return buf;
-  };
-
-  do
-    ret.push_back(GetLine());
-  while (!ss.eof());
-
-  vector<string> out;
-  out.reserve(ret.size());
-
-  auto i = ret.begin(), e = ret.end();
-  word pos = 0;
-
-  do
-  {
-    if (remain_delimeter && i != ret.begin())
-      *i = AddBefore(delimeter, *i);
-    if (!forget_empty || *i != "")
-      out.push_back(*i);
-  } while (++pos, ++i != e);
-
-  return out;
+  string t;
+  t += delimeter;
+  return Split(source, t, forget_empty, remain_delimeter);
 }
 
 std::vector<std::string> parser::Split(const std::string &str, const std::string &delimeter, const bool forget_empty, const bool remain_delimeter)
@@ -96,54 +79,44 @@ std::vector<std::string> parser::Split(const std::string &str, const std::string
   throw_assert(delimeter.length() > 0);
   char del = delimeter[0];
   const word delimeter_length = delimeter.length();
-  if (delimeter_length == 1)
-    return Split(str, del, forget_empty, remain_delimeter);
-  auto tokens = Split(str, del, false, true);
-  deque<string> operational{ tokens.begin() + 1, tokens.end() }, ret;
 
-  if (!forget_empty || tokens[0] != "")
-    ret.push_back(tokens[0]);
+  deque<string> ret;
 
-  auto i = operational.begin(), e = operational.end();
-
-  if (i == e)
-    return vector<string>{ ret.begin(), ret.end() };
-
-  while (true)
+  auto Hook = [&](const string &str)
   {
-    auto next = i;
-    if (++next == e)
+    auto EmptyHook = [forget_empty, &ret](const string &str)
+    {
+      if (forget_empty && !str.length())
+        return;
+      ret.push_back(str);
+    };
+
+    if (remain_delimeter)
+    {
+      EmptyHook(str);
+      return;
+    }
+
+    if (str.substr(0, delimeter_length) == delimeter)
+      EmptyHook(str.substr(delimeter_length));
+    else
+      EmptyHook(str);
+  };
+
+  word i = 0, pos;
+  while (i < str.length())
+  {
+    pos = str.find(delimeter, i + 1);
+    if (pos == str.npos)
       break;
 
-    word comp = ax::StrMasqEq(delimeter.c_str(), i->c_str());
-    if (comp == i->length())
-    {
-      *next = convert<string, initializer_list<string>>({ *i, *next });
-      i->clear();
-    }
+    Hook(str.substr(i, pos - i));
 
-    ++i;
+    i = pos;
   }
 
-  i = operational.begin();
-
-  while (i != e)
-  {
-    if (delimeter_length != ax::StrMasqEq(i->c_str(), delimeter.c_str()))
-    {
-      if (ret.size())
-        ret.back() = convert<string, initializer_list<string>>({ ret.back(), *i });
-      else if (i->length() || !forget_empty)
-        ret.push_back(*i);
-    }
-    else if (remain_delimeter)
-      ret.push_back(*i);
-    else
-      ret.push_back(i->substr(delimeter_length));
-    i++;
-  }
-
-  return vector<string>{ ret.begin(), ret.end() };
+  Hook(str.substr(i));
+  return{ ret.begin(), ret.end() };
 }
 
 bool parser::CompareCommand(const std::string &line, const std::string &mask)

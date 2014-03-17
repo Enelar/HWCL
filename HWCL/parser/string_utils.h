@@ -15,5 +15,6 @@ namespace parser
 {
   std::vector<std::string> Split(const std::string &, const char delimeter = '\n', const bool forget_empty = false, const bool remain_delimeter = false);
   std::vector<std::string> Split(const std::string &, const std::string &delimeter, const bool forget_empty = false, const bool remain_delimeter = false);
+  std::string Trim(const std::string &str, const std::string &whitespace = " \t");
   bool CompareCommand(const std::string &line, const std::string &mask);
 };
