@@ -7,7 +7,7 @@ extern particular_vm computer;
 #include <memory>
 #include "../../program/cached_program.h"
 
-particular::program control_center::CompileProgram(const std::string &filename)
+particular::program control_center::CompileProgram(const string_param &filename)
 {
   return particular::program(filename);
 }
@@ -18,7 +18,7 @@ process control_center::ExecuteProgram(const particular::program &ph)
 
   auto handler = computer.Execute(source);
 
-  return process({ handler });
+  return process(handler);
 }
 
 void control_center::VM_Step(double dt)

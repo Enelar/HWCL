@@ -28,10 +28,16 @@ namespace particular
     _FICTIVE_VALUE // Dont mess with comma and CVS
   };
 
-  class process_impl
+  struct process_impl
 #if CPP11_SUPPORTED
   {
-    std::shared_ptr<process_impl> p;
+    std::shared_ptr<::vm::process_handler> p;
+
+    process_impl(std::shared_ptr<::vm::process_handler> pp)
+      : p(pp)
+    {
+
+    }
   }
 #endif
   ;
@@ -41,7 +47,9 @@ namespace particular
     process_impl *i;
   public:
     ~process();
-    process(const ::vm::process_handler &);
+    process();
+    process(const process &);
+    process(::vm::process_handler);
     PROC_STATUSES Status();
   };
 }

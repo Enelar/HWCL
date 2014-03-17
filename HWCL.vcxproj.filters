@@ -148,6 +148,9 @@
     <ClInclude Include="HWCL\particular\import_callbacks.h">
       <Filter>particular\deprecated</Filter>
     </ClInclude>
+    <ClInclude Include="HWCL\particular\import_center\string_param.h">
+      <Filter>particular\import</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="vm">

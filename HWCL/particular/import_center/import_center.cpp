@@ -9,6 +9,11 @@ import_center &import_center::GetImportCenter()
   return ic;
 }
 
+import_center_with_storage &import_center_with_storage::GetImportCenter()
+{
+  return ic;
+}
+
 control_center import_center::GetControlCenter() const
 {
   return control_center();
@@ -26,7 +31,7 @@ bool import_center_with_storage::GetEnumValueCallback(get_enum_value_callback cb
   return true;
 }
 
-void import_center_with_storage::SetStoragesPath(const std::string &compiled_files, const std::string &states)
+void import_center_with_storage::SetStoragesPath(const string_param &compiled_files, const string_param &states)
 {
   compiled_files_path = compiled_files;
   state_files_path = states;
@@ -53,7 +58,7 @@ bool import_center_with_storage::Imported() const
     Assert(!!compiled_files_path.length());
     Assert(!!state_files_path.length());
   }
-  catch (uninited ?)
+  catch (uninited)
   {
     return false;
   }

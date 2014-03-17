@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../export_header.h"
-#include <cstring>
+#include "string_param.h"
 
 namespace particular
 {
@@ -10,19 +10,18 @@ namespace particular
 
   struct param
   {
-    char *name;
+    string_param name;
     void *addr;
     DATA_TYPE type;
 
-    param(char *_name)
-      : name(NULL)
+    param(char *n)
+      : name(n), addr(NULL)
     {
-      int length = strlen(_name);
-      name = new char[length + 1];
-      memcpy(name, _name, length + 1);
+
     }
 
     param(const param &a)
+      : name(a.name)
     {
       *this = a;
     }
@@ -31,19 +30,11 @@ namespace particular
     {
       if (&a == this)
         return *this;
-      int length = strlen(a.name);
-      name = new char[length + 1];
-      memcpy(name, a.name, length + 1);
+      name = a.name;
 
       addr = a.addr;
       type = a.type;
       return *this;
-    }
-
-    ~param()
-    {
-      if (name)
-        delete[] name;
     }
   };
 }
