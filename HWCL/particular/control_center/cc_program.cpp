@@ -38,12 +38,7 @@ particular::program::program(const std::string &f)
   if (IsFileExsists(compiled_file))
     return ::program::program(compiled_file);
 
-  auto source_file =
-    convert<string, vector<string>>(
-    {
-      ic.state_files_path,
-      *filename
-    });
+  auto source_file = *filename;
 
   auto CompileProgram = [](const string &filename)
   {
