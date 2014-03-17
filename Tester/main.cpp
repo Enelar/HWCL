@@ -16,6 +16,10 @@ void main()
   auto &ic = particular::import_center::GetImportCenter();
   ic.GetStructCallback(&RequestStruct);
   ic.GetEnumValueCallback(&RequestEnumValue);
+  ic.SetStoragesPath(
+    "w:/documents/SourceSafe/_NH3_VN-3/Data/CL/", 
+    "w:/documents/SourceSafe/_NH3_VN-3/Data/CL/", 
+    "w:/documents/SourceSafe/_NH3_VN-3/Data/CL/");
 
   if (!ic.Imported())
     return;
@@ -23,8 +27,7 @@ void main()
 
   auto prog = cc.CompileProgram
   (
-    "w:/documents/SourceSafe/_NH3_VN-3/Data/CL/"
-    "AP103J.CL"
+    "AP103J"
   );
   auto proc = cc.ExecuteProgram(prog);
 

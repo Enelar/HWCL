@@ -28,18 +28,28 @@ struct translation_route
 
   std::shared_ptr<program::instruction> operator()(const std::string &source)
   {
+    for (auto f : GetMethods())
+    {
+      auto ret = f(source);
+      if (ret)
+        return ret;
+    }
+
+    throw unrecognized_instruction(source);
+  }
+
+  list<function<std::shared_ptr<program::instruction>(const std::string &)>> GetMethods() const
+  {
     static_assert(level >= 0, "Wrong template resolution");
     const int tuple_size = std::tuple_size<Tuple>::value;
 
     typedef std::tuple_element<level - 1, Tuple>::type selected_type;
 
-    auto ret = Translator<selected_type>(source);
-
-    if (ret)
-      return ret;
-
     translation_route<Tuple, level - 1> t;
-    return t(source);
+    decltype(GetMethods()) ret = t.GetMethods();
+    ret.push_back(Translator<selected_type>);
+
+    return ret;
   }
 };
 
@@ -54,12 +64,17 @@ struct translation_route<Tuple, -1>
   }
 };
 
+
 template<class Tuple>
 struct translation_route<Tuple, 0>
 {
   std::shared_ptr<program::instruction> operator()(const std::string &source)
   {
     throw unrecognized_instruction(source);
+  }
+  list<function<std::shared_ptr<program::instruction>(const std::string &)>> GetMethods() const
+  {
+    return{};
   }
 };
 #pragma endregion TranslationRoute
@@ -88,5 +103,6 @@ std::shared_ptr<program::instruction> translator::Translate(const std::string &s
   > supported_instructions_list;
 
   translation_route<supported_instructions_list> t;
+
   return t(source);
 }
