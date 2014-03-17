@@ -322,5 +322,8 @@
     <ClCompile Include="HWCL\particular\control_center\cc_process.cpp">
       <Filter>particular\control</Filter>
     </ClCompile>
+    <ClCompile Include="HWCL\program\instructions\composite.cpp">
+      <Filter>program\instructions\src</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

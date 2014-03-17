@@ -83,6 +83,7 @@ std::shared_ptr<program::instruction> translator::Translate(const std::string &s
     sequence,
     set,
     step,
+    composite,
     nop //should be last
   > supported_instructions_list;
 
