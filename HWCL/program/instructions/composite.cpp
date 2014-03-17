@@ -20,7 +20,19 @@ composite::composite(initializer_list<std::shared_ptr<instruction>> orig)
 composite::composite(const string &str)
 : instruction(str)
 {
-  auto instructions = parser::Split(str, ';');
+  auto new_str = [&str]()
+  {
+    word offset = 0;
+    while (str[offset++] != '(')
+      ;
+    word back_offset = str.length();
+    while (str[back_offset] != ')')
+      back_offset--;
+
+    return str.substr(offset, back_offset - offset);
+  }();
+
+  auto instructions = parser::Split(new_str, ';');
 
   composite ret({});
   for (auto command : instructions)

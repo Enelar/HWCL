@@ -31,10 +31,11 @@ bool import_center_with_storage::GetEnumValueCallback(get_enum_value_callback cb
   return true;
 }
 
-void import_center_with_storage::SetStoragesPath(const string_param &compiled_files, const string_param &states)
+void import_center_with_storage::SetStoragesPath(const string_param &cl_files, const string_param &compiled_files, const string_param &states)
 {
   compiled_files_path = compiled_files;
   state_files_path = states;
+  cl_files_path = cl_files;
 }
 
 #include "../../stdafx.h"
@@ -57,6 +58,7 @@ bool import_center_with_storage::Imported() const
     Assert(!!gevcb);
     Assert(!!compiled_files_path.length());
     Assert(!!state_files_path.length());
+    Assert(!!cl_files_path.length());
   }
   catch (uninited)
   {

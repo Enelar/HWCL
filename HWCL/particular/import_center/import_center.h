@@ -24,7 +24,7 @@ namespace particular
 
     virtual bool GetStructCallback(request_get_struct_callback) = 0;
     virtual bool GetEnumValueCallback(get_enum_value_callback) = 0;
-    virtual void SetStoragesPath(const string_param &compiled_files, const string_param &states) = 0;
+    virtual void SetStoragesPath(const string_param &cl_files, const string_param &compiled_files, const string_param &states) = 0;
   };
 
 #if CPP11_SUPPORTED
@@ -34,12 +34,13 @@ namespace particular
     request_get_struct_callback rgscb = nullptr;
     get_enum_value_callback gevcb = nullptr;
     std::string
+      cl_files_path,
       compiled_files_path,
       state_files_path;
 
     bool GetStructCallback(request_get_struct_callback) override;
     bool GetEnumValueCallback(get_enum_value_callback) override;
-    void SetStoragesPath(const string_param &compiled_files, const string_param &states) override;
+    void SetStoragesPath(const string_param &cl_files, const string_param &compiled_files, const string_param &states) override;
 
     bool Imported() const override;
   };

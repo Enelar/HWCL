@@ -19,8 +19,7 @@ particular::program::program(const std::string &f)
 
 ::program::cached_program particular::program::GetCode() const
 {
-  const import_center_with_storage &ic =
-    static_cast<import_center_with_storage &>(import_center::GetImportCenter());
+  auto &ic = import_center_with_storage::GetImportCenter();
 
   auto IsFileExsists = [](const string &filename)
   {
@@ -32,13 +31,20 @@ particular::program::program(const std::string &f)
     convert<string, vector<string>>(
     {
       ic.compiled_files_path,
-      *filename
+      *filename,
+      ".PCCL"
     });
 
   if (IsFileExsists(compiled_file))
     return ::program::program(compiled_file);
 
-  auto source_file = *filename;
+  auto source_file = 
+    convert<string, vector<string>>(
+    {
+      ic.cl_files_path,
+      *filename,
+      ".CL"
+    });
 
   auto CompileProgram = [](const string &filename)
   {
