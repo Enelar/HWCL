@@ -17,18 +17,20 @@ auto Translator(const std::string &source) -> std::shared_ptr<program::instructi
 #pragma region TranslationRoute
 #include <tuple>
 
+#include <deque>
+
 template<class Tuple, int level = -1>
 struct translation_route
 {
   template<typename T>
-  std::shared_ptr<program::instruction> Helper(const std::string &source)
+  std::shared_ptr<program::instruction> Helper(const std::string &source) const
   {
     return{};
   }
 
-  std::shared_ptr<program::instruction> operator()(const std::string &source)
+  std::shared_ptr<program::instruction> operator()(const std::string &source) const
   {
-    for (auto f : GetMethods())
+    for (auto f : methods)
     {
       auto ret = f(source);
       if (ret)
@@ -38,8 +40,12 @@ struct translation_route
     throw unrecognized_instruction(source);
   }
 
-  list<function<std::shared_ptr<program::instruction>(const std::string &)>> GetMethods() const
+  deque<function<std::shared_ptr<program::instruction>(const std::string &)>> methods;
+
+  deque<function<std::shared_ptr<program::instruction>(const std::string &)>> GetMethods()
   {
+    if (methods.size())
+      return methods;
     static_assert(level >= 0, "Wrong template resolution");
     const int tuple_size = std::tuple_size<Tuple>::value;
 
@@ -49,17 +55,25 @@ struct translation_route
     decltype(GetMethods()) ret = t.GetMethods();
     ret.push_back(Translator<selected_type>);
 
-    return ret;
+    methods.swap(ret);
+    return methods;
   }
 };
 
 template<class Tuple>
 struct translation_route<Tuple, -1>
 {
+  static const int size = std::tuple_size<Tuple>::value;
+  translation_route<Tuple, size> t;
+  bool inited = false;
+
   std::shared_ptr<program::instruction> operator()(const std::string &source)
   {
-    const int size = std::tuple_size<Tuple>::value;
-    translation_route<Tuple, size> t;
+    if (!inited)
+    {
+      t.GetMethods();
+      inited = true;
+    }
     return t(source);
   }
 };
@@ -72,7 +86,7 @@ struct translation_route<Tuple, 0>
   {
     throw unrecognized_instruction(source);
   }
-  list<function<std::shared_ptr<program::instruction>(const std::string &)>> GetMethods() const
+  deque<function<std::shared_ptr<program::instruction>(const std::string &)>> GetMethods() const
   {
     return{};
   }
@@ -81,11 +95,11 @@ struct translation_route<Tuple, 0>
 
 #include "../program/instructions.h"
 
-std::shared_ptr<program::instruction> translator::Translate(const std::string &source)
+namespace
 {
   using namespace program::instructions;
   typedef std::tuple
-  <
+    <
     condition,
     program::instructions::end,
     external,
@@ -101,9 +115,12 @@ std::shared_ptr<program::instruction> translator::Translate(const std::string &s
     composite,
     label,
     nop //should be last
-  > supported_instructions_list;
+    > supported_instructions_list;
 
   translation_route<supported_instructions_list> t;
+}
 
+std::shared_ptr<program::instruction> translator::Translate(const std::string &source)
+{
   return t(source);
 }

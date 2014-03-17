@@ -13,6 +13,14 @@ particular::program::program(const std::string &f)
 {
 }
 
+template<>
+string convert(const word &a)
+{
+  stringstream ss;
+  ss << a;
+  return ss.str();
+}
+
 #include <fstream>
 #include "../../translator/translator.h"
 #include "../../parser/parser.h"
@@ -62,18 +70,24 @@ particular::program::program(const std::string &f)
         });
         return "-- FILE NOT FOUND";
       }
-      std::stringstream ss;
 
-      const word buf_size = HWORD_MAX;
-      char buf[buf_size];
+      f.seekg(0, f.end);
+      word length = f.tellg();
+      f.seekg(0, f.beg);
 
-      while (f.read(buf, buf_size))
-      {
-        for (word i = 0; i < buf_size; i++)
-          buf[i] = toupper(buf[i]);
-        ss << buf << endl;
-      }
-      return ss.str();
+      unique_ptr<char[]> buf(new MEMLEAK char[length + 1]);
+
+      char *b = buf.get();
+      f.read(b, length);
+
+      if (!f)
+        length = f.gcount();
+
+      for (word i = 0; i < length; i++)
+        b[i] = toupper(b[i]);
+      b[length] = 0;
+
+      return b;
     };
 
     parser::parser p(ReadFile(filename));
