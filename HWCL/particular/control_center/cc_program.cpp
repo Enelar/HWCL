@@ -63,13 +63,15 @@ particular::program::program(const std::string &f)
         return "-- FILE NOT FOUND";
       }
       std::stringstream ss;
-      std::string buf;
 
-      while (getline(f, buf))
+      const word buf_size = HWORD_MAX;
+      char buf[buf_size];
+
+      while (f.read(buf, buf_size))
       {
-        for (auto ch : buf)
-          ss << static_cast<decltype(ch)>(toupper(ch));
-        ss << std::endl;
+        for (word i = 0; i < buf_size; i++)
+          buf[i] = toupper(buf[i]);
+        ss << buf << endl;
       }
       return ss.str();
     };

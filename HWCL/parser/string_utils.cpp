@@ -3,11 +3,12 @@
 template<>
 string convert(const vector<string> &a)
 {
-  std::stringstream ss;
+  string ret;
 
   for (auto obj : a)
-    ss << obj;
-  return ss.str();
+    ret += obj;
+
+  return ret;
 }
 
 template<>
@@ -39,13 +40,15 @@ namespace
   }
 }
 
+#include <deque>
 
-std::vector<std::string> parser::Split(const std::string &source, const char delimeter, const bool forget_empty, const bool remain_delimeter)
+
+vector<string> parser::Split(const std::string &source, const char delimeter, const bool forget_empty, const bool remain_delimeter)
 {
   std::stringstream ss;
   ss << source;
 
-  std::list<std::string> ret;
+  deque<string> ret;
 
   auto GetLine = [&ss, delimeter]() -> std::string
   {
@@ -56,10 +59,11 @@ std::vector<std::string> parser::Split(const std::string &source, const char del
   };
 
   do
-  ret.push_back(GetLine());
+    ret.push_back(GetLine());
   while (!ss.eof());
 
   vector<string> out;
+  out.reserve(ret.size());
 
   auto i = ret.begin(), e = ret.end();
   word pos = 0;
@@ -72,7 +76,7 @@ std::vector<std::string> parser::Split(const std::string &source, const char del
       out.push_back(*i);
   } while (++pos, ++i != e);
 
-  return vector<string>{out.begin(), out.end()};
+  return out;
 }
 
 std::vector<std::string> parser::Split(const std::string &str, const std::string &delimeter, const bool forget_empty, const bool remain_delimeter)
@@ -83,7 +87,7 @@ std::vector<std::string> parser::Split(const std::string &str, const std::string
   if (delimeter_length == 1)
     return Split(str, del, forget_empty, remain_delimeter);
   auto tokens = Split(str, del, false, true);
-  list<string> operational{ tokens.begin() + 1, tokens.end() }, ret;
+  deque<string> operational{ tokens.begin() + 1, tokens.end() }, ret;
 
   if (!forget_empty || tokens[0] != "")
     ret.push_back(tokens[0]);
@@ -91,7 +95,7 @@ std::vector<std::string> parser::Split(const std::string &str, const std::string
   auto i = operational.begin(), e = operational.end();
 
   if (i == e)
-    return std::vector<std::string>{ ret.begin(), ret.end() };
+    return vector<string>{ ret.begin(), ret.end() };
 
   while (true)
   {
