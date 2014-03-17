@@ -55,13 +55,20 @@ void local::Bind(vm::context &c)
     while (ax::StrMasqEq(tokens[ret].c_str(), "at") != 2)
     {
       ret++;
-      throw_assert(ret < tokens.size());
+      if (ret == tokens.size())
+        break;
     }
     return ret;
   }();
 
+  if (AT_pos == tokens.size())
+  { // wild variable: `SET A = 100`
+    c.AddLocal(name); // numbers only
+    return;
+  }
+
   throw_assert(tokens.size() - 1 == AT_pos + 1);
-  throw_assert(AT_pos > 2);
+  throw_assert(AT_pos >= 2);
 
   string element_type = "NUMBER";
   string additional;

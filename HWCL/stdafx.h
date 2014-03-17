@@ -24,4 +24,5 @@ namespace vm
 };
 
 bool KnownBoolNames(const string &name);
+void DebugOutput(const vector<string> &a);
 

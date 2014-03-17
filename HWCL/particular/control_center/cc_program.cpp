@@ -48,16 +48,29 @@ particular::program::program(const std::string &f)
 
   auto CompileProgram = [](const string &filename)
   {
-    auto ReadFile = [](const string &filename)
+    auto ReadFile = [](const string &filename) -> string
     {
       std::ifstream f(filename);
 
-      throw_assert(f.is_open());
+      if (!f.is_open())
+      {
+        DebugOutput(
+        {
+          "FILE ",
+          filename,
+          " NOT FOUND. EMULATING EMPTY."
+        });
+        return "-- FILE NOT FOUND";
+      }
       std::stringstream ss;
       std::string buf;
 
       while (getline(f, buf))
-        ss << buf << std::endl;
+      {
+        for (auto ch : buf)
+          ss << static_cast<decltype(ch)>(toupper(ch));
+        ss << std::endl;
+      }
       return ss.str();
     };
 
