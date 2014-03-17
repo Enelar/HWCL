@@ -13,11 +13,11 @@ namespace particular
   {
     static import_center &GetImportCenter();
     typedef void(*get_struct_callback)(int field_count, param *fields);
-    typedef bool(*request_get_struct_callback)(const std::string &name, get_struct_callback);
+    typedef bool(*request_get_struct_callback)(const string_param &name, get_struct_callback);
 
-    typedef int(*get_enum_value_callback)(const std::string &struct_name, const std::string &name);
+    typedef int(*get_enum_value_callback)(const string_param &struct_name, const string_param &name);
 
-    typedef bool(*get_bool_value_callback)(const std::string &name);
+    typedef bool(*get_bool_value_callback)(const string_param &name);
 
     virtual bool Imported() const = 0;
     control_center GetControlCenter() const;

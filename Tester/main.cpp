@@ -1,12 +1,12 @@
 #include "../header.h"
 
-bool RequestStruct(const std::string &name, particular::import_center::get_struct_callback cb)
+bool RequestStruct(const particular::string_param &name, particular::import_center::get_struct_callback cb)
 {
   cb(0, nullptr);
   return true;
 }
 
-int RequestEnumValue(const std::string &struct_name, const std::string &name)
+int RequestEnumValue(const particular::string_param &struct_name, const particular::string_param &name)
 {
   return 0;
 }

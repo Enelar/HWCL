@@ -7,10 +7,10 @@ const decltype(program::program::code) &program::program::Code() const
 
 ::program::program::program(const string &filename)
 {
-  todo(Restore program);
+  //todo(Restore program);
 }
 
 void program::program::Dump(const string &filename) const
 {
-  todo(Dump program);
+  //todo(Dump program);
 }

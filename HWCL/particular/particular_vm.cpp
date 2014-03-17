@@ -10,11 +10,16 @@ void GetStructLoopBack(int count, particular::param *p)
   ActualHook(count, p);
 }
 
+#include "box.h"
+
 vm::context::mapped_context particular_vm::GetExternalContext(const string &name)
 {
   auto find = already_mapped.find(name);
   if (find != already_mapped.end())
     return find->second;
+
+  if (name == "!BOX")
+    return vm::context::mapped_context(new box());
 
   unique_ptr<vm::extern_context> res = make_unique<vm::extern_context>();
   res->GetEnumField = [=](const string &a, const string &b)

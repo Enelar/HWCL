@@ -138,6 +138,7 @@
     <ClInclude Include="HWCL\algebra\token_queue.h" />
     <ClInclude Include="HWCL\parser\parser.h" />
     <ClInclude Include="HWCL\parser\string_utils.h" />
+    <ClInclude Include="HWCL\particular\box.h" />
     <ClInclude Include="HWCL\particular\control_center\control_center.h" />
     <ClInclude Include="HWCL\particular\control_center\process.h" />
     <ClInclude Include="HWCL\particular\control_center\program.h" />
@@ -192,6 +193,7 @@
     <ClCompile Include="HWCL\main.cpp" />
     <ClCompile Include="HWCL\parser\parser.cpp" />
     <ClCompile Include="HWCL\parser\string_utils.cpp" />
+    <ClCompile Include="HWCL\particular\box.cpp" />
     <ClCompile Include="HWCL\particular\control_center\control_center.cpp" />
     <ClCompile Include="HWCL\particular\control_center\cc_process.cpp" />
     <ClCompile Include="HWCL\particular\control_center\cc_program.cpp" />

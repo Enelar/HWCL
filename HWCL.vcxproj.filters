@@ -151,6 +151,9 @@
     <ClInclude Include="HWCL\particular\import_center\string_param.h">
       <Filter>particular\import</Filter>
     </ClInclude>
+    <ClInclude Include="HWCL\particular\box.h">
+      <Filter>particular</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="vm">
@@ -324,6 +327,9 @@
     </ClCompile>
     <ClCompile Include="HWCL\program\instructions\composite.cpp">
       <Filter>program\instructions\src</Filter>
+    </ClCompile>
+    <ClCompile Include="HWCL\particular\box.cpp">
+      <Filter>particular</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
