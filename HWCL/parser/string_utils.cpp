@@ -32,7 +32,8 @@ namespace
 {
   string AddBefore(const char ch, const string &source)
   {
-    auto ret = convert<string, vector<string>>({ " ", source });
+    string ret = source;
+    ret.insert(0, " ");
     ret[0] = ch;
     return ret;
   }

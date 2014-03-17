@@ -86,7 +86,6 @@ std::shared_ptr<program::instruction> translator::Translate(const std::string &s
   using namespace program::instructions;
   typedef std::tuple
   <
-    label, // should be first, in case it contains other command
     condition,
     program::instructions::end,
     external,
@@ -98,7 +97,9 @@ std::shared_ptr<program::instruction> translator::Translate(const std::string &s
     sequence,
     set,
     step,
+
     composite,
+    label,
     nop //should be last
   > supported_instructions_list;
 
