@@ -18,3 +18,14 @@ void phase::Execute(vm::context &)
 {
 
 }
+
+phase::phase(const deque<ub> &)
+: instruction("")
+{
+
+}
+
+deque<ub> phase::Serialize()
+{
+  todo("Serialize");
+}

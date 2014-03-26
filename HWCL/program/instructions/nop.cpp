@@ -35,3 +35,14 @@ void nop::Execute(vm::context &)
 {
 
 }
+
+nop::nop(const deque<ub> &)
+: instruction("")
+{
+
+}
+
+deque<ub> nop::Serialize()
+{
+  todo("Serialize");
+}

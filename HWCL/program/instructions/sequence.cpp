@@ -18,3 +18,14 @@ void sequence::Execute(vm::context &)
 {
 
 }
+
+sequence::sequence(const deque<ub> &)
+: instruction("")
+{
+
+}
+
+deque<ub> sequence::Serialize()
+{
+  todo("Serialize");
+}

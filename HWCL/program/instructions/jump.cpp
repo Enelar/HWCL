@@ -25,3 +25,14 @@ void jump::Bind(vm::context &c)
 {
 
 }
+
+jump::jump(const deque<ub> &)
+: instruction("")
+{
+
+}
+
+deque<ub> jump::Serialize()
+{
+  todo("Serialize");
+}

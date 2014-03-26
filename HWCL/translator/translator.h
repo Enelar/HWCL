@@ -7,9 +7,9 @@
 namespace translator
 {
   std::shared_ptr<program::instruction> Translate(const std::string &);
-  std::shared_ptr<program::instruction> Translate(const ub id, const vector<ub> &code);
+  std::shared_ptr<program::instruction> Translate(const ub id, const deque<ub> &code);
   word InstructionCode(std::shared_ptr<program::instruction> &);
-  std::shared_ptr<program::instruction> Deserialise(word code, vector<ub> args);
+  std::shared_ptr<program::instruction> Deserialise(word code, deque<ub> args);
 
   struct unrecognized_instruction
   {

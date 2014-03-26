@@ -96,3 +96,14 @@ void local::Execute(vm::context &c)
   ss << init_value;
   ss >> var;
 }
+
+local::local(const deque<ub> &)
+: instruction("")
+{
+
+}
+
+deque<ub> local::Serialize()
+{
+  todo("Serialize");
+}

@@ -18,3 +18,14 @@ void send::Execute(vm::context &)
 {
 
 }
+
+send::send(const deque<ub> &)
+: instruction("")
+{
+
+}
+
+deque<ub> send::Serialize()
+{
+  todo("Serialize");
+}

@@ -18,3 +18,14 @@ void end::Execute(vm::context &)
 {
 
 }
+
+end::end(const deque<ub> &)
+: instruction("")
+{
+
+}
+
+deque<ub> end::Serialize()
+{
+  todo("Serialize");
+}

@@ -124,3 +124,14 @@ void condition::Bind(vm::context &c)
   then->Bind(c);
   otherwise->Bind(c);
 }
+
+condition::condition(const deque<ub> &)
+: instruction("")
+{
+
+}
+
+deque<ub> condition::Serialize()
+{
+  todo("Serialize");
+}

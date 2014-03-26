@@ -68,3 +68,14 @@ void external::Execute(vm::context &)
 {
 
 }
+
+external::external(const deque<ub> &)
+: instruction("")
+{
+
+}
+
+deque<ub> external::Serialize()
+{
+  todo("Serialize");
+}

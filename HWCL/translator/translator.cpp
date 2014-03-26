@@ -63,12 +63,12 @@ function<Ret(_Args...)>
 template<>
 template<class selected_type, typename Ret, typename... _Args>
 function<Ret(_Args...)>
-method_extracter<TRANSLATE_FROM_SERIALIZATION>
-::GetMethodFunctor()
+  method_extracter<TRANSLATE_FROM_SERIALIZATION>
+  ::GetMethodFunctor()
 {
   return[](_Args &&... args) -> Ret
   {
-    return{};// make_shared<selected_type>(forward<_Args>(args)...);
+    return make_shared<selected_type>(forward<_Args>(args)...);
   };
 }
 
@@ -94,7 +94,7 @@ std::shared_ptr<program::instruction> translator::Translate(const std::string &s
   dead_space();
 }
 
-std::shared_ptr<program::instruction> Translate(const ub id, const vector<ub> &code)
+std::shared_ptr<program::instruction> Translate(const ub id, const deque<ub> &code)
 {
   static auto methods =
     Fabric::GetMethodFunctors

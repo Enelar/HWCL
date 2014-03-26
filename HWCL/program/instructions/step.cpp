@@ -18,3 +18,14 @@ void step::Execute(vm::context &)
 {
 
 }
+
+step::step(const deque<ub> &)
+: instruction("")
+{
+
+}
+
+deque<ub> step::Serialize()
+{
+  todo("Serialize");
+}

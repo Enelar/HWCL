@@ -19,7 +19,7 @@ const decltype(program::program::code) &program::program::Code() const
     ub id, size;
     f >> id >> size;
     istream_iterator<ub> start(f);
-    vector<ub> buf(size);
+    deque<ub> buf(size);
     copy_n(start, size, buf.begin());
 
     auto instr = translator::Translate(id, buf);

@@ -10,7 +10,6 @@ namespace program
     public:
       calculate(const string &);
 
-
       void Execute(vm::context &) override;
 
       static bool Signature(const string &);

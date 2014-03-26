@@ -39,5 +39,15 @@ void read::Execute(vm::context &c)
 {
   throw_assert(compiled);
   compiled->Execute(c);
-    
+}
+
+read::read(const deque<ub> &)
+: instruction("")
+{
+
+}
+
+deque<ub> read::Serialize()
+{
+  todo("Serialize");
 }

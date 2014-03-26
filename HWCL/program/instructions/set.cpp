@@ -95,3 +95,14 @@ void set::Execute(vm::context &c)
 
   dead_space();
 }
+
+set::set(const deque<ub> &)
+: instruction("")
+{
+
+}
+
+deque<ub> set::Serialize()
+{
+  todo("Serialize");
+}
