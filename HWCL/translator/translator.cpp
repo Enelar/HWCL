@@ -3,12 +3,22 @@
 using namespace translator;
 
 template<typename T>
+struct constructor
+{
+  template<typename... _Types>
+  auto MakeUnique(_Types&&... _Args) -> unique_ptr<program::instruction>
+  {
+    return make_unique<T>(_STD forward<_Types>(_Args)...);
+  }
+};
+
+template<typename T>
 auto Translator(const std::string &source) -> std::shared_ptr<program::instruction>
 {
   if (!T::Signature(source))
     return{};
 
-  auto translated = std::make_unique<T>(source);
+  auto translated = make_unique<T>(source);//MakeUnique<T>(source);
   std::shared_ptr<program::instruction> shared(translated.release());
 
   return shared;
@@ -33,8 +43,10 @@ struct translation_route
     for (auto f : methods)
     {
       auto ret = f(source);
-      if (ret)
-        return ret;
+      if (!ret)
+        continue;
+      ret->code = level;
+      return ret;
     }
 
     throw unrecognized_instruction(source);
@@ -123,4 +135,9 @@ namespace
 std::shared_ptr<program::instruction> translator::Translate(const std::string &source)
 {
   return t(source);
+}
+
+word translator::InstructionCode(std::shared_ptr<program::instruction> &ins)
+{
+  return ins->code;
 }

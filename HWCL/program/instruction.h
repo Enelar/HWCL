@@ -14,6 +14,8 @@ namespace program
     std::string DEBUG_TYPE;
 #endif
     std::string source, without_comment;
+
+    word code;
   public:
     instruction(const std::string &, const std::string &_debug_name);
     instruction(const std::string &s)
@@ -27,6 +29,11 @@ namespace program
 
     virtual void Execute(vm::context &) = 0;
     virtual void Bind(vm::context &);
+
+    virtual deque<ub> Serialize() 
+    {
+      return{};
+    }
   };
 
   struct goto_instruction

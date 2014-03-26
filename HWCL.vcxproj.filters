@@ -154,6 +154,12 @@
     <ClInclude Include="HWCL\particular\box.h">
       <Filter>particular</Filter>
     </ClInclude>
+    <ClInclude Include="HWCL\translator\constructor.h">
+      <Filter>translator</Filter>
+    </ClInclude>
+    <ClInclude Include="HWCL\translator\fabric.h">
+      <Filter>translator</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="vm">
