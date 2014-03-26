@@ -46,7 +46,7 @@ struct constructor
   }
 
   template<typename... _Args>
-  static function<Parent *(_Args&&...)> GetConstructMethod()
+  static function<Parent *(_Args&&...)> ParentConstruct()
   {
     return
       GetConstructMethod<_Args...>();
