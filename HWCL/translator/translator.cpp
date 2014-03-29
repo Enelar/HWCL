@@ -94,7 +94,7 @@ std::shared_ptr<program::instruction> translator::Translate(const std::string &s
   dead_space();
 }
 
-std::shared_ptr<program::instruction> Translate(const ub id, const deque<ub> &code)
+std::shared_ptr<program::instruction> translator::Translate(const ub id, const deque<ub> &code)
 {
   static auto methods =
     Fabric::GetMethodFunctors
