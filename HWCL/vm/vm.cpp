@@ -15,8 +15,11 @@ process_handler virtual_machine::Execute(program::cached_program &prog)
   return ret;
 }
 
-void virtual_machine::Cycle()
+void virtual_machine::Cycle(flt dt)
 {
+  if (dt > 0)
+    clock += dt;
+
   auto IsProcSuspendend = [this](const word &id)
   {
     return suspended.find(id) != suspended.end();
@@ -34,7 +37,7 @@ void virtual_machine::Cycle()
 
     try
     {
-      proñ->Execute();
+      proñ->Execute(clock);
     }
     catch (vm::process::finished)
     {

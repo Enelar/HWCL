@@ -50,6 +50,12 @@ namespace program
   {
     std::string name;
   };
+
+  struct wait_instruction
+  {
+    flt clock;
+    bool continues;
+  };
 }
 
 #include "../vm/context.h"
