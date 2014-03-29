@@ -230,7 +230,7 @@
     <ClCompile Include="HWCL\vm\vm.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\_NH3_VN-3\Source\HWCL\AX\source\base.vcxproj">
+    <ProjectReference Include="AX\source\base.vcxproj">
       <Project>{bf6983ff-cbc7-43d6-9579-0d0ed8f61b35}</Project>
     </ProjectReference>
   </ItemGroup>

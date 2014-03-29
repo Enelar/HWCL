@@ -83,6 +83,9 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AX\source\base.vcxproj">
+      <Project>{bf6983ff-cbc7-43d6-9579-0d0ed8f61b35}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\HWCL.vcxproj">
       <Project>{bdcd6b51-c167-47de-9b9a-578f3549c437}</Project>
     </ProjectReference>
