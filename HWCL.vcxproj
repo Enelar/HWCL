@@ -175,6 +175,7 @@
     <ClInclude Include="HWCL\stdafx.h" />
     <ClInclude Include="HWCL\translator\constructor.h" />
     <ClInclude Include="HWCL\translator\fabric.h" />
+    <ClInclude Include="HWCL\translator\get_type_pos.h" />
     <ClInclude Include="HWCL\translator\translator.h" />
     <ClInclude Include="HWCL\vm\context.h" />
     <ClInclude Include="HWCL\vm\context.hpp" />

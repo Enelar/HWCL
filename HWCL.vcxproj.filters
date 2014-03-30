@@ -163,6 +163,9 @@
     <ClInclude Include="HWCL\program\instructions\wait.h">
       <Filter>program\instructions</Filter>
     </ClInclude>
+    <ClInclude Include="HWCL\translator\get_type_pos.h">
+      <Filter>translator</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="vm">

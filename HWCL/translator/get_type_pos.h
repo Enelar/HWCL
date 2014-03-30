@@ -4,7 +4,7 @@ template<typename Type, typename Tuple, int level = -30>
 struct get_type_pos
 {
   typedef typename tuple_element<level, Tuple>::type selected_type;
-  static constexpr bool same = is_same<selected_type, Type>::value;
+  static const bool same = is_same<selected_type, Type>::value;
 
   static int Get()
   {
