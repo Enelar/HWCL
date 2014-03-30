@@ -40,5 +40,4 @@ namespace vm
 #endif
 
 
-void DebugOutput(const vector<string> &a);
 string ToString(const word &t);

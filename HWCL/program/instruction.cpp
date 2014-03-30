@@ -13,9 +13,9 @@ instruction::instruction(const std::string &_source, const std::string &_debug_n
   while (DEBUG_TYPE.length() < 20)
     DEBUG_TYPE += '_';
 #endif
-  auto tokens = parser::Split(source, "--", true);
-  if (tokens.size() > 1)
-    without_comment = tokens[0];
+  auto pos = source.find("--");
+  if (pos != source.npos)
+    without_comment = source.substr(0, pos);
 }
 
 const decltype(instruction::source) &instruction::Source() const

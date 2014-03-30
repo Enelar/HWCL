@@ -4,6 +4,7 @@
 using namespace algebra;
 
 #pragma region Vacuum
+typedef deque<shared_ptr<token>> fast_tokenqueue;
 namespace
 {
   bool IsChar(char ch)
@@ -16,7 +17,7 @@ namespace
     return (ch >= '0' && ch <= '9');
   }
 
-  tokenqueue Explode(string s)
+  tokenqueue Explode(const string &s)
   {
     tokenqueue ret;
     auto i = s.begin(), e = s.end();
@@ -80,10 +81,10 @@ namespace
   }
 
   typedef function<void(word)> move_callback;
-  typedef function<void(tokenqueue &ret, tokenqueue &res, move_callback Move)> vacuum_callback;
-  tokenqueue Vacuum(tokenqueue res, vacuum_callback callback, TAG affects = UNDEFINED, int min_size = 1)
+  typedef function<void(fast_tokenqueue &ret, fast_tokenqueue &res, move_callback Move)> vacuum_callback;
+  fast_tokenqueue Vacuum(fast_tokenqueue res, vacuum_callback callback, TAG affects = UNDEFINED, int min_size = 1)
   {
-    tokenqueue ret;
+    fast_tokenqueue ret;
 
     auto Move = [&ret, &res](word count)
     {
@@ -96,7 +97,7 @@ namespace
 
     while (res.size())
     {
-      if (affects != UNDEFINED && res.front().first != affects)
+      if (affects != UNDEFINED && res.front()->first != affects)
       {
         Move(1);
         continue;
@@ -119,7 +120,7 @@ namespace
     comma_allowed,
     e_allowed;
     word ret_state = -1;
-    void operator()(tokenqueue &ret, tokenqueue &res, move_callback Move)
+    void operator()(fast_tokenqueue &ret, fast_tokenqueue &res, move_callback Move)
     {
       if (ret_state != ret.size())
       {
@@ -133,76 +134,76 @@ namespace
         b = *i++,
         c = *i++;
 
-      if (c.first != NUMBER)
+      if (c->first != NUMBER)
       {
         Move(1);
         return;
       }
 
-      if ((b.second == "." && !comma_allowed) || (b.second != "." && b.second != "E") || !e_allowed)
+      if ((b->second == "." && !comma_allowed) || (b->second != "." && b->second != "E") || !e_allowed)
       {
         Move(1);
         return;
       }
 
-      if (b.second == ".")
+      if (b->second == ".")
         comma_allowed = false;
-      if (b.second == "E")
+      if (b->second == "E")
       {
         comma_allowed = false;
         e_allowed = false;
       }
 
-      auto str = convert<string, vector<string>>({ a.second, b.second, c.second });
+      auto str = convert<string, initializer_list<string>>({ a->second, b->second, c->second });
       res.pop_front();
       res.pop_front();
       res.pop_front();
-      res.push_front({ NUMBER, str });
+      res.push_front(make_shared<token>(NUMBER, str));
       ret_state = ret.size();
     }
   };
 
-  void VacuumVariable(tokenqueue &ret, tokenqueue &res, move_callback Move)
+  void VacuumVariable(fast_tokenqueue &ret, fast_tokenqueue &res, move_callback Move)
   {
     auto i = res.begin();
     auto
       a = *i++,
       b = *i++;
 
-    if (b.first != NUMBER)
-      if (b.first != VARIABLE || !IsNum(a.second.back()))
+    if (b->first != NUMBER)
+      if (b->first != VARIABLE || !IsNum(a->second.back()))
       {
         Move(1);
         return;
       }
 
-    auto str = convert<string, vector<string>>({ a.second, b.second });
+    auto str = convert<string, initializer_list<string>>({ a->second, b->second });
     res.pop_front();
     res.pop_front();
-    res.push_front({ VARIABLE, str });
+    res.push_front(make_shared<token>(VARIABLE, str ));
   }
 
 
-  void VacuumContext(tokenqueue &ret, tokenqueue &res, move_callback Move)
+  void VacuumContext(fast_tokenqueue &ret, fast_tokenqueue &res, move_callback Move)
   {
     auto i = res.begin();
     auto
       a = *i++,
       b = *i++;
 
-    if (b.first != VARIABLE || a.second != "!")
+    if (b->first != VARIABLE || a->second != "!")
     {
       Move(1);
       return;
     }
 
-    auto str = convert<string, vector<string>>({ a.second, b.second });
+    auto str = convert<string, initializer_list<string>>({ a->second, b->second });
     res.pop_front();
     res.pop_front();
-    res.push_front({ VARIABLE, str });
+    res.push_front(make_shared<token>( VARIABLE, str ));
   }
 
-  void VacuumStruct(tokenqueue &ret, tokenqueue &res, move_callback Move)
+  void VacuumStruct(fast_tokenqueue &ret, fast_tokenqueue &res, move_callback Move)
   {
     auto i = res.begin();
     auto
@@ -210,27 +211,28 @@ namespace
       b = *i++,
       c = *i++;
 
-    if (b.second != "." || c.first != VARIABLE)
+    if (c->first != VARIABLE || b->second != ".")
     {
       Move(1);
       return;
     }
 
-    auto str = convert<string, vector<string>>({ a.second, b.second, c.second });
+    auto str = convert<string, initializer_list<string>>({ a->second, b->second, c->second });
+
     res.pop_front();
     res.pop_front();
     res.pop_front();
-    res.push_front({ VARIABLE, str });
+    res.push_front(make_shared<token>( VARIABLE, str ));
   }
 
-  void VacuumPower(tokenqueue &ret, tokenqueue &res, move_callback Move)
+  void VacuumPower(fast_tokenqueue &ret, fast_tokenqueue &res, move_callback Move)
   {
     auto i = res.begin();
     auto
       a = *i++,
       b = *i++;
 
-    if (a.second != "*" || b.second != "*")
+    if (a->second != "*" || b->second != "*")
     {
       Move(1);
       return;
@@ -238,7 +240,7 @@ namespace
 
     res.pop_front();
     res.pop_front();
-    res.push_front({ SYMBOL, "^" });
+    res.push_front(make_shared<token>(SYMBOL, "^"));
   }
 }
 
@@ -247,11 +249,15 @@ namespace
 
 void algebra::token_queue::Build(const string &s)
 {
-  queue = Explode(s);
-  queue = Vacuum(queue, VacuumVariable, VARIABLE, 2);
+  fast_tokenqueue fq;
+
+  for (auto el : Explode(s))
+    fq.push_back(make_shared<token>(el));
+
+  fq = Vacuum(fq, VacuumVariable, VARIABLE, 2);
   vacuum_number VacuumNumber;
-  queue = Vacuum(queue, VacuumNumber, NUMBER, 3);
-  queue = Vacuum(queue, VacuumStruct, VARIABLE, 3);
-  queue = Vacuum(queue, VacuumContext, SYMBOL, 2);
-  queue = Vacuum(queue, VacuumPower, SYMBOL, 2);
+  fq = Vacuum(fq, VacuumNumber, NUMBER, 3);
+  fq = Vacuum(fq, VacuumStruct, VARIABLE, 3);
+  fq = Vacuum(fq, VacuumContext, SYMBOL, 2);
+  fq = Vacuum(fq, VacuumPower, SYMBOL, 2);
 }

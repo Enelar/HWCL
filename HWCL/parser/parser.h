@@ -9,7 +9,8 @@ namespace parser
 {
   class parser : object
   {
-    program::program p;
+    std::vector<std::string> code;
+
     mutable std::unique_ptr<program::cached_program> compiled;
   public:
     parser(const std::string &source);
@@ -18,4 +19,6 @@ namespace parser
 
     ~parser();
   };
+
+  std::vector<std::string> ContinueString(const std::vector<std::string> &, const char delimeter = '&');
 }

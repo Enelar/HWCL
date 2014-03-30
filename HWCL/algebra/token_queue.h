@@ -1,6 +1,8 @@
 #pragma once
 #include "../stdafx.h"
 
+#include <deque>
+
 namespace algebra
 {
   enum TAG
@@ -19,7 +21,7 @@ namespace algebra
   };
 
   typedef pair<TAG, string> token;
-  typedef list<token> tokenqueue;
+  typedef deque<token> tokenqueue;
 
   struct token_queue
   {

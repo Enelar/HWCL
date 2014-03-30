@@ -81,11 +81,14 @@ namespace
 
     Splitter();
 
+    decltype(translator::Translate(command))
+      a = std::make_shared<program::instructions::label>(label),
+      b = translator::Translate(command);
+
     composite ret
     {
       {
-        std::make_shared<program::instructions::label>(label),
-        translator::Translate(command)
+        a, b
       }
     };
 

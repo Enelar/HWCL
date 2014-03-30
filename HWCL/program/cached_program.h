@@ -11,8 +11,9 @@ namespace program
     std::shared_ptr<const program> original;
   public:
     cached_program(const program &);
-    operator const program &() const;
-    operator program &();
+
+
+    const program *operator ->() const;
 
     const decltype(declval<program>().Code()) &Code() const;
   };

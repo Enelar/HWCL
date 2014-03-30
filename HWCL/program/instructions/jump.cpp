@@ -6,8 +6,8 @@ using namespace program::instructions;
 jump::jump(const string &source)
 : instruction(source, "goto")
 {
-  auto split = parser::Split(source, ' ');
-  name = split.back();
+  auto split = parser::Split(source, "GOTO");
+  name = parser::Trim(split.back());
 }
 
 bool jump::Signature(const string &source)

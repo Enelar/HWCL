@@ -23,7 +23,7 @@ void read::Bind(vm::context &c)
   auto dest = tokens[1];
   auto source = tokens[3];
 
-  auto actual_code = convert<string, vector<string>>(
+  auto actual_code = convert<string, initializer_list<string>>(
   {
     "SET ",
     dest,

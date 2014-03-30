@@ -98,7 +98,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;_HOLY_HWCL_TERRITORY_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
       <ShowIncludes>false</ShowIncludes>
@@ -137,9 +137,18 @@
     <ClInclude Include="HWCL\algebra\comparator\comparator.h" />
     <ClInclude Include="HWCL\algebra\token_queue.h" />
     <ClInclude Include="HWCL\parser\parser.h" />
+    <ClInclude Include="HWCL\parser\string_utils.h" />
+    <ClInclude Include="HWCL\particular\box.h" />
+    <ClInclude Include="HWCL\particular\control_center\control_center.h" />
+    <ClInclude Include="HWCL\particular\control_center\process.h" />
+    <ClInclude Include="HWCL\particular\control_center\program.h" />
     <ClInclude Include="HWCL\particular\export_callbacks.h" />
     <ClInclude Include="HWCL\particular\export_header.h" />
     <ClInclude Include="HWCL\particular\import_callbacks.h" />
+    <ClInclude Include="HWCL\particular\import_center\import_center.h" />
+    <ClInclude Include="HWCL\particular\import_center\param.h" />
+    <ClInclude Include="HWCL\particular\import_center\string_param.h" />
+    <ClInclude Include="HWCL\particular\particular_vm.h" />
     <ClInclude Include="HWCL\particular\process_handle.h" />
     <ClInclude Include="HWCL\particular\program_handle.h" />
     <ClInclude Include="HWCL\particular\remote_handle.h" />
@@ -183,11 +192,19 @@
     <ClCompile Include="HWCL\algebra\token_queue.cpp" />
     <ClCompile Include="HWCL\main.cpp" />
     <ClCompile Include="HWCL\parser\parser.cpp" />
+    <ClCompile Include="HWCL\parser\string_utils.cpp" />
+    <ClCompile Include="HWCL\particular\box.cpp" />
+    <ClCompile Include="HWCL\particular\control_center\control_center.cpp" />
+    <ClCompile Include="HWCL\particular\control_center\cc_process.cpp" />
+    <ClCompile Include="HWCL\particular\control_center\cc_program.cpp" />
     <ClCompile Include="HWCL\particular\export_callbacks.cpp" />
     <ClCompile Include="HWCL\particular\import_callbacks.cpp" />
+    <ClCompile Include="HWCL\particular\import_center\import_center.cpp" />
+    <ClCompile Include="HWCL\particular\particular_vm.cpp" />
     <ClCompile Include="HWCL\program\cached_program.cpp" />
     <ClCompile Include="HWCL\program\instruction.cpp" />
     <ClCompile Include="HWCL\program\instructions\calculate.cpp" />
+    <ClCompile Include="HWCL\program\instructions\composite.cpp" />
     <ClCompile Include="HWCL\program\instructions\condition.cpp" />
     <ClCompile Include="HWCL\program\instructions\end.cpp" />
     <ClCompile Include="HWCL\program\instructions\external.cpp" />
@@ -211,8 +228,8 @@
     <ClCompile Include="HWCL\vm\vm.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="AX\AX.vcxproj">
-      <Project>{792c27e3-863b-434c-a47a-f5f0515bfb20}</Project>
+    <ProjectReference Include="..\..\..\..\..\_NH3_VN-3\Source\HWCL\AX\source\base.vcxproj">
+      <Project>{bf6983ff-cbc7-43d6-9579-0d0ed8f61b35}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

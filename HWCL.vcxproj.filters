@@ -77,21 +77,6 @@
     <ClInclude Include="HWCL\program\instructions\composite.h">
       <Filter>program\instructions</Filter>
     </ClInclude>
-    <ClInclude Include="HWCL\particular\import_callbacks.h">
-      <Filter>particular</Filter>
-    </ClInclude>
-    <ClInclude Include="HWCL\particular\export_callbacks.h">
-      <Filter>particular</Filter>
-    </ClInclude>
-    <ClInclude Include="HWCL\particular\program_handle.h">
-      <Filter>particular</Filter>
-    </ClInclude>
-    <ClInclude Include="HWCL\particular\remote_handle.h">
-      <Filter>particular</Filter>
-    </ClInclude>
-    <ClInclude Include="HWCL\particular\process_handle.h">
-      <Filter>particular</Filter>
-    </ClInclude>
     <ClInclude Include="HWCL\particular\export_header.h" />
     <ClInclude Include="header.h" />
     <ClInclude Include="HWCL\program\instructions\read.h">
@@ -126,6 +111,48 @@
     </ClInclude>
     <ClInclude Include="HWCL\vm\context.hpp">
       <Filter>vm\src</Filter>
+    </ClInclude>
+    <ClInclude Include="HWCL\parser\string_utils.h">
+      <Filter>parser</Filter>
+    </ClInclude>
+    <ClInclude Include="HWCL\particular\import_center\import_center.h">
+      <Filter>particular\import</Filter>
+    </ClInclude>
+    <ClInclude Include="HWCL\particular\import_center\param.h">
+      <Filter>particular\import</Filter>
+    </ClInclude>
+    <ClInclude Include="HWCL\particular\control_center\control_center.h">
+      <Filter>particular\control</Filter>
+    </ClInclude>
+    <ClInclude Include="HWCL\particular\control_center\program.h">
+      <Filter>particular\control</Filter>
+    </ClInclude>
+    <ClInclude Include="HWCL\particular\control_center\process.h">
+      <Filter>particular\control</Filter>
+    </ClInclude>
+    <ClInclude Include="HWCL\particular\particular_vm.h">
+      <Filter>particular</Filter>
+    </ClInclude>
+    <ClInclude Include="HWCL\particular\export_callbacks.h">
+      <Filter>particular\deprecated</Filter>
+    </ClInclude>
+    <ClInclude Include="HWCL\particular\process_handle.h">
+      <Filter>particular\deprecated</Filter>
+    </ClInclude>
+    <ClInclude Include="HWCL\particular\program_handle.h">
+      <Filter>particular\deprecated</Filter>
+    </ClInclude>
+    <ClInclude Include="HWCL\particular\remote_handle.h">
+      <Filter>particular\deprecated</Filter>
+    </ClInclude>
+    <ClInclude Include="HWCL\particular\import_callbacks.h">
+      <Filter>particular\deprecated</Filter>
+    </ClInclude>
+    <ClInclude Include="HWCL\particular\import_center\string_param.h">
+      <Filter>particular\import</Filter>
+    </ClInclude>
+    <ClInclude Include="HWCL\particular\box.h">
+      <Filter>particular</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -167,6 +194,18 @@
     </Filter>
     <Filter Include="algebra\comparator">
       <UniqueIdentifier>{d9d61b40-aa54-4783-a61b-753d389918e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="particular\import">
+      <UniqueIdentifier>{fc173e17-1887-4937-8a88-70464417f7a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="particular\control">
+      <UniqueIdentifier>{9c01aae5-4914-4256-b2b9-93e47dd4932b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="particular\deprecated">
+      <UniqueIdentifier>{911f4698-95a8-4871-866d-80d10708bde2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="particular\deprecated\src">
+      <UniqueIdentifier>{0d7b77ce-8f90-4009-a8e2-62113ca82004}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -235,17 +274,11 @@
       <Filter>program\instructions\src</Filter>
     </ClCompile>
     <ClCompile Include="HWCL\stdafx.cpp" />
-    <ClCompile Include="HWCL\particular\export_callbacks.cpp">
-      <Filter>particular</Filter>
-    </ClCompile>
     <ClCompile Include="HWCL\program\instructions\read.cpp">
       <Filter>program\instructions\src</Filter>
     </ClCompile>
     <ClCompile Include="HWCL\vm\types\pointer.cpp">
       <Filter>vm\src</Filter>
-    </ClCompile>
-    <ClCompile Include="HWCL\particular\import_callbacks.cpp">
-      <Filter>particular</Filter>
     </ClCompile>
     <ClCompile Include="HWCL\algebra\calculator\calculator.cpp">
       <Filter>algebra\calculator</Filter>
@@ -267,6 +300,36 @@
     </ClCompile>
     <ClCompile Include="HWCL\vm\context.cpp">
       <Filter>vm\src</Filter>
+    </ClCompile>
+    <ClCompile Include="HWCL\parser\string_utils.cpp">
+      <Filter>parser</Filter>
+    </ClCompile>
+    <ClCompile Include="HWCL\particular\import_callbacks.cpp">
+      <Filter>particular\deprecated\src</Filter>
+    </ClCompile>
+    <ClCompile Include="HWCL\particular\export_callbacks.cpp">
+      <Filter>particular\deprecated\src</Filter>
+    </ClCompile>
+    <ClCompile Include="HWCL\particular\import_center\import_center.cpp">
+      <Filter>particular\import</Filter>
+    </ClCompile>
+    <ClCompile Include="HWCL\particular\control_center\control_center.cpp">
+      <Filter>particular\control</Filter>
+    </ClCompile>
+    <ClCompile Include="HWCL\particular\particular_vm.cpp">
+      <Filter>particular</Filter>
+    </ClCompile>
+    <ClCompile Include="HWCL\particular\control_center\cc_program.cpp">
+      <Filter>particular\control</Filter>
+    </ClCompile>
+    <ClCompile Include="HWCL\particular\control_center\cc_process.cpp">
+      <Filter>particular\control</Filter>
+    </ClCompile>
+    <ClCompile Include="HWCL\program\instructions\composite.cpp">
+      <Filter>program\instructions\src</Filter>
+    </ClCompile>
+    <ClCompile Include="HWCL\particular\box.cpp">
+      <Filter>particular</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

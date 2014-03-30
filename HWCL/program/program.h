@@ -16,6 +16,9 @@ namespace program
   {
     std::vector<std::shared_ptr<instruction>> code;
   public:
+    program() = default;
+    program(const string &filename);
+    void Dump(const string &filename) const;
     const decltype(code) &Code() const;
 
     friend class parser::parser;
