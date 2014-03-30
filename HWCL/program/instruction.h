@@ -15,7 +15,7 @@ namespace program
 #endif
     std::string source, without_comment;
 
-    word code;
+    word code = 0;
   public:
     instruction(const std::string &, const std::string &_debug_name);
     instruction(const std::string &s)

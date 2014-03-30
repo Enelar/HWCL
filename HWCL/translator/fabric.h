@@ -49,7 +49,7 @@ struct fabric
   static deque<function<Ret(_Args...)>> GetMethodFunctors()
   {
     auto ret = fabric<Parent, Tuple, level - 1>::GetMethodFunctors<id, Ret, _Args...>();
-    ret.push_back(method_extracter<id>::GetMethodFunctor<selected_type, Ret, _Args...>());
+    ret.push_back(method_extracter<id>{level}.GetMethodFunctor<selected_type, Ret, _Args...>());
     return ret;
   }
 };
@@ -103,8 +103,10 @@ struct fabric<Parent, Tuple, 0>
 template<int method_id>
 struct method_extracter
 {
+  const int level;
+
   template<class selected_type, typename Ret, typename... _Args>
-  static function<Ret(_Args...)> GetMethodFunctor()
+  function<Ret(_Args...)> GetMethodFunctor()
 #ifndef _SPECIALIZE
     {
       implementation_required("You should specializate fabric<" TOSTRING(decltype(selected_type))

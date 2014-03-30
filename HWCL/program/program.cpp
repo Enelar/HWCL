@@ -10,17 +10,40 @@ const decltype(program::program::code) &program::program::Code() const
 
 ::program::program::program(const string &filename)
 {
-  ifstream f(filename);
+  ifstream f(filename, std::ios::binary);
 
   throw_assert(f.is_open());
+
+  auto ReadByte = [&f]() -> ub
+  {
+    char ch;
+    f.read(&ch, 1);
+    return ch;
+  };
+
+  auto ReadDeque = [&f](word size) -> deque<ub>
+  {
+    char buf[BYTE_MAX];
+    throw_assert(BYTE_MAX >= size);
+    f.read(buf, size);
+
+    return{ buf, buf + size };    
+  };
 
   while (!f.eof())
   {
     ub id, size;
-    f >> id >> size;
-    istream_iterator<ub> start(f);
-    deque<ub> buf(size);
-    copy_n(start, size, buf.begin());
+    id = ReadByte();
+    size = ReadByte();
+
+    deque<ub> buf = ReadDeque(size);
+
+    if (!id)
+    {
+      string codes(buf.begin(), buf.end());
+      code.push_back(translator::Translate(codes));
+      continue;
+    }
 
     auto instr = translator::Translate(id, buf);
     code.push_back(instr);
@@ -29,7 +52,7 @@ const decltype(program::program::code) &program::program::Code() const
 
 void program::program::Dump(const string &filename) const
 {
-  ofstream f(filename);
+  ofstream f(filename, std::ios::binary);
 
   throw_assert(f.is_open());
 
@@ -37,10 +60,11 @@ void program::program::Dump(const string &filename) const
   {
     auto codes = instr->Serialize();
     throw_assert(codes.size() <= 255);
-    codes.push_front(codes.size());
+    codes.push_front((ub)codes.size());
     auto id = translator::InstructionCode(instr);
-    codes.push_front(id);
-    f.write((char *)&codes[0], codes.size());
+    codes.push_front((ub)id);
+
+    copy(codes.begin(), codes.end(), ostream_iterator<ub>(f, ""));
   }
 
   f.close();

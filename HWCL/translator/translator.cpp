@@ -20,7 +20,7 @@ auto Translator(const std::string &source) -> std::shared_ptr<program::instructi
 namespace
 {
   using namespace program::instructions;
-  typedef std::tuple
+  typedef tuple
     <
     condition,
     program::instructions::end,
@@ -55,9 +55,13 @@ function<Ret(_Args...)>
   method_extracter<TRANSLATE_FROM_SOURCE>
   ::GetMethodFunctor()
 {
-  return[](_Args &&... args) -> Ret
+  const int level = this->level;
+  return[level](_Args &&... args)->Ret
   {
-    return Translator<selected_type>(forward<_Args>(args)...);
+    auto ret = Translator<selected_type>(forward<_Args>(args)...);
+    if (ret)
+      ret->code = level;
+    return ret;
   };
 }
 
@@ -69,7 +73,9 @@ function<Ret(_Args...)>
 {
   return[](_Args &&... args) -> Ret
   {
-    return make_shared<selected_type>(forward<_Args>(args)...);
+    auto *ret = new MEMLEAK selected_type(forward<_Args>(args)...);
+    return Ret(ret);
+      //make_shared<selected_type>();
   };
 }
 
@@ -95,7 +101,7 @@ std::shared_ptr<program::instruction> translator::Translate(const std::string &s
   dead_space();
 }
 
-std::shared_ptr<program::instruction> translator::Translate(const ub id, const deque<ub> &code)
+std::shared_ptr<program::instruction> translator::Translate(const ub codedid, const deque<ub> &code)
 {
   static auto methods =
     Fabric::GetMethodFunctors
@@ -105,7 +111,8 @@ std::shared_ptr<program::instruction> translator::Translate(const ub id, const d
       decltype(code)
     >();
 
-  throw_assert(id >= 0);
+  throw_assert(codedid > 0);
+  word id = codedid - 1;
   throw_sassert(id < methods.size(), "Instruction unsupported");
 
   auto method = methods[id];
