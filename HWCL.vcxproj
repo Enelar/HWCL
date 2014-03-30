@@ -170,6 +170,7 @@
     <ClInclude Include="HWCL\program\instructions\sequence.h" />
     <ClInclude Include="HWCL\program\instructions\set.h" />
     <ClInclude Include="HWCL\program\instructions\step.h" />
+    <ClInclude Include="HWCL\program\instructions\wait.h" />
     <ClInclude Include="HWCL\program\program.h" />
     <ClInclude Include="HWCL\stdafx.h" />
     <ClInclude Include="HWCL\translator\constructor.h" />
@@ -220,6 +221,7 @@
     <ClCompile Include="HWCL\program\instructions\sequence.cpp" />
     <ClCompile Include="HWCL\program\instructions\set.cpp" />
     <ClCompile Include="HWCL\program\instructions\step.cpp" />
+    <ClCompile Include="HWCL\program\instructions\wait.cpp" />
     <ClCompile Include="HWCL\program\program.cpp" />
     <ClCompile Include="HWCL\stdafx.cpp" />
     <ClCompile Include="HWCL\translator\translator.cpp" />

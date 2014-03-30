@@ -9,8 +9,11 @@ process::process(program::cached_program &_p)
 
 }
 
-void process::Execute(word instructions)
+void process::Execute(flt clock, word instructions)
 {
+  if (suspend_until > clock)
+    return;
+
   auto code = p.Code();
   while (instructions > 0)
   {
@@ -34,7 +37,7 @@ void process::Execute(word instructions)
 
       current_instruction->Execute(c);
     }
-    catch (program::goto_instruction g)
+    catch (program::goto_instruction &g)
     {
 #ifdef _DEBUG_
       DebugOutput(
@@ -48,6 +51,12 @@ void process::Execute(word instructions)
       eip = g.eip;
       if (instruction_id + 1 == g.eip)
         return; // self goto
+    }
+    catch (program::wait_instruction &w)
+    {
+      suspend_until = clock + w.wait;
+      if (w.continues)
+        --eip;
     }
   }
 }

@@ -45,5 +45,5 @@ void main()
   auto proc = cc.ExecuteProgram(prog);
 
   while (1)
-    cc.VM_Step(0);
+    cc.VM_Step(0.1);
 }
