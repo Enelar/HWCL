@@ -33,6 +33,7 @@ namespace
     sequence,
     set,
     step,
+    wait,
 
     composite,
     label,
