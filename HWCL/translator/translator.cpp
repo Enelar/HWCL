@@ -14,34 +14,7 @@ auto Translator(const std::string &source) -> std::shared_ptr<program::instructi
   return shared;
 }
 
-#include "fabric.h"
-#include "../program/instructions.h"
-
-namespace
-{
-  using namespace program::instructions;
-  typedef tuple
-    <
-    condition,
-    program::instructions::end,
-    external,
-    jump,
-    local,
-    phase,
-    read,
-    send,
-    sequence,
-    set,
-    step,
-    wait,
-
-    composite,
-    label,
-    nop //should be last
-    > supported_instructions_list;
-
-  typedef fabric<program::instruction, supported_instructions_list> Fabric;
-}
+#include "translator_types.h"
 
 enum METHODS
 {
@@ -129,46 +102,3 @@ word translator::InstructionCode(std::shared_ptr<program::instruction> &ins)
 {
   return ins->code;
 }
-
-#include "get_type_pos.h"
-
-template<typename T>
-word InstructionCode()
-{
-  return get_type_pos<T, Fabric>::Get();
-}
-
-#pragma region Force require InstructionCode for all instructions(types)
-// Shh. Take a breath. Feel the whiff of magic.
-namespace
-{
-  template<typename Tuple>
-  struct Rollout;
-
-  template<typename T, typename... _Types>
-  struct Rollout<tuple<T, _Types...>>
-  {
-  private:
-    Rollout<tuple<_Types...>> deeper;
-    Rollout<T> that;
-  };
-
-  template<typename... _Types>
-  struct Rollout<tuple<_Types...>>
-  {
-  };
-
-  template<typename T>
-  struct Rollout<tuple<T>>
-  {
-  private:
-    void F()
-    {
-      InstructionCode<T>();
-    }
-  };
-
-  template<>
-  struct Rollout<Fabric>;
-}
-#pragma endregion

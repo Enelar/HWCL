@@ -166,6 +166,9 @@
     <ClInclude Include="HWCL\translator\get_type_pos.h">
       <Filter>translator</Filter>
     </ClInclude>
+    <ClInclude Include="HWCL\translator\translator_types.h">
+      <Filter>translator</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="vm">

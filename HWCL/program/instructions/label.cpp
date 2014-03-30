@@ -5,6 +5,7 @@ using namespace program::instructions;
 
 #include "composite.h"
 #include "../../translator/translator.h"
+#include "../../translator/translator_types.h"
 #include <sstream>
 
 namespace
@@ -84,6 +85,8 @@ namespace
     decltype(translator::Translate(command))
       a = std::make_shared<program::instructions::label>(label),
       b = translator::Translate(command);
+
+    a->code = translator::InstructionCode<program::instructions::label>();
 
     composite ret
     {
