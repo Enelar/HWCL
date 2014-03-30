@@ -160,6 +160,9 @@
     <ClInclude Include="HWCL\translator\fabric.h">
       <Filter>translator</Filter>
     </ClInclude>
+    <ClInclude Include="HWCL\program\instructions\wait.h">
+      <Filter>program\instructions</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="vm">
@@ -336,6 +339,9 @@
     </ClCompile>
     <ClCompile Include="HWCL\particular\box.cpp">
       <Filter>particular</Filter>
+    </ClCompile>
+    <ClCompile Include="HWCL\program\instructions\wait.cpp">
+      <Filter>program\instructions\src</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

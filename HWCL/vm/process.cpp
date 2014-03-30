@@ -54,7 +54,7 @@ void process::Execute(flt clock, word instructions)
     }
     catch (program::wait_instruction &w)
     {
-      suspend_until = w.clock;
+      suspend_until = clock + w.wait;
       if (w.continues)
         --eip;
     }

@@ -53,7 +53,7 @@ namespace program
 
   struct wait_instruction
   {
-    flt clock;
+    flt wait;
     bool continues;
   };
 }
