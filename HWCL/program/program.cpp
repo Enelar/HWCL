@@ -30,10 +30,12 @@ const decltype(program::program::code) &program::program::Code() const
     return{ buf, buf + size };    
   };
 
-  while (!f.eof())
+  while (true)
   {
     ub id, size;
     id = ReadByte();
+    if (f.eof())
+      break;
     size = ReadByte();
 
     deque<ub> buf = ReadDeque(size);
