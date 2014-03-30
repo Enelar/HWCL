@@ -118,13 +118,13 @@ void label::Bind(vm::context &)
   throw label_instruction{source};
 }
 
-label::label(const deque<ub> &)
-: instruction("")
+label::label(const deque<ub> &orign)
+: label(string{ orign.begin(), orign.end() })
 {
 
 }
 
 deque<ub> label::Serialize()
 {
-  todo("Serialize");
+  return{ Source().begin(), Source().end() };
 }

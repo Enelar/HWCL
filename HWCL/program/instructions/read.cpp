@@ -41,13 +41,13 @@ void read::Execute(vm::context &c)
   compiled->Execute(c);
 }
 
-read::read(const deque<ub> &)
-: instruction("")
+read::read(const deque<ub> &orign)
+: read(string{ orign.begin(), orign.end() })
 {
 
 }
 
 deque<ub> read::Serialize()
 {
-  todo("Serialize");
+  return{ Source().begin(), Source().end() };
 }

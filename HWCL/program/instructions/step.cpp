@@ -19,13 +19,13 @@ void step::Execute(vm::context &)
 
 }
 
-step::step(const deque<ub> &)
-: instruction("")
+step::step(const deque<ub> &orign)
+: step(string{ orign.begin(), orign.end() })
 {
 
 }
 
 deque<ub> step::Serialize()
 {
-  todo("Serialize");
+  return{ Source().begin(), Source().end() };
 }

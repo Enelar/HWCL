@@ -125,13 +125,13 @@ void condition::Bind(vm::context &c)
   otherwise->Bind(c);
 }
 
-condition::condition(const deque<ub> &)
-: instruction("")
+condition::condition(const deque<ub> &orign)
+: condition(string{ orign.begin(), orign.end() })
 {
 
 }
 
 deque<ub> condition::Serialize()
 {
-  todo("Serialize");
+  return{Source().begin(), Source().end()};
 }

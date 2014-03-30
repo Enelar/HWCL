@@ -36,13 +36,13 @@ void nop::Execute(vm::context &)
 
 }
 
-nop::nop(const deque<ub> &)
-: instruction("")
+nop::nop(const deque<ub> &orign)
+: nop(string{ orign.begin(), orign.end() })
 {
 
 }
 
 deque<ub> nop::Serialize()
 {
-  todo("Serialize");
+  return{ Source().begin(), Source().end() };
 }

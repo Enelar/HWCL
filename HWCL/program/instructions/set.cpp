@@ -96,13 +96,13 @@ void set::Execute(vm::context &c)
   dead_space();
 }
 
-set::set(const deque<ub> &)
-: instruction("")
+set::set(const deque<ub> &orign)
+: set(string{ orign.begin(), orign.end() })
 {
 
 }
 
 deque<ub> set::Serialize()
 {
-  todo("Serialize");
+  return{ Source().begin(), Source().end() };
 }

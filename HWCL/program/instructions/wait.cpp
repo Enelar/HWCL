@@ -32,13 +32,13 @@ void wait::Execute(vm::context &c)
   throw wait_instruction{ until, true };
 }
 
-wait::wait(const deque<ub> &)
-: instruction("")
+wait::wait(const deque<ub> &orign)
+: wait(string{ orign.begin(), orign.end() })
 {
 
 }
 
 deque<ub> wait::Serialize()
 {
-  todo("Serialize");
+  return{ Source().begin(), Source().end() };
 }

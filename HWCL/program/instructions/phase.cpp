@@ -19,13 +19,13 @@ void phase::Execute(vm::context &)
 
 }
 
-phase::phase(const deque<ub> &)
-: instruction("")
+phase::phase(const deque<ub> &orign)
+: phase(string{ orign.begin(), orign.end() })
 {
 
 }
 
 deque<ub> phase::Serialize()
 {
-  todo("Serialize");
+  return{ Source().begin(), Source().end() };
 }
