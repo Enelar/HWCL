@@ -37,6 +37,9 @@ namespace vm
       void AddExternal(const string &);
       mapped_context External(const string &) const;
 
+      routes() = default;
+      routes(const deque<ub> &);
+      deque<ub> Serialize() const;
     };
 
 

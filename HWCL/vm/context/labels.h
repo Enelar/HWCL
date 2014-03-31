@@ -15,6 +15,10 @@ namespace vm
 
       decltype(data) *operator->();
       const decltype(data) *operator->() const;
+
+      labels() = default;
+      labels(const deque<ub> &);
+      deque<ub> Serialize() const;
     };
 
 
