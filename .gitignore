@@ -216,3 +216,4 @@ pip-log.txt
 intermediate/*
 dependecies/*
 AIR.PCCL
+*.lib
