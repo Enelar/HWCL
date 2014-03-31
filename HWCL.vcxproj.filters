@@ -374,5 +374,8 @@
     <ClCompile Include="HWCL\vm\context\context.cpp">
       <Filter>vm\context</Filter>
     </ClCompile>
+    <ClCompile Include="HWCL\vm\context\local_vars.cpp">
+      <Filter>vm\context</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

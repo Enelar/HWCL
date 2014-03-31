@@ -234,6 +234,7 @@
     <ClCompile Include="HWCL\translator\translator.cpp" />
     <ClCompile Include="HWCL\vm\context\context.cpp" />
     <ClCompile Include="HWCL\vm\context\labels.cpp" />
+    <ClCompile Include="HWCL\vm\context\local_vars.cpp" />
     <ClCompile Include="HWCL\vm\context\routes.cpp" />
     <ClCompile Include="HWCL\vm\context\serialize_context.cpp" />
     <ClCompile Include="HWCL\vm\process.cpp" />

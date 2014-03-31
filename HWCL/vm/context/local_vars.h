@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../../stdafx.h"
+#include <array>
 
 namespace vm
 {
@@ -8,8 +9,8 @@ namespace vm
   {
     struct local_vars
     {
-      double NN[80];
-      bool FL[127];
+      array<double, 80> NN;
+      array<bool, 127> FL;
       double DAY;
       // time TIME[4];
       string STR = string(64, 0); // fill 64 byte with zeros

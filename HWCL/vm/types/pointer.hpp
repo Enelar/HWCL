@@ -55,9 +55,9 @@ namespace vm
     void *ret;
 
     if (Type() == NUMBER)
-      ret = origin->local.NN + offset;
+      ret = &origin->local.NN[0] + offset;
     else if (Type() == BOOLEAN)
-      ret = origin->local.FL + offset;
+      ret = &origin->local.FL[0] + offset;
     else if (Type() == STRING)
       todo("String access");
     else

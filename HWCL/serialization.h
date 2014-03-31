@@ -95,4 +95,9 @@ struct serializer<deque<ub>>
     res.erase(res.begin(), res.begin() + sizeof(size));
     return ret;
   }
+
+  operator deque<ub>() const
+  {
+    return res;
+  }
 };
