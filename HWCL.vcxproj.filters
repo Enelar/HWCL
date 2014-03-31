@@ -368,10 +368,10 @@
     <ClCompile Include="HWCL\vm\context\routes.cpp">
       <Filter>vm\context</Filter>
     </ClCompile>
-    <ClCompile Include="serialize.cpp">
+    <ClCompile Include="HWCL\vm\context\serialize_context.cpp">
       <Filter>vm\context</Filter>
     </ClCompile>
-    <ClCompile Include="HWCL\vm\context\serialize_context.cpp">
+    <ClCompile Include="HWCL\vm\context\context.cpp">
       <Filter>vm\context</Filter>
     </ClCompile>
   </ItemGroup>
