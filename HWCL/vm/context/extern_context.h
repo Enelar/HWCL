@@ -13,32 +13,32 @@ namespace vm
       {
         typedef extern_pointer<vm::floating_point> pointer_t;
         auto p = make_shared<pointer_t>(ptr, t);
-        dynamic_typing.insert({ name, t });
-        pointers.insert({ name, p });
+        routes.dynamic_typing.insert({ name, t });
+        routes.pointers.insert({ name, p });
         return;
       }
       if (t == BOOLEAN)
       {
         typedef extern_pointer<bool> pointer_t;
         auto p = make_shared<pointer_t>(ptr, t);
-        dynamic_typing.insert({ name, t });
-        pointers.insert({ name, p });
+        routes.dynamic_typing.insert({ name, t });
+        routes.pointers.insert({ name, p });
         return;
       }
       if (t == STRING)
       {
         typedef extern_pointer<string> pointer_t;
         auto p = make_shared<pointer_t>(ptr, t);
-        dynamic_typing.insert({ name, t });
-        pointers.insert({ name, p });
+        routes.dynamic_typing.insert({ name, t });
+        routes.pointers.insert({ name, p });
         return;
       }
       if (t == ENUM)
       {
         typedef extern_pointer<int> pointer_t;
         auto p = make_shared<pointer_t>(ptr, t);
-        dynamic_typing.insert({ name, t });
-        pointers.insert({ name, p });
+        routes.dynamic_typing.insert({ name, t });
+        routes.pointers.insert({ name, p });
         return;
       }
       dead_space();

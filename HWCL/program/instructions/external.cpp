@@ -54,7 +54,7 @@ void external::Bind(vm::context &c)
     auto t = RemoveCommas(name[i]);
     try
     {
-      c.External(t);
+      c.routes.External(t);
     }
     catch (vm::runtime_error)
     {

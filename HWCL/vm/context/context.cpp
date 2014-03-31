@@ -8,8 +8,8 @@ using namespace vm;
 double &context::Local(const std::string &name)
 {
   {
-    auto find = alias.find(name);
-    if (find != alias.end())
+    auto find = routes.alias.find(name);
+    if (find != routes.alias.end())
       return Local(name);
   }
 
@@ -19,8 +19,8 @@ double &context::Local(const std::string &name)
   {
     if (name == "DAY")
       return local.DAY;
-    auto find = localpoint.find(name);
-    if (find == localpoint.end())
+    auto find = routes.localpoint.find(name);
+    if (find == routes.localpoint.end())
       throw runtime_error(convert<string, deque<string>>({ "Undefined variable", name }));
     auto offset = find->second;
     if (offset < 80)
@@ -32,7 +32,7 @@ double &context::Local(const std::string &name)
 
   if (tokens.size() != 2)
     throw runtime_error(convert<string, deque<string>>({ "Undefined variable", name }));
-  auto context = External(tokens[0]);
+  auto context = routes.External(tokens[0]);
   return context->Local(tokens[1]);
 }
 
@@ -44,7 +44,7 @@ void context::AddLocal(const std::string &name)
     name,
     "\n"
   });
-  localpoint.insert({ name, last_wild++ });
+  routes.localpoint.insert({ name, last_wild++ });
   local.local_NN.push_back(0);
 }
 
@@ -61,7 +61,7 @@ void context::AddLocal(const std::string &name, const string &addr)
 
   if (addr[0] == '!') // external context
   {
-    AddAlias(name, addr);
+    routes.AddAlias(name, addr);
     return;
   }
 
@@ -70,7 +70,7 @@ void context::AddLocal(const std::string &name, const string &addr)
   throw_assert(addr[2] == '(' && addr[5] == ')');
   word offset = (addr[3] - '0') * 10 + (addr[4] - '0') - 1;
 
-  localpoint.insert({ name, offset });
+  routes.localpoint.insert({ name, offset });
 }
 
 void context::AddLocal(const string &name, void *addr, VAR_TYPE type)
@@ -155,18 +155,7 @@ void context::AddLocal(const std::string &var, const string &addr, const string 
   dead_space();
 }
 
-void context::AddAlias(const string &a, const string &b)
-{
-  alias.insert({ a, b });
-}
 
-context::mapped_context context::External(const string &name) const
-{
-  auto find = external.find(name);
-  if (find == external.end())
-    throw runtime_error(convert<string, deque<string>>({ "Undefined external", name }));
-  return find->second;
-}
 
 int context::EnumWorkAround(const string &namelist, const string &name)
 {
@@ -185,7 +174,7 @@ bool context::EnumWorkAround(const string &namelist, const string &name, int &re
     auto parts = parser::Split(namelist, '.');
     if (parts.size() != 2)
       return false;
-    auto external = External(parts[0]);
+    auto external = routes.External(parts[0]);
     try
     {
       ret = external->EnumWorkAround(parts[1], name);
@@ -203,46 +192,37 @@ bool context::EnumWorkAround(const string &namelist, const string &name, int &re
   return true;
 }
 
-void context::AddPointer(const string &name, const shared_ptr<raw_pointer> p)
-{
-  p->Origin(this);
-
-  dynamic_typing.insert({ name, p->Type() });
-  pointers.insert({ name, p });
-}
-
 VAR_TYPE context::GetType(const std::string &name) const
 {
   {
-    auto ts = dynamic_typing.find(name);
-    if (ts != dynamic_typing.end())
+    auto ts = routes.dynamic_typing.find(name);
+    if (ts != routes.dynamic_typing.end())
       return ts->second;
   }
   {
-    auto p = pointers.find(name);
-    if (p != pointers.end())
+    auto p = routes.pointers.find(name);
+    if (p != routes.pointers.end())
       return p->second->Type();
   }
+
   {
     auto parts = parser::Split(name, '.');
     throw_assert(parts.size() == 2);
-    auto external = External(parts[0]);
+    auto external = routes.External(parts[0]);
     return external->GetType(parts[1]);
-
-
   }
 }
 
 shared_ptr<raw_pointer> context::GetRawPointer(const std::string &name) const
 {
-  auto pointer = pointers.find(name);
+  auto pointer = routes.pointers.find(name);
 
-  if (pointer == pointers.end())
+  if (pointer == routes.pointers.end())
   {
     auto parts = parser::Split(name, '.');
     if (parts.size() != 2)
       throw context::variable_not_found();
-    auto external = External(parts[0]);
+    auto external = routes.External(parts[0]);
     return external->GetRawPointer(parts[1]);
   }
 

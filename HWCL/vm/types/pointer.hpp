@@ -46,7 +46,7 @@ namespace vm
     throw_assert(origin);
     if (Context() != "this")
     {
-      auto external = origin->External(Context());
+      auto external = origin->routes.External(Context());
       auto switched = SwitchContext();
       switched.Origin(external.get());
       return *switched;

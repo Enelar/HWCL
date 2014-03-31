@@ -89,7 +89,7 @@ void process::Bind( virtual_machine &_vm )
       });
       bind_eip--;
       auto context = _vm.GetExternalContext(ext.name);
-      c.external.insert({ ext.name, context });
+      c.routes.external.insert({ ext.name, context });
     }
   }
 }
