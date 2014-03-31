@@ -72,10 +72,17 @@ string convert(const word &a)
       }
 
       f.seekg(0, f.end);
-      word length = f.tellg();
+
+      bword length = [&f]()
+      {
+        bword length = f.tellg();
+        throw_assert(length < WORD_MAX + 1);
+        return length;
+      }();
+
       f.seekg(0, f.beg);
 
-      unique_ptr<char[]> buf(new MEMLEAK char[length + 1]);
+      unique_ptr<char[]> buf(new MEMLEAK char[(word)length + 1]);
 
       char *b = buf.get();
       f.read(b, length);
