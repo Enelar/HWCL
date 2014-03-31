@@ -17,7 +17,7 @@ bool jump::Signature(const string &source)
 
 void jump::Execute(vm::context &c)
 {
-  word eip = c.Label(name);
+  word eip = c.labels.Find(name);
   throw goto_instruction{ eip };
 }
 

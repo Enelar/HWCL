@@ -181,6 +181,7 @@
     <ClInclude Include="HWCL\vm\context\context.h" />
     <ClInclude Include="HWCL\vm\context\context.hpp" />
     <ClInclude Include="HWCL\vm\context\extern_context.h" />
+    <ClInclude Include="HWCL\vm\context\labels.h" />
     <ClInclude Include="HWCL\vm\context\local_vars.h" />
     <ClInclude Include="HWCL\vm\process.h" />
     <ClInclude Include="HWCL\vm\process_handler.h" />
@@ -230,6 +231,7 @@
     <ClCompile Include="HWCL\stdafx.cpp" />
     <ClCompile Include="HWCL\translator\translator.cpp" />
     <ClCompile Include="HWCL\vm\context\context.cpp" />
+    <ClCompile Include="HWCL\vm\context\labels.cpp" />
     <ClCompile Include="HWCL\vm\process.cpp" />
     <ClCompile Include="HWCL\vm\process_handler.cpp" />
     <ClCompile Include="HWCL\vm\types\pointer.cpp" />

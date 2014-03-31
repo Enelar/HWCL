@@ -175,6 +175,9 @@
     <ClInclude Include="HWCL\vm\context\local_vars.h">
       <Filter>vm\context</Filter>
     </ClInclude>
+    <ClInclude Include="HWCL\vm\context\labels.h">
+      <Filter>vm\context</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="vm">
@@ -356,6 +359,9 @@
       <Filter>program\instructions\src</Filter>
     </ClCompile>
     <ClCompile Include="HWCL\vm\context\context.cpp">
+      <Filter>vm\context</Filter>
+    </ClCompile>
+    <ClCompile Include="HWCL\vm\context\labels.cpp">
       <Filter>vm\context</Filter>
     </ClCompile>
   </ItemGroup>

@@ -77,7 +77,7 @@ void process::Bind( virtual_machine &_vm )
     }
     catch (program::label_instruction label)
     {
-      c.Label(label.name, bind_eip);
+      c.labels.Add(label.name, bind_eip);
     }
     catch (program::external_instruction ext)
     {

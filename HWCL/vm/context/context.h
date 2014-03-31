@@ -14,6 +14,7 @@
 #include <functional>
 
 #include "local_vars.h"
+#include "labels.h"
 
 namespace vm
 {
@@ -21,12 +22,9 @@ namespace vm
   struct context : object
   {
     context_utils::local_vars local;
+    context_utils::labels labels;
 
     map<string, VAR_TYPE> dynamic_typing;
-    std::map<std::string, word> labels;
-
-    void Label(const std::string &, word);
-    word Label(const std::string &);
 
     typedef shared_ptr<context> mapped_context;
   protected:
