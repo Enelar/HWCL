@@ -26,3 +26,5 @@ namespace vm
 bool KnownBoolNames(const string &name);
 void DebugOutput(const initializer_list<string> &a);
 
+#include "serialization.h"
+
