@@ -13,21 +13,14 @@
 #include <algorithm>
 #include <functional>
 
+#include "local_vars.h"
+
 namespace vm
 {
   struct raw_pointer;
   struct context : object
   {
-    struct
-    {
-      double NN[80];
-      bool FL[127];
-      double DAY;
-      // time TIME[4];
-      std::string STR = std::string(64, 0); // fill 64 byte with zeros
-    } local;
-
-    vector<double> local_NN;
+    context_utils::local_vars local;
 
     map<string, VAR_TYPE> dynamic_typing;
     std::map<std::string, word> labels;

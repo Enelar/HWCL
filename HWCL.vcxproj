@@ -181,6 +181,7 @@
     <ClInclude Include="HWCL\vm\context\context.h" />
     <ClInclude Include="HWCL\vm\context\context.hpp" />
     <ClInclude Include="HWCL\vm\context\extern_context.h" />
+    <ClInclude Include="HWCL\vm\context\local_vars.h" />
     <ClInclude Include="HWCL\vm\process.h" />
     <ClInclude Include="HWCL\vm\process_handler.h" />
     <ClInclude Include="HWCL\vm\types\pointer.h" />

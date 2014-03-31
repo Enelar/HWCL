@@ -43,7 +43,7 @@ double &context::Local(const std::string &name)
       return local.NN[offset];
     // Extra local variables
     offset -= 80;
-    return local_NN[offset];
+    return local.local_NN[offset];
   }
 
   if (tokens.size() != 2)
@@ -61,7 +61,7 @@ void context::AddLocal(const std::string &name)
     "\n"
   });
   localpoint.insert({ name, last_wild++ });
-  local_NN.push_back(0);
+  local.local_NN.push_back(0);
 }
 
 void context::AddLocal(const std::string &name, const string &addr)

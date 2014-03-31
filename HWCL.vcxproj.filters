@@ -172,6 +172,9 @@
     <ClInclude Include="HWCL\vm\context\context.hpp">
       <Filter>vm\context</Filter>
     </ClInclude>
+    <ClInclude Include="HWCL\vm\context\local_vars.h">
+      <Filter>vm\context</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="vm">
