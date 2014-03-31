@@ -27,10 +27,18 @@ namespace particular
 
     crt_compatible_string(const crt_compatible_string &str)
     {
+      length = str.length;
+      name = new char[length + 1];
+      memcpy(name, str.name, length + 1);
+    }
+
+    crt_compatible_string &operator=(const crt_compatible_string &str)
+    {
       delete[] name;
       length = str.length;
       name = new char[length + 1];
       memcpy(name, str.name, length + 1);
+      return *this;
     }
 
     operator std::string() const
