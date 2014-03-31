@@ -11,6 +11,9 @@ namespace program
     public:
       local(const string &);
 
+      local(const deque<ub> &);
+      deque<ub> Serialize() override;
+
       void Execute(vm::context &) override;
       void Bind(vm::context &) override;
 

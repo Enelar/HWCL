@@ -13,12 +13,13 @@ namespace vm
     word eip = 0; // next instruction
 
     context c;
+    flt suspend_until = 0;
 
   public:
     process(program::cached_program &);
 
     static const word default_instruction_execution_count = 30;
-    void Execute(word instructions = default_instruction_execution_count);
+    void Execute(flt clock, word instructions = default_instruction_execution_count);
     void Bind( virtual_machine & );
 
     struct finished {};

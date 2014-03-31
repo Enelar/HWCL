@@ -15,6 +15,9 @@ namespace program
 
       composite(initializer_list<std::shared_ptr<instruction>>);
       composite(const string &);
+
+      composite(const deque<ub> &);
+
       void Execute(vm::context &) override
       {
         throw_message("Meta instruction could not being executed");

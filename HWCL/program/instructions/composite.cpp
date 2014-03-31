@@ -16,6 +16,12 @@ composite::composite(initializer_list<std::shared_ptr<instruction>> orig)
   }
 }
 
+composite::composite(const deque<ub> &)
+: instruction("")
+{
+
+}
+
 
 composite::composite(const string &str)
 : instruction(str)

@@ -39,5 +39,15 @@ void read::Execute(vm::context &c)
 {
   throw_assert(compiled);
   compiled->Execute(c);
-    
+}
+
+read::read(const deque<ub> &orign)
+: read(string{ orign.begin(), orign.end() })
+{
+
+}
+
+deque<ub> read::Serialize()
+{
+  return{ Source().begin(), Source().end() };
 }

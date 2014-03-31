@@ -124,3 +124,14 @@ void condition::Bind(vm::context &c)
   then->Bind(c);
   otherwise->Bind(c);
 }
+
+condition::condition(const deque<ub> &orign)
+: condition(string{ orign.begin(), orign.end() })
+{
+
+}
+
+deque<ub> condition::Serialize()
+{
+  return{Source().begin(), Source().end()};
+}

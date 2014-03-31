@@ -5,6 +5,7 @@ using namespace program::instructions;
 
 #include "composite.h"
 #include "../../translator/translator.h"
+#include "../../translator/translator_types.h"
 #include <sstream>
 
 namespace
@@ -85,6 +86,8 @@ namespace
       a = std::make_shared<program::instructions::label>(label),
       b = translator::Translate(command);
 
+    a->code = translator::InstructionCode<program::instructions::label>();
+
     composite ret
     {
       {
@@ -116,4 +119,15 @@ void label::Execute(vm::context &)
 void label::Bind(vm::context &)
 {
   throw label_instruction{source};
+}
+
+label::label(const deque<ub> &orign)
+: label(string{ orign.begin(), orign.end() })
+{
+
+}
+
+deque<ub> label::Serialize()
+{
+  return{ Source().begin(), Source().end() };
 }

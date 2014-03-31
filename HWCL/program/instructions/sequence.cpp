@@ -18,3 +18,14 @@ void sequence::Execute(vm::context &)
 {
 
 }
+
+sequence::sequence(const deque<ub> &orign)
+: sequence(string{ orign.begin(), orign.end() })
+{
+
+}
+
+deque<ub> sequence::Serialize()
+{
+  return{ Source().begin(), Source().end() };
+}

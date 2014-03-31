@@ -96,3 +96,14 @@ void local::Execute(vm::context &c)
   ss << init_value;
   ss >> var;
 }
+
+local::local(const deque<ub> &orign)
+: local(string{ orign.begin(), orign.end() })
+{
+
+}
+
+deque<ub> local::Serialize()
+{
+  return{ Source().begin(), Source().end() };
+}

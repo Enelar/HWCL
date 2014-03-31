@@ -18,3 +18,14 @@ void send::Execute(vm::context &)
 {
 
 }
+
+send::send(const deque<ub> &orign)
+: send(string{ orign.begin(), orign.end() })
+{
+
+}
+
+deque<ub> send::Serialize()
+{
+  return{ Source().begin(), Source().end() };
+}

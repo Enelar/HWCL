@@ -11,15 +11,28 @@ int RequestEnumValue(const particular::string_param &struct_name, const particul
   return 0;
 }
 
+using namespace std;
+
+#include <direct.h>
+
 void main()
 {
   auto &ic = particular::import_center::GetImportCenter();
   ic.GetStructCallback(&RequestStruct);
   ic.GetEnumValueCallback(&RequestEnumValue);
+
+  const auto path = []()
+  {
+    const word size = 1000;
+    char str[size];
+    throw_assert(_getcwd(str, size));
+    return string(str) + string("/../");
+  }();
+
   ic.SetStoragesPath(
-    "w:/documents/SourceSafe/_NH3_VN-3/Data/CL/", 
-    "w:/documents/SourceSafe/_NH3_VN-3/Data/CL/", 
-    "w:/documents/SourceSafe/_NH3_VN-3/Data/CL/");
+    path, 
+    path,
+    path);
 
   if (!ic.Imported())
     return;
@@ -27,10 +40,10 @@ void main()
 
   auto prog = cc.CompileProgram
   (
-    "AP103J"
+    "AIR"
   );
   auto proc = cc.ExecuteProgram(prog);
 
   while (1)
-    cc.VM_Step(0);
+    cc.VM_Step(0.1);
 }

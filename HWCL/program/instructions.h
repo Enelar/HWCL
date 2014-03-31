@@ -15,3 +15,4 @@
 #include "instructions\sequence.h"
 #include "instructions\send.h"
 #include "instructions\step.h"
+#include "instructions\wait.h"

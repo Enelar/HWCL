@@ -170,9 +170,14 @@
     <ClInclude Include="HWCL\program\instructions\sequence.h" />
     <ClInclude Include="HWCL\program\instructions\set.h" />
     <ClInclude Include="HWCL\program\instructions\step.h" />
+    <ClInclude Include="HWCL\program\instructions\wait.h" />
     <ClInclude Include="HWCL\program\program.h" />
     <ClInclude Include="HWCL\stdafx.h" />
+    <ClInclude Include="HWCL\translator\constructor.h" />
+    <ClInclude Include="HWCL\translator\fabric.h" />
+    <ClInclude Include="HWCL\translator\get_type_pos.h" />
     <ClInclude Include="HWCL\translator\translator.h" />
+    <ClInclude Include="HWCL\translator\translator_types.h" />
     <ClInclude Include="HWCL\vm\context.h" />
     <ClInclude Include="HWCL\vm\context.hpp" />
     <ClInclude Include="HWCL\vm\process.h" />
@@ -218,6 +223,7 @@
     <ClCompile Include="HWCL\program\instructions\sequence.cpp" />
     <ClCompile Include="HWCL\program\instructions\set.cpp" />
     <ClCompile Include="HWCL\program\instructions\step.cpp" />
+    <ClCompile Include="HWCL\program\instructions\wait.cpp" />
     <ClCompile Include="HWCL\program\program.cpp" />
     <ClCompile Include="HWCL\stdafx.cpp" />
     <ClCompile Include="HWCL\translator\translator.cpp" />
@@ -228,7 +234,7 @@
     <ClCompile Include="HWCL\vm\vm.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\_NH3_VN-3\Source\HWCL\AX\source\base.vcxproj">
+    <ProjectReference Include="AX\source\base.vcxproj">
       <Project>{bf6983ff-cbc7-43d6-9579-0d0ed8f61b35}</Project>
     </ProjectReference>
   </ItemGroup>

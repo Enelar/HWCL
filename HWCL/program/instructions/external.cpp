@@ -68,3 +68,14 @@ void external::Execute(vm::context &)
 {
 
 }
+
+external::external(const deque<ub> &orign)
+: external(string{ orign.begin(), orign.end() })
+{
+
+}
+
+deque<ub> external::Serialize()
+{
+  return{ Source().begin(), Source().end() };
+}

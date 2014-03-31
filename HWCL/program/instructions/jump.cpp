@@ -25,3 +25,14 @@ void jump::Bind(vm::context &c)
 {
 
 }
+
+jump::jump(const deque<ub> &orign)
+: jump(string{ orign.begin(), orign.end() })
+{
+
+}
+
+deque<ub> jump::Serialize()
+{
+  return{ Source().begin(), Source().end() };
+}

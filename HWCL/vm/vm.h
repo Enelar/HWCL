@@ -18,10 +18,11 @@ namespace vm
     word last_pid = 0;
     std::map<word, std::shared_ptr<process>> tasks;
     std::set<word> suspended;
+    flt clock = 0;
 
   public:
     process_handler Execute(program::cached_program &);
-    void Cycle();
+    void Cycle(flt dt = 0);
     bool Idle() const;
 
     map<string, context::mapped_context> external_contexts;
