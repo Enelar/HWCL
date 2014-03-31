@@ -172,6 +172,7 @@
     <ClInclude Include="HWCL\program\instructions\step.h" />
     <ClInclude Include="HWCL\program\instructions\wait.h" />
     <ClInclude Include="HWCL\program\program.h" />
+    <ClInclude Include="HWCL\serialization.h" />
     <ClInclude Include="HWCL\stdafx.h" />
     <ClInclude Include="HWCL\translator\constructor.h" />
     <ClInclude Include="HWCL\translator\fabric.h" />

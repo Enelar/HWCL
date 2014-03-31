@@ -181,6 +181,7 @@
     <ClInclude Include="HWCL\vm\context\routes.h">
       <Filter>vm\context</Filter>
     </ClInclude>
+    <ClInclude Include="HWCL\serialization.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="vm">
