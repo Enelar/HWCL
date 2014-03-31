@@ -23,3 +23,12 @@ void routes::AddPointer(const string &name, const shared_ptr<raw_pointer> p, con
   dynamic_typing.insert({ name, p->Type() });
   pointers.insert({ name, p });
 }
+
+routes::routes(const deque<ub> &)
+{
+
+}
+deque<ub> routes::Serialize() const
+{
+  return{};
+}
