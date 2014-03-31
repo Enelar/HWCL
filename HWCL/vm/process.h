@@ -2,7 +2,7 @@
 #include "../stdafx.h"
 
 #include "../program/cached_program.h"
-#include "context.h"
+#include "context/context.h"
 
 namespace vm
 {

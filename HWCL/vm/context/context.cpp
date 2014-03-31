@@ -1,7 +1,7 @@
 #include "context.h"
 #include "process.h"
-#include "../parser/parser.h"
-#include "types\pointer.h"
+#include "../../parser/parser.h"
+#include "..\types\pointer.h"
 
 using namespace vm;
 

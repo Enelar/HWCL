@@ -104,7 +104,7 @@ namespace
   }
 }
 
-#include "../../vm/context.h"
+#include "../../vm/context/context.h"
 
 bool comparator::Calculate(comparator::get_callback Get)
 {

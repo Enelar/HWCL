@@ -1,7 +1,7 @@
 #pragma once
 #include "pointer.h"
 
-#include "../context.hpp"
+#include "../context/context.hpp"
 
 namespace vm
 {
@@ -104,4 +104,4 @@ namespace vm
   bool CheckPointerType<int>(const raw_pointer &p);
 }
 
-#include "../context.h"
+#include "../context/context.h"

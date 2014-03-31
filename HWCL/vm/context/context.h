@@ -1,10 +1,10 @@
 #ifndef HWCL_CONTEXT_DECLARED
 
 #ifndef HWCL_POINTER_DEFINED
-#include "types\pointer.h"
+#include "..\types\pointer.h"
 #else
 
-#include "../stdafx.h"
+#include "../../stdafx.h"
 
 #include <vector>
 #include <string>
@@ -160,7 +160,7 @@ namespace vm
 #define HWCL_CONTEXT_DECLARED
 
 #include "context.hpp"
-#include "types/pointer.hpp"
+#include "../types/pointer.hpp"
 #endif
 
 #endif

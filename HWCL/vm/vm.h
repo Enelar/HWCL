@@ -9,7 +9,7 @@ namespace vm
 #include <map>
 #include <set>
 #include "process_handler.h"
-#include "context.h"
+#include "context/context.h"
 
 namespace vm
 {

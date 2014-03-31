@@ -92,5 +92,5 @@ namespace vm
 }
 
 #define HWCL_POINTER_DEFINED
-#include "../context.h"
+#include "../context/context.h"
 #include "pointer.hpp"

@@ -4,9 +4,6 @@
     <ClInclude Include="HWCL\vm\vm.h">
       <Filter>vm</Filter>
     </ClInclude>
-    <ClInclude Include="HWCL\vm\context.h">
-      <Filter>vm</Filter>
-    </ClInclude>
     <ClInclude Include="HWCL\vm\process.h">
       <Filter>vm</Filter>
     </ClInclude>
@@ -109,9 +106,6 @@
     <ClInclude Include="HWCL\algebra\comparator\comparator.h">
       <Filter>algebra\comparator</Filter>
     </ClInclude>
-    <ClInclude Include="HWCL\vm\context.hpp">
-      <Filter>vm\src</Filter>
-    </ClInclude>
     <ClInclude Include="HWCL\parser\string_utils.h">
       <Filter>parser</Filter>
     </ClInclude>
@@ -169,6 +163,15 @@
     <ClInclude Include="HWCL\translator\translator_types.h">
       <Filter>translator</Filter>
     </ClInclude>
+    <ClInclude Include="HWCL\vm\context\extern_context.h">
+      <Filter>vm\context</Filter>
+    </ClInclude>
+    <ClInclude Include="HWCL\vm\context\context.h">
+      <Filter>vm\context</Filter>
+    </ClInclude>
+    <ClInclude Include="HWCL\vm\context\context.hpp">
+      <Filter>vm\context</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="vm">
@@ -221,6 +224,9 @@
     </Filter>
     <Filter Include="particular\deprecated\src">
       <UniqueIdentifier>{0d7b77ce-8f90-4009-a8e2-62113ca82004}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vm\context">
+      <UniqueIdentifier>{ac7bbf08-4b81-4f2f-af49-37faa5deb1fc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -313,9 +319,6 @@
     <ClCompile Include="HWCL\algebra\comparator\comparator.cpp">
       <Filter>algebra\comparator</Filter>
     </ClCompile>
-    <ClCompile Include="HWCL\vm\context.cpp">
-      <Filter>vm\src</Filter>
-    </ClCompile>
     <ClCompile Include="HWCL\parser\string_utils.cpp">
       <Filter>parser</Filter>
     </ClCompile>
@@ -348,6 +351,9 @@
     </ClCompile>
     <ClCompile Include="HWCL\program\instructions\wait.cpp">
       <Filter>program\instructions\src</Filter>
+    </ClCompile>
+    <ClCompile Include="HWCL\vm\context\context.cpp">
+      <Filter>vm\context</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

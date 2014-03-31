@@ -178,8 +178,9 @@
     <ClInclude Include="HWCL\translator\get_type_pos.h" />
     <ClInclude Include="HWCL\translator\translator.h" />
     <ClInclude Include="HWCL\translator\translator_types.h" />
-    <ClInclude Include="HWCL\vm\context.h" />
-    <ClInclude Include="HWCL\vm\context.hpp" />
+    <ClInclude Include="HWCL\vm\context\context.h" />
+    <ClInclude Include="HWCL\vm\context\context.hpp" />
+    <ClInclude Include="HWCL\vm\context\extern_context.h" />
     <ClInclude Include="HWCL\vm\process.h" />
     <ClInclude Include="HWCL\vm\process_handler.h" />
     <ClInclude Include="HWCL\vm\types\pointer.h" />
@@ -227,7 +228,7 @@
     <ClCompile Include="HWCL\program\program.cpp" />
     <ClCompile Include="HWCL\stdafx.cpp" />
     <ClCompile Include="HWCL\translator\translator.cpp" />
-    <ClCompile Include="HWCL\vm\context.cpp" />
+    <ClCompile Include="HWCL\vm\context\context.cpp" />
     <ClCompile Include="HWCL\vm\process.cpp" />
     <ClCompile Include="HWCL\vm\process_handler.cpp" />
     <ClCompile Include="HWCL\vm\types\pointer.cpp" />

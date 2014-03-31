@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../vm/context.h"
+#include "../vm/context/context.h"
 
 namespace particular
 {
