@@ -15,6 +15,7 @@ namespace program
   class program : object
   {
     std::vector<std::shared_ptr<instruction>> code;
+    int loaded_from_file_version = 0;
   public:
     program() = default;
     program(const string &filename);

@@ -8,11 +8,24 @@ const decltype(program::program::code) &program::program::Code() const
 #include <fstream>
 #include "../translator/translator.h"
 
+namespace
+{
+  const int
+    current_file_version = 1,
+    min_file_version = 1;
+}
+
 ::program::program::program(const string &filename)
 {
   ifstream f(filename, std::ios::binary);
 
   throw_assert(f.is_open());
+
+  remove_const<decltype(current_file_version)>::type file_version;
+  f.read((char *)(&file_version), sizeof(file_version));
+
+  loaded_from_file_version = file_version;
+  throw_assert(file_version >= min_file_version);
 
   auto ReadByte = [&f]() -> ub
   {
@@ -57,6 +70,8 @@ void program::program::Dump(const string &filename) const
   ofstream f(filename, std::ios::binary);
 
   throw_assert(f.is_open());
+
+  f.write((char *)&current_file_version, sizeof(current_file_version));
 
   for (auto instr : code)
   {
