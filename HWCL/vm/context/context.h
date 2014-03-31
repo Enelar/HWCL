@@ -65,6 +65,12 @@ namespace vm
 
     friend class process;
     struct variable_not_found {};
+
+    context() = default;
+    context(const deque<ub> &);
+    virtual deque<ub> Serialize() const;
+  private:
+    context(const vector<deque<ub>> &);
   };
 }
 

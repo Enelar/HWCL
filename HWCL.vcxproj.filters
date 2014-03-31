@@ -361,13 +361,16 @@
     <ClCompile Include="HWCL\program\instructions\wait.cpp">
       <Filter>program\instructions\src</Filter>
     </ClCompile>
-    <ClCompile Include="HWCL\vm\context\context.cpp">
-      <Filter>vm\context</Filter>
-    </ClCompile>
     <ClCompile Include="HWCL\vm\context\labels.cpp">
       <Filter>vm\context</Filter>
     </ClCompile>
     <ClCompile Include="HWCL\vm\context\routes.cpp">
+      <Filter>vm\context</Filter>
+    </ClCompile>
+    <ClCompile Include="serialize.cpp">
+      <Filter>vm\context</Filter>
+    </ClCompile>
+    <ClCompile Include="HWCL\vm\context\serialize_context.cpp">
       <Filter>vm\context</Filter>
     </ClCompile>
   </ItemGroup>

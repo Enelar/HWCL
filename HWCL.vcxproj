@@ -231,13 +231,14 @@
     <ClCompile Include="HWCL\program\program.cpp" />
     <ClCompile Include="HWCL\stdafx.cpp" />
     <ClCompile Include="HWCL\translator\translator.cpp" />
-    <ClCompile Include="HWCL\vm\context\context.cpp" />
     <ClCompile Include="HWCL\vm\context\labels.cpp" />
     <ClCompile Include="HWCL\vm\context\routes.cpp" />
+    <ClCompile Include="HWCL\vm\context\serialize_context.cpp" />
     <ClCompile Include="HWCL\vm\process.cpp" />
     <ClCompile Include="HWCL\vm\process_handler.cpp" />
     <ClCompile Include="HWCL\vm\types\pointer.cpp" />
     <ClCompile Include="HWCL\vm\vm.cpp" />
+    <ClCompile Include="serialize.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="AX\source\base.vcxproj">
